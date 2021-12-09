@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftWorldViewer", "MinecraftWorldViewer\MinecraftWorldViewer.csproj", "{5E7B86A8-F414-4B27-A4D9-DE6E6C07F603}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapGenerator", "MapGenerator\MapGenerator.csproj", "{388C2D73-7889-4BDF-90D5-8A30E16CA6E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftApi", "MinecraftApi\MinecraftApi.csproj", "{BA4312BF-D451-4B94-BA68-C9688540EA8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftApiTests", "MinecraftApiTests\MinecraftApiTests.csproj", "{DE8E3A24-1C37-48EA-A37C-ED3D1C994FB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapGeneratorTests", "MapGeneratorTests\MapGeneratorTests.csproj", "{EF48BDE4-0A29-49AE-A6A2-AEB4DB5158EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E7B86A8-F414-4B27-A4D9-DE6E6C07F603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E7B86A8-F414-4B27-A4D9-DE6E6C07F603}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E7B86A8-F414-4B27-A4D9-DE6E6C07F603}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E7B86A8-F414-4B27-A4D9-DE6E6C07F603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{388C2D73-7889-4BDF-90D5-8A30E16CA6E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{388C2D73-7889-4BDF-90D5-8A30E16CA6E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{388C2D73-7889-4BDF-90D5-8A30E16CA6E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{388C2D73-7889-4BDF-90D5-8A30E16CA6E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA4312BF-D451-4B94-BA68-C9688540EA8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA4312BF-D451-4B94-BA68-C9688540EA8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA4312BF-D451-4B94-BA68-C9688540EA8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA4312BF-D451-4B94-BA68-C9688540EA8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE8E3A24-1C37-48EA-A37C-ED3D1C994FB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE8E3A24-1C37-48EA-A37C-ED3D1C994FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE8E3A24-1C37-48EA-A37C-ED3D1C994FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE8E3A24-1C37-48EA-A37C-ED3D1C994FB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF48BDE4-0A29-49AE-A6A2-AEB4DB5158EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF48BDE4-0A29-49AE-A6A2-AEB4DB5158EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF48BDE4-0A29-49AE-A6A2-AEB4DB5158EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF48BDE4-0A29-49AE-A6A2-AEB4DB5158EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
