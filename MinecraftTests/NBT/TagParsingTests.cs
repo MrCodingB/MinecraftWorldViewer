@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Minecraft.NBT;
 
-namespace MinecraftApiTests.NBT;
+namespace MinecraftTests.NBT;
 
 public class TagParserTests
 {

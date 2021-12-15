@@ -1,4 +1,4 @@
-﻿namespace MinecraftApiTests;
+﻿namespace MinecraftTests;
 
 public class ProfilerTests
 {

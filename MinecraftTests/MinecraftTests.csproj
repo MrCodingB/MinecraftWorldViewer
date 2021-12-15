@@ -6,13 +6,13 @@
 
         <IsPackable>false</IsPackable>
 
-        <RootNamespace>MinecraftApiTests</RootNamespace>
+        <RootNamespace>MinecraftTests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentAssertions" Version="6.2.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0"/>
-        <PackageReference Include="xunit" Version="2.4.1"/>
+        <PackageReference Include="FluentAssertions" Version="6.2.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+        <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -24,18 +24,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Minecraft\Minecraft.csproj"/>
+        <ProjectReference Include="..\Minecraft\Minecraft.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="r.0.0.mca">
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="small-world\*">
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
         <None Update="TestChunk-Region\*">
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>

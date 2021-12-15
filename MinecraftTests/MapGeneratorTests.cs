@@ -4,22 +4,10 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
-namespace MinecraftApiTests;
+namespace MinecraftTests;
 
 public class MapGeneratorTests
 {
-    [Fact]
-    public void GeneratesSmallWorld()
-    {
-        var path = Path.Combine(Environment.CurrentDirectory, "small-world");
-
-        var mapGenerator = new MapGenerator(path);
-
-        using var result = mapGenerator.Generate();
-
-        result.Should().NotBeNull();
-    }
-    
     [Fact]
     public void GeneratesTestChunk()
     {

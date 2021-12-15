@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Minecraft.Regions;
 
-namespace MinecraftApiTests.Regions;
+namespace MinecraftTests.Regions;
 
 public class RegionFileTests
 {
