@@ -1,10 +1,11 @@
 ﻿using System.Collections;
+using Minecraft.Utils;
 
 namespace Minecraft.NBT;
 
 public class LongArrayTag : Tag, IEnumerable<long>
 {
-    public long[] Data { get; set; }
+    public long[] Data { get; }
 
     public int Length => Data.Length;
 
@@ -14,26 +15,23 @@ public class LongArrayTag : Tag, IEnumerable<long>
         Data = data;
     }
 
-    public static LongArrayTag FromStream(Stream s)
+    public static LongArrayTag FromStream(NbtStream s)
     {
         var length = s.GetInt32();
 
         var data = new long[length];
-        var buffer = s.GetBytes(length * 8);
 
-        var offset = 0;
         for (var i = 0; i < data.Length; i++)
         {
-            data[i] = BitHelper.ToInt64(buffer, offset);
-            offset += 8;
+            data[i] = s.GetInt64();
         }
 
         return new LongArrayTag(data);
     }
 
-    public override LongArrayTag ToLongArrayTag() => this;
+    public static void SkipInStream(NbtStream s) => s.Skip(s.GetInt32() * 8);
 
-    public static implicit operator LongArrayTag(long[] longs) => new(longs);
+    public override LongArrayTag ToLongArrayTag() => this;
 
     public static implicit operator long[](LongArrayTag tag) => tag.Data;
 

@@ -1,8 +1,6 @@
-﻿using System.Text.RegularExpressions;
-using Minecraft.Regions;
+﻿using Minecraft.Regions;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
 
 namespace Minecraft;
 
@@ -17,51 +15,81 @@ public class MapGenerator
 
     public Image<Rgba32> Generate()
     {
-        var files = RegionsDirectory
-            .EnumerateFiles("r.*.*.mca", SearchOption.TopDirectoryOnly)
-            .Where(f => Regex.IsMatch(f.Name, @"r\.\-?\d+\.\-?\d+\.mca"));
+        var regionFiles = LoadRegionFiles(out var chunkCount);
 
-        var regionFiles = files.Select(f => RegionFile.Load(f.FullName)).ToArray();
+        ProgressManager.Reset(chunkCount, regionFiles.Count);
 
-        var regionCount = regionFiles.Length;
-        var chunkCount = regionFiles.Sum(f => f.ChunkCount);
+        return DrawMap(regionFiles);
+    }
 
-        ProgressManager.Reset(chunkCount, regionCount);
-
+    private static Image<Rgba32> DrawMap(List<RegionFile> regionFiles)
+    {
         var (width, offsetX, height, offsetZ) = GetMapDimensions(regionFiles);
 
         var map = new Image<Rgba32>(width, height);
 
-        map.Mutate(mapBitmap =>
+        var drawer = new RegionDrawer(map, offsetX, offsetZ);
+
+        foreach (var regionFile in regionFiles)
         {
-            foreach (var regionFile in regionFiles)
-            {
-                var x = regionFile.X * 32 * 16;
-                var z = regionFile.Z * 32 * 16;
-
-                using var regionBitmap = regionFile.CalculateBitmap();
-
-                mapBitmap.DrawImage(regionBitmap, new Point(x - offsetX, z - offsetZ), 1f);
-
-                regionFile.Dispose();
-
-                ProgressManager.CompletedRegion();
-            }
-        });
+            drawer.DrawAndDisposeRegion(regionFile);
+        }
 
         return map;
     }
 
-    private static (int width, int offsetX, int height, int offsetZ) GetMapDimensions(RegionFile[] regionFiles)
+    private List<RegionFile> LoadRegionFiles(out int chunkCount)
     {
-        var minX = ToAbsoluteCoordinates(regionFiles.Min(r => r.X) - 1);
-        var maxX = ToAbsoluteCoordinates(regionFiles.Max(r => r.X) + 1);
-        var minZ = ToAbsoluteCoordinates(regionFiles.Min(r => r.Z) - 1);
-        var maxZ = ToAbsoluteCoordinates(regionFiles.Max(r => r.Z) + 1);
+        chunkCount = 0;
+        var maxFileSize = 0L;
 
-        return (maxX - minX, minX, maxZ - minZ, minZ);
+        var files = RegionsDirectory.EnumerateFiles("r.*.*.mca", SearchOption.TopDirectoryOnly);
+
+        var regionFiles = new List<RegionFile>();
+
+        foreach (var file in files)
+        {
+            var regionFile = RegionFile.TryLoad(file.FullName);
+            if (regionFile is null)
+            {
+                continue;
+            }
+
+            regionFiles.Add(regionFile);
+            chunkCount += regionFile.ChunkCount;
+
+            if (maxFileSize < file.Length)
+            {
+                maxFileSize = file.Length;
+            }
+        }
+
+        RegionFile.SetMaxFileSize(maxFileSize);
+        return regionFiles;
     }
 
-    private static int ToAbsoluteCoordinates(int regionCoordinate)
-        => regionCoordinate * 32 * 16;
+    private static (int width, int offsetX, int height, int offsetZ) GetMapDimensions(IEnumerable<RegionFile> regions)
+    {
+        var minX = int.MaxValue;
+        var maxX = int.MinValue;
+        var minZ = int.MaxValue;
+        var maxZ = int.MinValue;
+
+        foreach (var regionFile in regions)
+        {
+            if (minX > regionFile.X) minX = regionFile.X;
+            if (maxX < regionFile.X) maxX = regionFile.X;
+            if (minZ > regionFile.Z) minZ = regionFile.Z;
+            if (maxZ < regionFile.Z) maxZ = regionFile.Z;
+        }
+
+        return (
+            ToAbsoluteCoordinate(maxX - minX + 1),
+            ToAbsoluteCoordinate(minX),
+            ToAbsoluteCoordinate(maxZ - minZ + 1),
+            ToAbsoluteCoordinate(minZ)
+        );
+    }
+
+    private static int ToAbsoluteCoordinate(int regionCoordinate) => regionCoordinate * 32 * 16;
 }

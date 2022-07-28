@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Minecraft;
+using Utility;
 using SixLabors.ImageSharp;
 
 namespace GUI;
@@ -87,17 +87,17 @@ public partial class MainWindow
     {
         if (RegionFolder is not null && OutputFolder is not null)
         {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
+            var executionTime = Profiler.MeasureExecutionTime(() =>
+            {
+                var generator = new MapGenerator(RegionFolder);
 
-            var generator = new MapGenerator(RegionFolder);
+                var map = generator.Generate();
 
-            var map = Profiler.MeasureExecutionDuration("MapGenerator.Generate", () => generator.Generate());
+                var regionName = new DirectoryInfo(RegionFolder).Name;
+                map.SaveAsPng(Path.Combine(OutputFolder, MapFileName.Get(regionName)));
+            });
 
-            map.SaveAsPng(Path.Combine(OutputFolder, $"Map-{DateTime.Now.ToFileTime()}.png"));
-
-            stopwatch.Stop();
-            MessageBox.Show($"Map generation complete - {stopwatch.Elapsed}", "Generation completed");
+            MessageBox.Show($"Map generation complete - {executionTime}", "Generation completed");
 
             ProgressManager.Reset();
         }

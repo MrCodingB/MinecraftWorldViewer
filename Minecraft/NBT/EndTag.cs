@@ -1,13 +1,19 @@
-﻿namespace Minecraft.NBT;
+﻿using Minecraft.Utils;
+
+namespace Minecraft.NBT;
 
 public class EndTag : Tag
 {
-    public EndTag() 
+    public EndTag()
         : base(TagType.End)
     {
     }
 
-    public static EndTag FromStream(Stream s) => new();
+    public static EndTag FromStream(NbtStream _) => new();
+
+    public static void SkipInStream(NbtStream _)
+    {
+    }
 
     public override EndTag ToEndTag() => this;
 }

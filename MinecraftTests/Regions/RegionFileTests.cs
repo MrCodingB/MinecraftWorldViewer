@@ -6,16 +6,28 @@ namespace MinecraftTests.Regions;
 
 public class RegionFileTests
 {
+    private static readonly string TestRegionPath =
+        Path.Combine(Environment.CurrentDirectory, "TestChunk-Region", "r.-1.-1.mca");
+
     [Fact]
     public void ReadsRegionFileAndParsesChunkRootTag()
     {
-        var regionFile = RegionFile.Load(Path.Combine(Environment.CurrentDirectory, "r.0.0.mca"));
+        var regionFile = RegionFile.TryLoad(TestRegionPath);
 
         regionFile.Should().NotBeNull();
 
-        regionFile.X.Should().Be(0);
-        regionFile.Z.Should().Be(0);
+        regionFile!.X.Should().Be(-1);
+        regionFile.Z.Should().Be(-1);
 
         regionFile.ChunkCount.Should().NotBe(0);
+    }
+
+    [Fact]
+    public void LoadingInvalidPathReturnsNull()
+    {
+        RegionFile
+            .TryLoad("some/invalid/path")
+            .Should()
+            .BeNull();
     }
 }

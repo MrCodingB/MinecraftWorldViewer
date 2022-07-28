@@ -1,130 +1,127 @@
-﻿using Minecraft.NBT;
+﻿using SixLabors.ImageSharp.PixelFormats;
 
 namespace Minecraft.Regions;
 
-public class ChunkSection
+public abstract class ChunkSection
 {
-    public int Y { get; }
-
-    private string[] Palette { get; }
-
-    private long[] BlockStates { get; }
-
-    private string?[,] BirdseyeBlocks { get; }
-
-    private ChunkSection(int yIndex, long[] blockStates, string[] palette)
+    public static ChunkSection FromStatesAndPalette(long[] blockStates, Rgba32[] palette)
     {
-        Y = yIndex;
+        return palette.Length == 1 || blockStates.Length <= 0
+            ? new UniformChunkSection(palette[0])
+            : new VariedChunkSection(blockStates, palette);
+    }
+
+    /// <summary>
+    /// The block colors in this section x, z, y
+    /// </summary>
+    /// <param name="i">y * 16 * 16 + z * 16 + x</param>
+    public abstract Rgba32 this[int i] { get; }
+}
+
+public class VariedChunkSection : ChunkSection
+{
+    private const int TotalBlocks = 16 * 16 * 16;
+
+    private const int MaxBitsPerBlock = 12; // = lb(TotalBlocks)
+
+    private static readonly short[] Masks = new short[MaxBitsPerBlock + 1]
+        .Select((_, i) => (short)~(-1 << i))
+        .ToArray();
+
+    private static readonly byte[] BlocksPerLong = new byte[MaxBitsPerBlock + 1]
+        .Select((_, i) => (byte)(i < 4 ? 0 : 64 / i))
+        .ToArray();
+
+    private readonly long[] BlockStates;
+
+    private readonly Rgba32[] Palette;
+
+    private readonly long[] BlockIndices;
+
+    private Func<Rgba32[], long[], int, Rgba32> GetBlockFunc;
+
+    public VariedChunkSection(long[] blockStates, Rgba32[] palette)
+    {
         BlockStates = blockStates;
         Palette = palette;
-        BirdseyeBlocks = new string[16, 16];
-
-        if (BlockStates.Length == 0)
-        {
-            for (var x = 0; x < 16; x++)
-            for (var z = 0; z < 16; z++)
-                BirdseyeBlocks[x, z] = Palette[0];
-        }
-        else
-        {
-            SetBirdseyeView();
-        }
+        BlockIndices = new long[TotalBlocks];
+        GetBlockFunc = InitialGetBlockAt;
     }
 
-    public static ChunkSection? FromTag(CompoundTag tag)
+    public override Rgba32 this[int i] => GetBlockFunc(Palette, BlockIndices, i);
+
+    private static Rgba32 GetBlockAt(Rgba32[] p, long[] indices, int i) => p[indices[i]];
+
+    private Rgba32 InitialGetBlockAt(Rgba32[] p, long[] b, int i)
     {
-        var y = (sbyte)tag["Y"].ToByteTag();
+        InitializeBlockIndices();
 
-        if (!tag.ContainsKey("block_states"))
-        {
-            return null;
-        }
-
-        var blockStates = tag["block_states"].ToCompoundTag();
-
-        var palette = GetPalette(blockStates);
-
-        if (palette.Length <= 1 && palette.All(b => b == Blocks.Air))
-        {
-            return null;
-        }
-
-        long[] blockStatesValue = blockStates.ContainsKey("data")
-            ? blockStates["data"].ToLongArrayTag()
-            : Array.Empty<long>();
-
-        return new ChunkSection(y, blockStatesValue, palette);
+        GetBlockFunc = GetBlockAt;
+        return GetBlockAt(Palette, BlockIndices, i);
     }
 
-    public string? this[int x, int z] => BirdseyeBlocks[x, z];
-
-    private static string[] GetPalette(CompoundTag blockStates)
+    private void InitializeBlockIndices()
     {
-        var palette = blockStates["palette"].ToListTag();
+        var bitsPerBlock = GetBlockSectionBitsPerBlock(Palette.Length);
+        var mask = Masks[bitsPerBlock];
+        var blocksPerLong = BlocksPerLong[bitsPerBlock];
 
-        var result = new string[palette.Count];
+        var blockStatesIndex = 0;
+        var indexInBlockState = 0;
+        var l = BlockStates[blockStatesIndex];
 
-        for (var i = 0; i < palette.Count; i++)
+        for (var i = 0; i < TotalBlocks; i++)
         {
-            var block = palette[i].ToCompoundTag();
-
-            result[i] = block["Name"].ToStringTag();
-        }
-
-        return result;
-    }
-
-    private void SetBirdseyeView()
-    {
-        var bitsPerBlock = GetBlockSectionBitsPerBlock();
-        var mask = ~(-1 << bitsPerBlock);
-        var blocksPerLong = 64 / bitsPerBlock;
-        var maxIndexInBlock = blocksPerLong - 1;
-        var totalBlockCapacity = blocksPerLong * BlockStates.Length;
-        var spareBlocks = totalBlockCapacity - 4096;
-        var startingIndex = maxIndexInBlock - spareBlocks;
-
-        var blockIndex = BlockStates.Length - 1;
-        var indexInBlock = startingIndex;
-
-        for (var y = 15; y >= 0; y--)
-        for (var z = 15; z >= 0; z--)
-        for (var x = 15; x >= 0; x--)
-        {
-            if (indexInBlock < 0)
+            if (indexInBlockState >= blocksPerLong)
             {
-                blockIndex--;
-                indexInBlock = maxIndexInBlock;
-            }
-            
-            if (BirdseyeBlocks[x, z] is null)
-            {
-                var l = BlockStates[blockIndex];
-                var index = (l >> (indexInBlock * bitsPerBlock)) & mask;
-                var blockName = Palette[index];
+                l = BlockStates[++blockStatesIndex];
 
-                if (Block.IsVisibleOnMap(blockName))
+                while (l == 0)
                 {
-                    BirdseyeBlocks[x, z] = blockName;
+                    i += blocksPerLong;
+
+                    if (i >= TotalBlocks)
+                    {
+                        return;
+                    }
+
+                    l = BlockStates[++blockStatesIndex];
                 }
+
+                indexInBlockState = 0;
             }
 
-            indexInBlock--;
+            BlockIndices[i] = l & mask;
+
+            l >>= bitsPerBlock;
+            indexInBlockState++;
         }
     }
-    
-    private int GetBlockSectionBitsPerBlock()
+
+    private static int GetBlockSectionBitsPerBlock(int paletteLength)
     {
         // Minimal size is 4 bits per block
         var bitsPerBlock = 4;
-        var maxRepresentableValues = 16;
+        var representableValues = 16;
 
-        while (maxRepresentableValues < Palette.Length)
+        while (representableValues < paletteLength)
         {
-            maxRepresentableValues *= 2;
+            representableValues *= 2;
             bitsPerBlock++;
         }
 
         return bitsPerBlock;
     }
+}
+
+public class UniformChunkSection : ChunkSection
+{
+    private readonly Rgba32 BlockColor;
+
+    public UniformChunkSection(Rgba32 blockColor)
+    {
+        BlockColor = blockColor;
+    }
+
+    public override Rgba32 this[int i] => BlockColor;
 }

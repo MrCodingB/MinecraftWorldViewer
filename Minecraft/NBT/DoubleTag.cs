@@ -1,8 +1,10 @@
-﻿namespace Minecraft.NBT;
+﻿using Minecraft.Utils;
+
+namespace Minecraft.NBT;
 
 public class DoubleTag : Tag
 {
-    public double Data { get; set; }
+    public double Data { get; }
     
     public DoubleTag(double data) 
         : base(TagType.Double)
@@ -10,13 +12,11 @@ public class DoubleTag : Tag
         Data = data;
     }
 
-    public static DoubleTag FromStream(Stream s) => new(s.GetDouble());
+    public static DoubleTag FromStream(NbtStream s) => new(s.GetDouble());
+
+    public static void SkipInStream(NbtStream s) => s.Skip(8);
 
     public override DoubleTag ToDoubleTag() => this;
-
-    public static implicit operator DoubleTag(float f) => new(f);
-
-    public static implicit operator DoubleTag(double d) => new(d);
 
     public static implicit operator double(DoubleTag tag) => tag.Data;
 }

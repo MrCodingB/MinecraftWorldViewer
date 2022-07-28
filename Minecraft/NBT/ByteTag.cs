@@ -1,8 +1,10 @@
-﻿namespace Minecraft.NBT;
+﻿using Minecraft.Utils;
+
+namespace Minecraft.NBT;
 
 public class ByteTag : Tag
 {
-    public byte Data { get; set; }
+    public byte Data { get; }
     
     public ByteTag(byte data) 
         : base(TagType.Byte)
@@ -10,7 +12,9 @@ public class ByteTag : Tag
         Data = data;
     }
 
-    public static ByteTag FromStream(Stream s) => new(s.GetByte());
+    public static ByteTag FromStream(NbtStream s) => new(s.GetByte());
+
+    public static void SkipInStream(NbtStream s) => s.Skip(1);
 
     public override ByteTag ToByteTag() => this;
 
@@ -19,8 +23,6 @@ public class ByteTag : Tag
     public override IntTag ToIntTag() => new(Data);
 
     public override LongTag ToLongTag() => new(Data);
-
-    public static implicit operator ByteTag(byte b) => new(b);
 
     public static implicit operator byte(ByteTag tag) => tag.Data;
 

@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftTests", "Minecraft
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{948AAFFD-3996-4F0C-9D84-8EE5E79235D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHost", "ConsoleHost\ConsoleHost.csproj", "{7F8999EE-D639-458E-8490-A4AD84175ED9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{808C7DE4-252B-4336-AEDC-0F02E792A44C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{948AAFFD-3996-4F0C-9D84-8EE5E79235D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{948AAFFD-3996-4F0C-9D84-8EE5E79235D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{948AAFFD-3996-4F0C-9D84-8EE5E79235D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F8999EE-D639-458E-8490-A4AD84175ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F8999EE-D639-458E-8490-A4AD84175ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F8999EE-D639-458E-8490-A4AD84175ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F8999EE-D639-458E-8490-A4AD84175ED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{808C7DE4-252B-4336-AEDC-0F02E792A44C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{808C7DE4-252B-4336-AEDC-0F02E792A44C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{808C7DE4-252B-4336-AEDC-0F02E792A44C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{808C7DE4-252B-4336-AEDC-0F02E792A44C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

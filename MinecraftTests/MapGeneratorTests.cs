@@ -15,27 +15,38 @@ public class MapGeneratorTests
 
         var mapGenerator = new MapGenerator(path);
 
+        var progressEvents = 0;
+
+        ProgressManager.Progress += (_, _) => progressEvents++;
+
         var result = mapGenerator.Generate();
 
-        result.Should().NotBeNull();
-        
-        result.Mutate(r =>
-        {
-            r.Crop(new Rectangle(result.Width - 16, result.Height - 16, 16, 16));
-        });
+        progressEvents.Should().BeGreaterThan(0);
 
-        var blackConcrete = Block.BlockColors[Blocks.BlackConcrete].MapColor!.Value;
-        var orangeWool = Block.BlockColors[Blocks.OrangeWool].MapColor!.Value;
-        var redWool = Block.BlockColors[Blocks.RedWool].MapColor!.Value;
-        var lightBlueWool = Block.BlockColors[Blocks.LightBlueWool].MapColor!.Value;
-        var blueWool = Block.BlockColors[Blocks.BlueWool].MapColor!.Value;
-        var pinkWool = Block.BlockColors[Blocks.PinkWool].MapColor!.Value;
-        var magentaWool = Block.BlockColors[Blocks.MagentaWool].MapColor!.Value;
-        var limeWool = Block.BlockColors[Blocks.LimeWool].MapColor!.Value;
-        var greenWool = Block.BlockColors[Blocks.GreenWool].MapColor!.Value;
+        ProgressManager.AvgMemoryInMb.Should().BeGreaterThan(0);
+
+        ProgressManager.TimePerChunk.Should().BeGreaterThan(TimeSpan.Zero);
+        ProgressManager.TimePerRegion.Should().BeGreaterThan(TimeSpan.Zero);
+        ProgressManager.Reset();
+        ProgressManager.TimePerChunk.Should().Be(TimeSpan.Zero);
+        ProgressManager.TimePerRegion.Should().Be(TimeSpan.Zero);
+
+        result.Should().NotBeNull();
+
+        result.Mutate(r => r.Crop(new Rectangle(result.Width - 16, result.Height - 16, 16, 16)));
+
+        var blackConcrete = Block.BlockColors[Blocks.BlackConcrete].Color;
+        var orangeWool = Block.BlockColors[Blocks.OrangeWool].Color;
+        var redWool = Block.BlockColors[Blocks.RedWool].Color;
+        var lightBlueWool = Block.BlockColors[Blocks.LightBlueWool].Color;
+        var blueWool = Block.BlockColors[Blocks.BlueWool].Color;
+        var pinkWool = Block.BlockColors[Blocks.PinkWool].Color;
+        var magentaWool = Block.BlockColors[Blocks.MagentaWool].Color;
+        var limeWool = Block.BlockColors[Blocks.LimeWool].Color;
+        var greenWool = Block.BlockColors[Blocks.GreenWool].Color;
 
         var expectedColors = new Color[16, 16];
-        
+
         for (var x = 0; x < 16; x++)
         for (var z = 0; z < 16; z++)
             expectedColors[x, z] = blackConcrete;
@@ -52,7 +63,7 @@ public class MapGeneratorTests
         expectedColors[9, 9] = limeWool;
         expectedColors[12, 12] = greenWool;
         expectedColors[15, 15] = limeWool;
-        
+
         for (var x = 0; x < 16; x++)
         for (var z = 0; z < 16; z++)
             result[x, z].Should().Be(expectedColors[x, z].ToPixel<Rgba32>(), $"images should match at ({x}|{z})");

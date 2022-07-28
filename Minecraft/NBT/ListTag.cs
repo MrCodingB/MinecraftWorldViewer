@@ -1,68 +1,65 @@
 ﻿using System.Collections;
+using Minecraft.Utils;
 
 namespace Minecraft.NBT;
 
-public class ListTag : Tag, IList<Tag>
+public class ListTag : Tag, IEnumerable<Tag>
 {
-    public int Count => Items.Count;
-
-    public bool IsReadOnly => Items.IsReadOnly;
+    public int Count => Items.Length;
 
     public TagType ItemType { get; }
 
-    private IList<Tag> Items { get; }
+    private Tag[] Items { get; }
 
-    public ListTag(TagType itemType)
+    public ListTag()
+        : this(TagType.End, Array.Empty<Tag>())
+    {
+    }
+
+    public ListTag(TagType itemType, Tag[] items)
         : base(TagType.List)
     {
         ItemType = itemType;
-        Items = new List<Tag>();
+        Items = items;
     }
 
-    public static ListTag FromStream(Stream s)
+    public static ListTag FromStream(NbtStream s)
     {
         var childType = s.GetTagType();
         var count = s.GetInt32();
 
         if (childType == TagType.End || count <= 0)
         {
-            return new ListTag(TagType.End);
+            return new ListTag();
         }
 
-        var list = new ListTag(childType);
+        var items = new Tag[count];
 
         for (var i = 0; i < count; i++)
+            items[i] = s.GetTag(childType);
+
+        return new ListTag(childType, items);
+    }
+
+    public static void SkipInStream(NbtStream s)
+    {
+        var childType = s.GetTagType();
+        var count = s.GetInt32();
+
+        if (childType == TagType.End || count <= 0)
         {
-            list.Add(s.GetTag(list.ItemType));
+            return;
         }
 
-        return list;
+        for (var i = 0; i < count; i++)
+            s.SkipTag(childType);
     }
 
-    public Tag this[int index]
-    {
-        get => Items[index];
-        set => Items[index] = value;
-    }
+    public Tag this[int index] => Items[index];
 
     public override ListTag ToListTag() => this;
 
-    public IEnumerator<Tag> GetEnumerator() => Items.GetEnumerator();
+    public IEnumerator<Tag> GetEnumerator() => Items.AsEnumerable().GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => Items.GetEnumerator();
-
-    public void Add(Tag item) => Items.Add(item);
-
-    public void Clear() => Items.Clear();
-
-    public bool Contains(Tag item) => Items.Contains(item);
-
-    public void CopyTo(Tag[] array, int arrayIndex) => Items.CopyTo(array, arrayIndex);
-
-    public bool Remove(Tag item) => Items.Remove(item);
-    public int IndexOf(Tag item) => Items.IndexOf(item);
-
-    public void Insert(int index, Tag item) => Items.Insert(index, item);
-
-    public void RemoveAt(int index) => Items.RemoveAt(index);
 }

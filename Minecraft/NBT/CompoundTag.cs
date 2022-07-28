@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Minecraft.Utils;
 
 namespace Minecraft.NBT;
 
@@ -20,7 +21,7 @@ public class CompoundTag : Tag, IDictionary<string, Tag>
         Tags = new Dictionary<string, Tag>();
     }
 
-    public static CompoundTag FromStream(Stream s)
+    public static CompoundTag FromStream(NbtStream s)
     {
         var tag = new CompoundTag();
 
@@ -36,6 +37,18 @@ public class CompoundTag : Tag, IDictionary<string, Tag>
         return tag;
     }
 
+    public static void SkipInStream(NbtStream s)
+    {
+        var type = s.GetTagType();
+
+        while (s.CanRead && type != TagType.End)
+        {
+            s.Skip(s.GetUInt16()); // Skip tag name (string)
+            s.SkipTag(type);
+            type = s.GetTagType();
+        }
+    }
+
     public Tag this[string key]
     {
         get => Tags[key];
@@ -46,7 +59,7 @@ public class CompoundTag : Tag, IDictionary<string, Tag>
 
     public IEnumerator<KeyValuePair<string, Tag>> GetEnumerator() => Tags.GetEnumerator();
 
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => Tags.GetEnumerator();
 
     public void Add(KeyValuePair<string, Tag> item) => Tags.Add(item);
 

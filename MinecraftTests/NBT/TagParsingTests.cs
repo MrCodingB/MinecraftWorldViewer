@@ -3,17 +3,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Minecraft.NBT;
+using Minecraft.Utils;
 
 namespace MinecraftTests.NBT;
 
-public class TagParserTests
+public class TagParsingTests
 {
     [Fact]
     public void ThrowsWhenConvertingToWrongTagType()
     {
         byte[] bytes = { 0 };
 
-        var stream = new MemoryStream(bytes);
+        var stream = new NbtStream(bytes);
 
         var type = stream.GetTagType();
 
@@ -26,13 +27,27 @@ public class TagParserTests
     }
 
     [Fact]
-    public void ParsesByteData()
+    public void ThrowsWhenInvalidTagType()
+    {
+        var stream = new NbtStream(Array.Empty<byte>());
+
+        stream
+            .Invoking(s => s.GetTag((TagType)60))
+            .Should()
+            .Throw<ArgumentOutOfRangeException>();
+
+        stream
+            .Invoking(s => s.SkipTag((TagType)60))
+            .Should()
+            .Throw<ArgumentOutOfRangeException>();
+    }
+
+    [Fact]
+    public void ParsesByteTag()
     {
         byte[] bytes = { 67 };
 
-        var stream = new MemoryStream(bytes);
-
-        var tag = stream.GetTag(TagType.Byte).ToByteTag();
+        var tag = new NbtStream(bytes).GetTag(TagType.Byte).ToByteTag();
 
         tag.Type.Should().Be(TagType.Byte);
 
@@ -40,11 +55,11 @@ public class TagParserTests
     }
 
     [Fact]
-    public void ParsesShortData()
+    public void ParsesShortTag()
     {
         byte[] bytes = { 1, 2 };
-        
-        var tag = new MemoryStream(bytes).GetTag(TagType.Short).ToShortTag();
+
+        var tag = new NbtStream(bytes).GetTag(TagType.Short).ToShortTag();
 
         tag.Type.Should().Be(TagType.Short);
 
@@ -55,8 +70,8 @@ public class TagParserTests
     public void ParsesIntTag()
     {
         byte[] bytes = { 0, 0, 0, 4 };
-        
-        var tag = new MemoryStream(bytes).GetTag(TagType.Int).ToIntTag();
+
+        var tag = new NbtStream(bytes).GetTag(TagType.Int).ToIntTag();
 
         tag.Type.Should().Be(TagType.Int);
 
@@ -68,7 +83,7 @@ public class TagParserTests
     {
         byte[] bytes = { 0, 0, 0, 0, 0, 0, 1, 4 };
 
-        var tag = new MemoryStream(bytes).GetTag(TagType.Long).ToLongTag();
+        var tag = new NbtStream(bytes).GetTag(TagType.Long).ToLongTag();
 
         tag.Type.Should().Be(TagType.Long);
 
@@ -82,7 +97,7 @@ public class TagParserTests
 
         var expectedValue = BitConverter.ToSingle(BitConverter.IsLittleEndian ? bytes.Reverse().ToArray() : bytes);
 
-        var tag = new MemoryStream(bytes).GetTag(TagType.Float).ToFloatTag();
+        var tag = new NbtStream(bytes).GetTag(TagType.Float).ToFloatTag();
 
         tag.Type.Should().Be(TagType.Float);
 
@@ -96,7 +111,7 @@ public class TagParserTests
 
         var expectedValue = BitConverter.ToDouble(BitConverter.IsLittleEndian ? bytes.Reverse().ToArray() : bytes);
 
-        var tag = new MemoryStream(bytes).GetTag(TagType.Double).ToDoubleTag();
+        var tag = new NbtStream(bytes).GetTag(TagType.Double).ToDoubleTag();
 
         tag.Type.Should().Be(TagType.Double);
 
@@ -116,7 +131,7 @@ public class TagParserTests
             97
         };
 
-        var tag = new MemoryStream(bytes).GetTag(TagType.ByteArray).ToByteArrayTag();
+        var tag = new NbtStream(bytes).GetTag(TagType.ByteArray).ToByteArrayTag();
 
         tag.Type.Should().Be(TagType.ByteArray);
 
@@ -139,7 +154,7 @@ public class TagParserTests
 
         var expectedString = Encoding.UTF8.GetString(bytes[2..]);
 
-        var tag = new MemoryStream(bytes).GetTag(TagType.String).ToStringTag();
+        var tag = new NbtStream(bytes).GetTag(TagType.String).ToStringTag();
 
         tag.Type.Should().Be(TagType.String);
 
@@ -153,8 +168,8 @@ public class TagParserTests
     {
         byte[] bytes =
         {
-            1,
-            0, 0, 0, 6,
+            1,              // Child type: TagType.Byte = 1
+            0, 0, 0, 6,     // Length (Int32) = 6
             91,
             83,
             17,
@@ -163,19 +178,35 @@ public class TagParserTests
             2
         };
 
-        var tag = new MemoryStream(bytes).GetTag(TagType.List).ToListTag();
+        var tag = new NbtStream(bytes).GetTag(TagType.List).ToListTag();
 
         tag.Type.Should().Be(TagType.List);
 
         tag.ItemType.Should().Be(TagType.Byte);
-        
+
         tag.Count.Should().Be(6);
 
         tag.Should().AllBeOfType<ByteTag>();
     }
 
     [Fact]
-    public void ParsesCompound()
+    public void ParsesEmptyListTag()
+    {
+        byte[] bytes =
+        {
+            0,              // Child type: TagType.End = 0
+            0, 0, 0, 0      // Length (Int32) = 0
+        };
+
+        var tag = new NbtStream(bytes).GetTag(TagType.List).ToListTag();
+
+        tag.Type.Should().Be(TagType.List);
+        tag.ItemType.Should().Be(TagType.End);
+        tag.Count.Should().Be(0);
+    }
+
+    [Fact]
+    public void ParsesCompoundTag()
     {
         byte[] bytes =
         {
@@ -188,11 +219,11 @@ public class TagParserTests
             152, // byte value: 152
             0 // end of compound
         };
-        
-        var tag = new MemoryStream(bytes).GetTag(TagType.Compound).ToCompoundTag();
+
+        var tag = new NbtStream(bytes).GetTag(TagType.Compound).ToCompoundTag();
 
         tag.Type.Should().Be(TagType.Compound);
-        
+
         tag.Count.Should().Be(1);
 
         tag.Should().NotBeEmpty();
@@ -214,10 +245,10 @@ public class TagParserTests
             0, 0, 0, 87
         };
 
-        var tag = new MemoryStream(bytes).GetTag(TagType.IntArray).ToIntArrayTag();
+        var tag = new NbtStream(bytes).GetTag(TagType.IntArray).ToIntArrayTag();
 
         tag.Type.Should().Be(TagType.IntArray);
-        
+
         tag.Length.Should().Be(4);
 
         tag.Should().BeEquivalentTo(new[] { 91, 124, 12, 87 });
@@ -233,10 +264,10 @@ public class TagParserTests
             0, 0, 0, 0, 0, 0, 0, 124
         };
 
-        var tag = new MemoryStream(bytes).GetTag(TagType.LongArray).ToLongArrayTag();
+        var tag = new NbtStream(bytes).GetTag(TagType.LongArray).ToLongArrayTag();
 
         tag.Type.Should().Be(TagType.LongArray);
-        
+
         tag.Length.Should().Be(2);
 
         tag.Should().BeEquivalentTo(new long[] { 32, 124 });

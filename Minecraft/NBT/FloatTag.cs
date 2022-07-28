@@ -1,8 +1,10 @@
-﻿namespace Minecraft.NBT;
+﻿using Minecraft.Utils;
+
+namespace Minecraft.NBT;
 
 public class FloatTag : Tag
 {
-    public float Data { get; set; }
+    public float Data { get; }
     
     public FloatTag(float data) 
         : base(TagType.Float)
@@ -10,13 +12,13 @@ public class FloatTag : Tag
         Data = data;
     }
 
-    public static FloatTag FromStream(Stream s) => new(s.GetFloat());
+    public static FloatTag FromStream(NbtStream s) => new(s.GetFloat());
+
+    public static void SkipInStream(NbtStream s) => s.Skip(4);
 
     public override FloatTag ToFloatTag() => this;
 
     public override DoubleTag ToDoubleTag() => new(Data);
-
-    public static implicit operator FloatTag(float f) => new(f);
 
     public static implicit operator float(FloatTag tag) => tag.Data;
 

@@ -1,37 +1,49 @@
 ﻿using System.Text.RegularExpressions;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
+using Minecraft.Utils;
 
 namespace Minecraft.Regions;
 
 public class RegionFile : IDisposable
 {
+    private const int HeaderSize = 8192;
+
+    private static readonly Regex RegionRegex = new(@"r\.(-?\d+)\.(-?\d+)\.mca$");
+
+    private static byte[] RegionFileBuffer = Array.Empty<byte>();
+
     public int X { get; }
 
     public int Z { get; }
 
-    public int ChunkCount => ChunkPositions.Count;
+    public int ChunkCount => ChunkHeaders.Count;
 
-    private IList<int> ChunkPositions { get; }
+    public IList<ChunkHeader> ChunkHeaders { get; }
 
     private FileStream FileStream { get; }
 
-    private RegionFile(int x, int z, IList<int> chunkPositions, FileStream fileStream)
+    private RegionFile(int x, int z, IList<ChunkHeader> chunkHeaders, FileStream fileStream)
     {
         X = x;
         Z = z;
-        ChunkPositions = chunkPositions;
+        ChunkHeaders = chunkHeaders;
         FileStream = fileStream;
     }
 
-    public static RegionFile Load(string path)
+    public static void SetMaxFileSize(long maxFileSize)
     {
-        var matches = Regex.Match(path, @"r\.(\-?\d+)\.(\-?\d+)\.mca$");
+        if (maxFileSize > RegionFileBuffer.LongLength)
+        {
+            RegionFileBuffer = new byte[maxFileSize];
+        }
+    }
+
+    public static RegionFile? TryLoad(string path)
+    {
+        var matches = RegionRegex.Match(path);
 
         if (!matches.Success)
         {
-            throw new ArgumentException("Invalid region file path: " + path, nameof(path));
+            return null;
         }
 
         var x = int.Parse(matches.Groups[1].Value);
@@ -39,40 +51,16 @@ public class RegionFile : IDisposable
 
         var regionFileStream = File.OpenRead(path);
 
-        var chunks = GetChunkHeaders(regionFileStream);
+        var chunks = ParseRegionFileHeader(regionFileStream);
 
         return new RegionFile(x, z, chunks, regionFileStream);
     }
 
-    public Image<Rgba32> CalculateBitmap()
+    public byte[] ReadFileAndDispose()
     {
-        var regionX = X * 32;
-        var regionZ = Z * 32;
-
-        var regionBitmap = new Image<Rgba32>(32 * 16, 32 * 16);
-
-        regionBitmap.Mutate(region =>
-        {
-            foreach (var chunkPosition in ChunkPositions)
-            {
-                FileStream.Seek(chunkPosition, SeekOrigin.Begin);
-
-                var length = FileStream.GetInt32();
-
-                var chunkBytes = FileStream.GetBytes(length);
-
-                var chunk = Chunk.FromStream(new MemoryStream(chunkBytes));
-
-                var x = chunk.X - regionX;
-                var z = chunk.Z - regionZ;
-
-                using var chunkBitmap = chunk.CalculateBitmap();
-
-                region.DrawImage(chunkBitmap, new Point(x * 16, z * 16), 1f);
-            }
-        });
-
-        return regionBitmap;
+        _ = FileStream.Read(RegionFileBuffer, HeaderSize, RegionFileBuffer.Length - HeaderSize);
+        FileStream.Dispose();
+        return RegionFileBuffer;
     }
 
     public void Dispose()
@@ -81,29 +69,32 @@ public class RegionFile : IDisposable
         FileStream.Dispose();
     }
 
-    private static IList<int> GetChunkHeaders(Stream stream)
+    private static IList<ChunkHeader> ParseRegionFileHeader(Stream stream)
+        => ReadChunkHeaders(ReadHeaderBytes(stream));
+
+    private static byte[] ReadHeaderBytes(Stream stream)
     {
-        var chunks = new List<int>(1024);
-
-        // Header size is 8kB, last 4kB are timestamps => irrelevant
         var bytes = stream.GetBytes(4096);
-        stream.Seek(4096, SeekOrigin.Current);
+        stream.Seek(4096, SeekOrigin.Current); // Last 4kiB of header are timestamps => irrelevant
+        return bytes;
+    }
 
-        var i = 0;
+    private static List<ChunkHeader> ReadChunkHeaders(byte[] headerBytes)
+    {
+        var chunkHeaders = new List<ChunkHeader>(1024);
 
-        while (i < 4096)
+        for (var i = 0; i < 4096; i += 4)
         {
-            var position = BitHelper.ToInt24(bytes, i) * 4096;
-            if (position > 1) // If chunk isn't loaded, position and length are 0
+            var header = ParseChunkHeader(headerBytes, i);
+            if (header.Offset >= HeaderSize && header.Length > 0)
             {
-                chunks.Add(position);
+                chunkHeaders.Add(header);
             }
-
-            i += 4;
         }
 
-        chunks.Sort();
-
-        return chunks;
+        return chunkHeaders;
     }
+
+    private static ChunkHeader ParseChunkHeader(byte[] bytes, int offset)
+        => new(BitHelper.ToInt24(bytes, offset), bytes[offset + 3]);
 }

@@ -1,5 +1,6 @@
 ﻿using System.IO.Compression;
 using Minecraft.NBT;
+using Minecraft.Utils;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
@@ -11,98 +12,99 @@ public class Chunk
     private const byte ZlibCompression = 2;
     private const byte Uncompressed = 3;
 
-    public int X { get; }
+    private static readonly ChunkParser Parser = new();
 
-    public int Z { get; }
+    private static readonly ReadStream ReadStream = new();
+
+    private int X { get; }
+
+    private int Z { get; }
 
     private IList<ChunkSection> Sections { get; }
 
-    private Chunk(int x, int z, IList<ChunkSection> sections)
+    public Chunk(int x, int z, IList<ChunkSection> sections)
     {
         X = x;
         Z = z;
         Sections = sections;
     }
 
-    public static Chunk FromStream(Stream stream)
+    public static Chunk FromBytes(int compression, byte[] bytes, int index, int count)
     {
-        var tree = TagTree.FromStream(GetDataStream(stream));
+        using var stream = GetValueStream(compression, bytes, index, count);
 
-        var root = tree.Root;
+        var type = stream.GetTagType();
+        var nameLength = stream.GetUInt16();
 
-        if (root.ContainsKey("Level"))
+        if (type != TagType.Compound || nameLength != 0)
         {
-            root = root["Level"].ToCompoundTag();
+            throw new InvalidOperationException("Invalid root tag for chunk");
         }
 
-        var x = root["xPos"].ToIntTag();
-        var z = root["zPos"].ToIntTag();
-
-        return new Chunk(x, z, GetChunkSections(root));
+        return Parser.ParseChunk(stream);
     }
 
-    public Image<Rgba32> CalculateBitmap()
+    public void DrawChunk(Image<Rgba32> mapImage, int x0, int z0)
     {
-        var bitmap = new Image<Rgba32>(16, 16);
+        var xOffset = X * 16 - x0;
+        var zOffset = Z * 16 - z0;
 
-        for (var z = 0; z < 16; z++)
+        var xzOffset = 0;
+
+        for (int chunkZ = 0, z = zOffset; chunkZ < 16; chunkZ++, z++)
         {
-            var row = bitmap.GetPixelRowSpan(z);
+            var row = mapImage.GetPixelRowSpan(z);
 
-            for (var x = 0; x < 16; x++)
+            for (int chunkX = 0, x = xOffset; chunkX < 16; chunkX++, x++, xzOffset++)
             {
-                for (var i = Sections.Count - 1; i >= 0; i--)
-                {
-                    var section = Sections[i];
+                row[x] = GetBirdseyeBlockColorAt(xzOffset);
+            }
+        }
+    }
 
-                    var block = section[x, z];
-                    var color = block is not null ? Block.BlockColors[block].MapColor : null;
-                    if (color is not null)
-                    {
-                        row[x] = color.Value;
-                        break;
-                    }
+    private Rgba32 GetBirdseyeBlockColorAt(int xzOffset)
+    {
+        const int di = 16 * 16;
+        const int iYMax = 15 * 16 * 16; // i at max y (y = 15)
+
+        var iStart = iYMax + xzOffset;
+
+        for (var iSection = Sections.Count - 1; iSection >= 0; iSection--)
+        {
+            var section = Sections[iSection];
+
+            for (var i = iStart; i >= xzOffset; i -= di)
+            {
+                var color = section[i];
+
+                if (color.A > 0)
+                {
+                    return color;
                 }
             }
         }
 
-        ProgressManager.CompletedChunk();
-
-        return bitmap;
+        return Block.BlockColor.Rgba32Transparent;
     }
 
-    private static IList<ChunkSection> GetChunkSections(CompoundTag root)
+    private static NbtStream GetValueStream(int compression, byte[] bytes, int index, int count)
     {
-        if (!root.ContainsKey("sections"))
-        {
-            return new List<ChunkSection>();
-        }
+        ReadStream.SetLength(0);
 
-        return root["sections"]
-            .ToListTag()
-            .Select(item => ChunkSection.FromTag(item.ToCompoundTag()))
-            .Where(chunkSection => chunkSection is not null)
-            .OrderBy(s => s!.Y)
-            .ToList()!;
+        var compressedStream = new MemoryStream(bytes, index, count);
+
+        using (var dataStream = GetInflateStream(compression, compressedStream))
+            dataStream.CopyTo(ReadStream);
+
+        return ReadStream.AsNbtStream();
     }
 
-    private static Stream GetDataStream(Stream chunkStream)
-    {
-        var compression = chunkStream.GetByte();
-
-        using var dataStream = compression switch
+    private static Stream GetInflateStream(int compression, Stream stream)
+        => compression switch
         {
-            GZipCompression => new GZipStream(chunkStream, CompressionMode.Decompress),
-            ZlibCompression => new ZLibStream(chunkStream, CompressionMode.Decompress),
-            _ => chunkStream
+            ZlibCompression => new ZLibStream(stream, CompressionMode.Decompress, true),
+            GZipCompression => new GZipStream(stream, CompressionMode.Decompress, true),
+            Uncompressed => stream,
+            _ => throw new ArgumentOutOfRangeException(nameof(compression))
         };
-
-        var memoryStream = new MemoryStream();
-
-        dataStream.CopyTo(memoryStream);
-
-        memoryStream.Seek(0, SeekOrigin.Begin);
-
-        return memoryStream;
-    }
 }

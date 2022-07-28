@@ -1,10 +1,11 @@
 ﻿using System.Collections;
+using Minecraft.Utils;
 
 namespace Minecraft.NBT;
 
 public class ByteArrayTag : Tag, IEnumerable<byte>
 {
-    public byte[] Data { get; set; }
+    public byte[] Data { get; }
 
     public int Length => Data.Length;
 
@@ -14,16 +15,16 @@ public class ByteArrayTag : Tag, IEnumerable<byte>
         Data = data;
     }
 
-    public static ByteArrayTag FromStream(Stream s)
+    public static ByteArrayTag FromStream(NbtStream s)
     {
         var length = s.GetInt32();
 
         return new ByteArrayTag(s.GetBytes(length));
     }
 
-    public override ByteArrayTag ToByteArrayTag() => this;
+    public static void SkipInStream(NbtStream s) => s.Skip(s.GetInt32());
 
-    public static implicit operator ByteArrayTag(byte[] bytes) => new(bytes);
+    public override ByteArrayTag ToByteArrayTag() => this;
 
     public static implicit operator byte[](ByteArrayTag tag) => tag.Data;
 

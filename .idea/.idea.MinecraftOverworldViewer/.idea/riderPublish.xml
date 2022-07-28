@@ -3,8 +3,8 @@
   <component name="LocationsWithSilentDeleteHolder">
     <option name="locations">
       <list>
-        <option value="$PROJECT_DIR$/GUI/bin/Release/net6.0/publish" />
-        <option value="$PROJECT_DIR$/Host/bin/Release/net6.0/publish" />
+        <option value="$PROJECT_DIR$/GUI/bin/Release/net6.0-windows/publish" />
+        <option value="$PROJECT_DIR$/ConsoleHost/bin/Release/net6.0/publish" />
       </list>
     </option>
   </component>
