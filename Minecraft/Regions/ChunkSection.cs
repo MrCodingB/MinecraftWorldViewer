@@ -2,23 +2,7 @@
 
 namespace Minecraft.Regions;
 
-public abstract class ChunkSection
-{
-    public static ChunkSection FromStatesAndPalette(long[] blockStates, Rgba32[] palette)
-    {
-        return palette.Length == 1 || blockStates.Length <= 0
-            ? new UniformChunkSection(palette[0])
-            : new VariedChunkSection(blockStates, palette);
-    }
-
-    /// <summary>
-    /// The block colors in this section x, z, y
-    /// </summary>
-    /// <param name="i">y * 16 * 16 + z * 16 + x</param>
-    public abstract Rgba32 this[int i] { get; }
-}
-
-public class VariedChunkSection : ChunkSection
+public class ChunkSection
 {
     private const int TotalBlocks = 16 * 16 * 16;
 
@@ -34,35 +18,42 @@ public class VariedChunkSection : ChunkSection
 
     private readonly long[] BlockStates;
 
-    private readonly Rgba32[] Palette;
+    private readonly Block.BlockColor[] BlockPalette;
+
+    private readonly Biome.BiomeInfo[] BiomePalette;
 
     private readonly long[] BlockIndices;
 
-    private Func<Rgba32[], long[], int, Rgba32> GetBlockFunc;
+    private Func<Block.BlockColor[], long[], int, Rgba32> GetBlockFunc;
 
-    public VariedChunkSection(long[] blockStates, Rgba32[] palette)
+    public ChunkSection(long[] blockStates, Block.BlockColor[] blockPalette, Biome.BiomeInfo[] biomePalette)
     {
         BlockStates = blockStates;
-        Palette = palette;
+        BlockPalette = blockPalette;
+        BiomePalette = biomePalette;
         BlockIndices = new long[TotalBlocks];
         GetBlockFunc = InitialGetBlockAt;
     }
 
-    public override Rgba32 this[int i] => GetBlockFunc(Palette, BlockIndices, i);
+    /// <summary>
+    /// The block colors in this section x, z, y
+    /// </summary>
+    /// <param name="i">y * 16 * 16 + z * 16 + x</param>
+    public Rgba32 this[int i] => GetBlockFunc(BlockPalette, BlockIndices, i);
 
-    private static Rgba32 GetBlockAt(Rgba32[] p, long[] indices, int i) => p[indices[i]];
+    private static Rgba32 GetBlockAt(Block.BlockColor[] p, long[] indices, int i) => p[indices[i]].Color;
 
-    private Rgba32 InitialGetBlockAt(Rgba32[] p, long[] b, int i)
+    private Rgba32 InitialGetBlockAt(Block.BlockColor[] p, long[] b, int i)
     {
         InitializeBlockIndices();
 
         GetBlockFunc = GetBlockAt;
-        return GetBlockAt(Palette, BlockIndices, i);
+        return GetBlockAt(BlockPalette, BlockIndices, i);
     }
 
     private void InitializeBlockIndices()
     {
-        var bitsPerBlock = GetBlockSectionBitsPerBlock(Palette.Length);
+        var bitsPerBlock = GetBitsPerIndex(BlockPalette.Length);
         var mask = Masks[bitsPerBlock];
         var blocksPerLong = BlocksPerLong[bitsPerBlock];
 
@@ -98,11 +89,13 @@ public class VariedChunkSection : ChunkSection
         }
     }
 
-    private static int GetBlockSectionBitsPerBlock(int paletteLength)
+    private static int GetBitsPerIndex(int paletteLength)
+        => GetBitsPerIndex(paletteLength, 4, 16);
+
+    private static int GetBitsPerIndex(int paletteLength, int minValue, int minPossibleValues)
     {
-        // Minimal size is 4 bits per block
-        var bitsPerBlock = 4;
-        var representableValues = 16;
+        var bitsPerBlock = minValue;
+        var representableValues = minPossibleValues;
 
         while (representableValues < paletteLength)
         {
@@ -112,16 +105,4 @@ public class VariedChunkSection : ChunkSection
 
         return bitsPerBlock;
     }
-}
-
-public class UniformChunkSection : ChunkSection
-{
-    private readonly Rgba32 BlockColor;
-
-    public UniformChunkSection(Rgba32 blockColor)
-    {
-        BlockColor = blockColor;
-    }
-
-    public override Rgba32 this[int i] => BlockColor;
 }

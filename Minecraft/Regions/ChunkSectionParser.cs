@@ -1,6 +1,5 @@
 ﻿using Minecraft.NBT;
 using Minecraft.Utils;
-using SixLabors.ImageSharp.PixelFormats;
 
 namespace Minecraft.Regions;
 
@@ -32,7 +31,8 @@ public static class ChunkSectionParser
 
     private static ChunkSection? GetChunkSection(NbtStream stream)
     {
-        var palette = Array.Empty<Rgba32>();
+        var palette = Array.Empty<Block.BlockColor>();
+        var biomePalette = Array.Empty<Biome.BiomeInfo>();
         var blockStates = Array.Empty<long>();
 
         var type = stream.GetTagType();
@@ -52,7 +52,7 @@ public static class ChunkSectionParser
             else if (type == TagType.List)
             {
                 palette = GetPalette(stream);
-                if (palette.Length <= 1 && palette.All(b => b.A == 0))
+                if (palette.Length <= 1 && palette.All(b => b.Color.A == 0))
                 {
                     return null;
                 }
@@ -61,20 +61,20 @@ public static class ChunkSectionParser
             type = stream.GetTagType();
         }
 
-        return ChunkSection.FromStatesAndPalette(blockStates, palette);
+        return new ChunkSection(blockStates, palette);
     }
 
-    private static Rgba32[] GetPalette(NbtStream stream)
+    private static Block.BlockColor[] GetPalette(NbtStream stream)
     {
         var childType = stream.GetTagType();
         var count = stream.GetInt32();
 
         if (childType != TagType.Compound || count <= 0)
         {
-            return Array.Empty<Rgba32>();
+            return Array.Empty<Block.BlockColor>();
         }
 
-        var palette = new Rgba32[count];
+        var palette = new Block.BlockColor[count];
 
         for (var i = 0; i < count; i++)
             palette[i] = GetPaletteBlockColor(stream);
@@ -82,19 +82,18 @@ public static class ChunkSectionParser
         return palette;
     }
 
-    private static Rgba32 GetPaletteBlockColor(NbtStream stream)
+    private static Block.BlockColor GetPaletteBlockColor(NbtStream stream)
     {
-        var result = Block.BlockColor.Rgba32Transparent;
-
+        var result = new Block.BlockColor();
         var type = stream.GetTagType();
 
         while (type != TagType.End)
         {
-            stream.Skip(stream.GetUInt16()); // Skip name
+            stream.Skip(stream.GetUInt16()); // Skip tag name
 
             if (type == TagType.String) // "Name" is only relevant field and only field of type TagType.String
             {
-                result = Block.BlockColors[stream.GetString()].Color;
+                result = Block.BlockColors[stream.GetString()];
             }
             else
             {
