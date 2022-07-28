@@ -12,12 +12,9 @@ public static class Block
 
         public readonly Rgba32 Color = Rgba32Transparent;
 
-        public readonly bool IsTransparent = false;
-
         public BlockColor(string name)
         {
             Name = name;
-            IsTransparent = true;
         }
 
         public BlockColor(string name, (byte r, byte g, byte b) color)
