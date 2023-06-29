@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using ConsoleHost;
 using Minecraft;
 using SixLabors.ImageSharp;
 using Utility;
@@ -47,31 +48,7 @@ Console.WriteLine("Loading");
 
 var generator = new MapGenerator(inputFolder);
 
-var firstMessage = true;
-var maxColumns = Console.WindowWidth;
-var currentColumns = 0;
-
-ProgressManager.Progress += (_, eventArgs) =>
-{
-    if (firstMessage)
-    {
-        Console.WriteLine("Discovered {0} regions and {1} chunks", eventArgs.TotalRegions, eventArgs.TotalChunks);
-        firstMessage = false;
-    }
-
-    var newColumns = eventArgs.TotalChunks == 0
-        ? currentColumns
-        : (int)Math.Ceiling((decimal)eventArgs.CompletedChunks / eventArgs.TotalChunks * maxColumns);
-    var columnsToAdd = newColumns - currentColumns;
-
-    if (columnsToAdd <= 0)
-    {
-        return;
-    }
-
-    Console.Write(new string('#', columnsToAdd));
-    currentColumns += columnsToAdd;
-};
+ProgressManager.Progress += ProgressReporter.ReportProgress;
 
 Console.WriteLine("Generating");
 
@@ -82,11 +59,11 @@ var image = generator.Generate();
 stopwatch.Stop();
 
 Console.WriteLine("Generation complete");
-Console.WriteLine("Total time: " + stopwatch.Elapsed);
+Console.WriteLine("Total time:      " + stopwatch.Elapsed);
 Console.WriteLine("Time per region: " + ProgressManager.TimePerRegion);
 Console.WriteLine("Time per chunk:  " + ProgressManager.TimePerChunk);
-Console.WriteLine("Avg memory usage [MB]: " + ProgressManager.AvgMemoryInMb);
-Console.WriteLine("Max memory usage [MB]: " + ProgressManager.MaxMemory);
+Console.WriteLine("Avg memory usage [MB]: {0:F5}", ProgressManager.AvgMemoryInMb);
+Console.WriteLine("Max memory usage [MB]: {0:F5}", ProgressManager.MaxMemory);
 
 _ = bool.TryParse(parsedArgs.GetValueOrDefault("dry-run") ?? "false", out var dryRun);
 

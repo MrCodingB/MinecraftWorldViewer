@@ -5,11 +5,9 @@ namespace Minecraft.Regions;
 public abstract class ChunkSection
 {
     public static ChunkSection FromStatesAndPalette(long[] blockStates, Rgba32[] palette)
-    {
-        return palette.Length == 1 || blockStates.Length <= 0
+        => palette.Length == 1 || blockStates.Length <= 0
             ? new UniformChunkSection(palette[0])
             : new VariedChunkSection(blockStates, palette);
-    }
 
     /// <summary>
     /// The block colors in this section x, z, y
@@ -36,28 +34,28 @@ public class VariedChunkSection : ChunkSection
 
     private readonly Rgba32[] Palette;
 
-    private readonly long[] BlockIndices;
+    private readonly Rgba32[] BlockColors;
 
-    private Func<Rgba32[], long[], int, Rgba32> GetBlockFunc;
+    private Func<Rgba32[], int, Rgba32> GetBlockFunc;
 
     public VariedChunkSection(long[] blockStates, Rgba32[] palette)
     {
         BlockStates = blockStates;
         Palette = palette;
-        BlockIndices = new long[TotalBlocks];
+        BlockColors = new Rgba32[TotalBlocks];
         GetBlockFunc = InitialGetBlockAt;
     }
 
-    public override Rgba32 this[int i] => GetBlockFunc(Palette, BlockIndices, i);
+    public override Rgba32 this[int i] => GetBlockFunc(BlockColors, i);
 
-    private static Rgba32 GetBlockAt(Rgba32[] p, long[] indices, int i) => p[indices[i]];
+    private static Rgba32 GetBlockAt(Rgba32[] indices, int i) => indices[i];
 
-    private Rgba32 InitialGetBlockAt(Rgba32[] p, long[] b, int i)
+    private Rgba32 InitialGetBlockAt(Rgba32[] b, int i)
     {
         InitializeBlockIndices();
 
         GetBlockFunc = GetBlockAt;
-        return GetBlockAt(Palette, BlockIndices, i);
+        return GetBlockAt(BlockColors, i);
     }
 
     private void InitializeBlockIndices()
@@ -91,7 +89,7 @@ public class VariedChunkSection : ChunkSection
                 indexInBlockState = 0;
             }
 
-            BlockIndices[i] = l & mask;
+            BlockColors[i] = Palette[l & mask];
 
             l >>= bitsPerBlock;
             indexInBlockState++;

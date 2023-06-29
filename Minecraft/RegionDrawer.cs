@@ -9,9 +9,7 @@ namespace Minecraft;
 
 public class RegionDrawer
 {
-    private Stopwatch ChunkStopwatch { get; } = new();
-
-    private Stopwatch RegionStopwatch { get; } = new();
+    private static Stopwatch RegionStopwatch { get; } = new();
 
     private Image<Rgba32> Map { get; }
 
@@ -30,12 +28,7 @@ public class RegionDrawer
         => TrackRegionProgress(() => DrawChunks(region.ChunkHeaders, region.ReadFileAndDispose()));
 
     private void DrawChunks(IEnumerable<ChunkHeader> chunkHeaders, byte[] bytes)
-    {
-        foreach (var header in chunkHeaders)
-        {
-            TrackChunkProgress(() => DrawChunk(bytes, header.Offset));
-        }
-    }
+        => Parallel.ForEach(chunkHeaders, header => TrackChunkProgress(() => DrawChunk(bytes, header.Offset)));
 
     private void DrawChunk(byte[] bytes, int offset)
     {
@@ -47,9 +40,9 @@ public class RegionDrawer
             .DrawChunk(Map, XRoot, ZRoot);
     }
 
-    private void TrackRegionProgress(Action action)
+    private static void TrackRegionProgress(Action action)
         => ProgressManager.CompletedRegion(Profiler.MeasureExecutionTime(action, RegionStopwatch));
 
-    private void TrackChunkProgress(Action action)
-        => ProgressManager.CompletedChunk(Profiler.MeasureExecutionTime(action, ChunkStopwatch));
+    private static void TrackChunkProgress(Action action)
+        => ProgressManager.CompletedChunk(Profiler.MeasureExecutionTime(action));
 }

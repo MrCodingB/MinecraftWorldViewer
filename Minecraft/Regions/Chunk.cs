@@ -12,10 +12,6 @@ public class Chunk
     private const byte ZlibCompression = 2;
     private const byte Uncompressed = 3;
 
-    private static readonly ChunkParser Parser = new();
-
-    private static readonly ReadStream ReadStream = new();
-
     private int X { get; }
 
     private int Z { get; }
@@ -41,7 +37,7 @@ public class Chunk
             throw new InvalidOperationException("Invalid root tag for chunk");
         }
 
-        return Parser.ParseChunk(stream);
+        return new ChunkParser().ParseChunk(stream);
     }
 
     public void DrawChunk(Image<Rgba32> mapImage, int x0, int z0)
@@ -89,14 +85,14 @@ public class Chunk
 
     private static NbtStream GetValueStream(int compression, byte[] bytes, int index, int count)
     {
-        ReadStream.SetLength(0);
+        var readStream = new ReadStream();
 
         var compressedStream = new MemoryStream(bytes, index, count);
 
         using (var dataStream = GetInflateStream(compression, compressedStream))
-            dataStream.CopyTo(ReadStream);
+            dataStream.CopyTo(readStream);
 
-        return ReadStream.AsNbtStream();
+        return readStream.AsNbtStream();
     }
 
     private static Stream GetInflateStream(int compression, Stream stream)
