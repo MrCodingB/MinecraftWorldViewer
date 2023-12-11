@@ -23,12 +23,12 @@ while (i < args.Length)
 var inputFolder = parsedArgs.GetValueOrDefault("i") ?? parsedArgs.GetValueOrDefault("input");
 var outputFolder = parsedArgs.GetValueOrDefault("o") ?? parsedArgs.GetValueOrDefault("output") ?? inputFolder;
 
-if (inputFolder is null)
+if (string.IsNullOrWhiteSpace(inputFolder))
 {
     Console.Write("Regions path:");
     inputFolder = Console.ReadLine();
 
-    if (inputFolder is null)
+    if (string.IsNullOrWhiteSpace(inputFolder))
     {
         Console.WriteLine("No input folder specified. Use parameters -i or -input");
         return;
@@ -37,7 +37,7 @@ if (inputFolder is null)
     Console.WriteLine($"> {inputFolder}");
 }
 
-if (outputFolder is null)
+if (string.IsNullOrWhiteSpace(outputFolder))
 {
     Console.Write("Output path (defaults to regions path):");
     outputFolder = Console.ReadLine() ?? inputFolder;
@@ -73,6 +73,8 @@ if (!dryRun)
     var imagePath = Path.Combine(outputFolder, MapFileName.Get(regionName));
 
     Console.WriteLine($"Saving image at {imagePath}");
+
+    Directory.CreateDirectory(outputFolder);
 
     image.SaveAsPng(imagePath);
 }

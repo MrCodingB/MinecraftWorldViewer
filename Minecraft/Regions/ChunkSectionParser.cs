@@ -94,7 +94,7 @@ public static class ChunkSectionParser
 
             if (type == TagType.String) // "Name" is only relevant field and only field of type TagType.String
             {
-                result = Block.BlockColors[stream.GetString()].Color;
+                result = Block.GetBlockColor(stream.GetString());
             }
             else
             {

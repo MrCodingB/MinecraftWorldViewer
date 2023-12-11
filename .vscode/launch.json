@@ -1,0 +1,39 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (test map, dry run)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/ConsoleHost/bin/Debug/net6.0/ConsoleHost.dll",
+            "args": [
+                "-i", "${workspaceFolder}/test-files/region",
+                "-o", "${workspaceFolder}/test-files/generated",
+                "-dry-run", "true"
+            ],
+            "cwd": "${workspaceFolder}/ConsoleHost",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Launch (test map)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/ConsoleHost/bin/Debug/net6.0/ConsoleHost.dll",
+            "args": [
+                "-i", "${workspaceFolder}/test-files/region",
+                "-o", "${workspaceFolder}/test-files/generated"
+            ],
+            "cwd": "${workspaceFolder}/ConsoleHost",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        }
+    ]
+}

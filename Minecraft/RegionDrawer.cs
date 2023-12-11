@@ -25,10 +25,18 @@ public class RegionDrawer
     }
 
     public void DrawAndDisposeRegion(RegionFile region)
-        => TrackRegionProgress(() => DrawChunks(region.ChunkHeaders, region.ReadFileAndDispose()));
+        => TrackRegionProgress(() => DrawChunksParalell(region.ChunkHeaders, region.ReadFileAndDispose()));
+
+    private void DrawChunksParalell(IEnumerable<ChunkHeader> chunkHeaders, byte[] bytes)
+        => Parallel.ForEach(chunkHeaders, header => TrackChunkProgress(() => DrawChunk(bytes, header.Offset)));
 
     private void DrawChunks(IEnumerable<ChunkHeader> chunkHeaders, byte[] bytes)
-        => Parallel.ForEach(chunkHeaders, header => TrackChunkProgress(() => DrawChunk(bytes, header.Offset)));
+    {
+        foreach (var header in chunkHeaders)
+        {
+            TrackChunkProgress(() => DrawChunk(bytes, header.Offset));
+        }
+    }
 
     private void DrawChunk(byte[] bytes, int offset)
     {

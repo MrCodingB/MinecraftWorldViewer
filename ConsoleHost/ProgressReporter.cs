@@ -4,11 +4,23 @@ namespace ConsoleHost;
 
 public static class ProgressReporter
 {
-    private static readonly int MaxColumns = Console.WindowWidth;
+    private static readonly int MaxColumns;
 
     private static bool FirstMessage = true;
 
     private static int CurrentColumns;
+
+    static ProgressReporter()
+    {
+        try 
+        {
+            MaxColumns = Console.WindowWidth;
+        }
+        catch
+        {
+            MaxColumns = 50;
+        }
+    }
 
     public static void ReportProgress(object? sender, ProgressEventArgs e)
     {
