@@ -35,15 +35,15 @@ public class MapGeneratorTests
 
         result.Mutate(r => r.Crop(new Rectangle(result.Width - 16, result.Height - 16, 16, 16)));
 
-        var blackConcrete = Block.GetBlockColor(Blocks.BlackConcrete);
-        var orangeWool = Block.GetBlockColor(Blocks.OrangeWool);
-        var redWool = Block.GetBlockColor(Blocks.RedWool);
-        var lightBlueWool = Block.GetBlockColor(Blocks.LightBlueWool);
-        var blueWool = Block.GetBlockColor(Blocks.BlueWool);
-        var pinkWool = Block.GetBlockColor(Blocks.PinkWool);
-        var magentaWool = Block.GetBlockColor(Blocks.MagentaWool);
-        var limeWool = Block.GetBlockColor(Blocks.LimeWool);
-        var greenWool = Block.GetBlockColor(Blocks.GreenWool);
+        var blackConcrete = Blocks.GetBlockColor(BlockNames.BlackConcrete);
+        var orangeWool = Blocks.GetBlockColor(BlockNames.OrangeWool);
+        var redWool = Blocks.GetBlockColor(BlockNames.RedWool);
+        var lightBlueWool = Blocks.GetBlockColor(BlockNames.LightBlueWool);
+        var blueWool = Blocks.GetBlockColor(BlockNames.BlueWool);
+        var pinkWool = Blocks.GetBlockColor(BlockNames.PinkWool);
+        var magentaWool = Blocks.GetBlockColor(BlockNames.MagentaWool);
+        var limeWool = Blocks.GetBlockColor(BlockNames.LimeWool);
+        var greenWool = Blocks.GetBlockColor(BlockNames.GreenWool);
 
         var expectedColors = new Color[16, 16];
 

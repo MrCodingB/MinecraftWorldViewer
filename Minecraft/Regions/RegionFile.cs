@@ -15,17 +15,17 @@ public class RegionFile : IDisposable
 
     public int Z { get; }
 
-    public int ChunkCount => ChunkHeaders.Count;
+    public int ChunkCount => ChunkStartOffsets.Count;
 
-    public IList<ChunkHeader> ChunkHeaders { get; }
+    public IList<int> ChunkStartOffsets { get; }
 
     private FileStream FileStream { get; }
 
-    private RegionFile(int x, int z, IList<ChunkHeader> chunkHeaders, FileStream fileStream)
+    private RegionFile(int x, int z, IList<int> chunkStartOffsets, FileStream fileStream)
     {
         X = x;
         Z = z;
-        ChunkHeaders = chunkHeaders;
+        ChunkStartOffsets = chunkStartOffsets;
         FileStream = fileStream;
     }
 
@@ -69,7 +69,7 @@ public class RegionFile : IDisposable
         FileStream.Dispose();
     }
 
-    private static IList<ChunkHeader> ParseRegionFileHeader(Stream stream)
+    private static IList<int> ParseRegionFileHeader(Stream stream)
         => ReadChunkHeaders(ReadHeaderBytes(stream));
 
     private static byte[] ReadHeaderBytes(Stream stream)
@@ -79,22 +79,29 @@ public class RegionFile : IDisposable
         return bytes;
     }
 
-    private static List<ChunkHeader> ReadChunkHeaders(byte[] headerBytes)
+    private static IList<int> ReadChunkHeaders(byte[] headerBytes)
     {
-        var chunkHeaders = new List<ChunkHeader>(1024);
+        var chunkOffsets = new List<int>();
 
         for (var i = 0; i < 4096; i += 4)
         {
-            var header = ParseChunkHeader(headerBytes, i);
-            if (header.Offset >= HeaderSize && header.Length > 0)
+            var offset = GetChunkOffset(headerBytes, i);
+            if (offset >= 0)
             {
-                chunkHeaders.Add(header);
+                chunkOffsets.Add(offset * 4096);
             }
         }
 
-        return chunkHeaders;
+        return chunkOffsets;
     }
 
-    private static ChunkHeader ParseChunkHeader(byte[] bytes, int offset)
-        => new(BitHelper.ToInt24(bytes, offset), bytes[offset + 3]);
+    private static int GetChunkOffset(byte[] bytes, int offset)
+    {
+        var chunkOffset = BitHelper.ToInt24(bytes, offset);
+        var length = bytes[offset + 3];
+
+        return length > 0
+            ? chunkOffset
+            : -1;
+    }
 }

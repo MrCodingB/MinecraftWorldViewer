@@ -96,7 +96,7 @@ public static class ChunkSectionParser
 
     private static Rgba32 GetPaletteBlockColor(NbtStream stream)
     {
-        var result = Block.BlockColor.Rgba32Transparent;
+        var result = Blocks.BlockColor.Rgba32Transparent;
 
         var type = stream.GetTagType();
 
@@ -107,7 +107,7 @@ public static class ChunkSectionParser
             if (type == TagType.String) // "Name" is only relevant field and only field of type TagType.String
             {
                 var name = stream.GetString();
-                result = Block.GetBlockColor(name);
+                result = Blocks.GetBlockColor(name);
             }
             else
             {

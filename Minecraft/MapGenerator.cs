@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Minecraft;
 
-public class MapGenerator
+public sealed class MapGenerator
 {
     private DirectoryInfo RegionsDirectory { get; }
 

@@ -3,7 +3,7 @@ using Minecraft.Utils;
 
 namespace Minecraft.Regions;
 
-public class ChunkParser
+public sealed class ChunkParser
 {
     private const byte Utf8CharCodeH = 72;
 

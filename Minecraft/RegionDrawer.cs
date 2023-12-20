@@ -7,7 +7,7 @@ using Utility;
 
 namespace Minecraft;
 
-public class RegionDrawer
+public sealed class RegionDrawer
 {
     private static Stopwatch RegionStopwatch { get; } = new();
 
@@ -25,16 +25,16 @@ public class RegionDrawer
     }
 
     public void DrawAndDisposeRegion(RegionFile region)
-        => TrackRegionProgress(() => DrawChunksParallel(region.ChunkHeaders, region.ReadFileAndDispose()));
+        => TrackRegionProgress(() => DrawChunksParallel(region.ChunkStartOffsets, region.ReadFileAndDispose()));
 
-    private void DrawChunksParallel(IEnumerable<ChunkHeader> chunkHeaders, byte[] bytes)
-        => Parallel.ForEach(chunkHeaders, header => TrackChunkProgress(() => DrawChunk(bytes, header.Offset)));
+    private void DrawChunksParallel(IEnumerable<int> chunkStartOffsets, byte[] bytes)
+        => Parallel.ForEach(chunkStartOffsets, offset => TrackChunkProgress(() => DrawChunk(bytes, offset)));
 
-    private void DrawChunks(IEnumerable<ChunkHeader> chunkHeaders, byte[] bytes)
+    private void DrawChunks(IEnumerable<int> chunkStartOffsets, byte[] bytes)
     {
-        foreach (var header in chunkHeaders)
+        foreach (var offset in chunkStartOffsets)
         {
-            TrackChunkProgress(() => DrawChunk(bytes, header.Offset));
+            TrackChunkProgress(() => DrawChunk(bytes, offset));
         }
     }
 

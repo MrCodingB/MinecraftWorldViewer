@@ -16,7 +16,7 @@ public abstract class ChunkSection
     public abstract Rgba32 this[int i] { get; }
 }
 
-public class VariedChunkSection : ChunkSection
+public sealed class VariedChunkSection : ChunkSection
 {
     private const int MaxBitsPerBlock = 12; // = lb(TotalBlocks) = lb(16 * 16 * 16)
 
@@ -77,7 +77,7 @@ public class VariedChunkSection : ChunkSection
     }
 }
 
-public class UniformChunkSection : ChunkSection
+public sealed class UniformChunkSection : ChunkSection
 {
     private readonly Rgba32 BlockColor;
 

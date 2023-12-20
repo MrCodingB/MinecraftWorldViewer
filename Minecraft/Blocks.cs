@@ -1,958 +1,999 @@
-﻿namespace Minecraft;
+﻿using SixLabors.ImageSharp.PixelFormats;
+
+namespace Minecraft;
 
 public static class Blocks
 {
-    public const string AcaciaButton = "minecraft:acacia_button";
-    public const string AcaciaDoor = "minecraft:acacia_door";
-    public const string AcaciaFence = "minecraft:acacia_fence";
-    public const string AcaciaFenceGate = "minecraft:acacia_fence_gate";
-    public const string AcaciaLeaves = "minecraft:acacia_leaves";
-    public const string AcaciaLog = "minecraft:acacia_log";
-    public const string AcaciaPlanks = "minecraft:acacia_planks";
-    public const string AcaciaPressurePlate = "minecraft:acacia_pressure_plate";
-    public const string AcaciaSapling = "minecraft:acacia_sapling";
-    public const string AcaciaSign = "minecraft:acacia_sign";
-    public const string AcaciaSlab = "minecraft:acacia_slab";
-    public const string AcaciaStairs = "minecraft:acacia_stairs";
-    public const string AcaciaTrapdoor = "minecraft:acacia_trapdoor";
-    public const string AcaciaWallSign = "minecraft:acacia_wall_sign";
-    public const string AcaciaWood = "minecraft:acacia_wood";
-    public const string ActivatorRail = "minecraft:activator_rail";
-    public const string Air = "minecraft:air";
-    public const string Allium = "minecraft:allium";
-    public const string AmethystBlock = "minecraft:amethyst_block";
-    public const string AmethystCluster = "minecraft:amethyst_cluster";
-    public const string AncientDebris = "minecraft:ancient_debris";
-    public const string Andesite = "minecraft:andesite";
-    public const string AndesiteSlab = "minecraft:andesite_slab";
-    public const string AndesiteStairs = "minecraft:andesite_stairs";
-    public const string AndesiteWall = "minecraft:andesite_wall";
-    public const string Anvil = "minecraft:anvil";
-    public const string AttachedMelonStem = "minecraft:attached_melon_stem";
-    public const string AttachedPumpkinStem = "minecraft:attached_pumpkin_stem";
-    public const string Azalea = "minecraft:azalea";
-    public const string AzaleaLeaves = "minecraft:azalea_leaves";
-    public const string AzureBluet = "minecraft:azure_bluet";
-    public const string Bamboo = "minecraft:bamboo";
-    public const string BambooBlock = "minecraft:bamboo_block";
-    public const string BambooMosaic = "minecraft:bamboo_mosaic";
-    public const string BambooPlanks = "minecraft:bamboo_planks";
-    public const string BambooSapling = "minecraft:bamboo_sapling";
-    public const string Barrel = "minecraft:barrel";
-    public const string Barrier = "minecraft:barrier";
-    public const string Basalt = "minecraft:basalt";
-    public const string Beacon = "minecraft:beacon";
-    public const string Bedrock = "minecraft:bedrock";
-    public const string BeeNest = "minecraft:bee_nest";
-    public const string Beehive = "minecraft:beehive";
-    public const string Beetroots = "minecraft:beetroots";
-    public const string Bell = "minecraft:bell";
-    public const string BigDripleaf = "minecraft:big_dripleaf";
-    public const string BigDripleafStem = "minecraft:big_dripleaf_stem";
-    public const string BirchButton = "minecraft:birch_button";
-    public const string BirchDoor = "minecraft:birch_door";
-    public const string BirchFence = "minecraft:birch_fence";
-    public const string BirchFenceGate = "minecraft:birch_fence_gate";
-    public const string BirchLeaves = "minecraft:birch_leaves";
-    public const string BirchLog = "minecraft:birch_log";
-    public const string BirchPlanks = "minecraft:birch_planks";
-    public const string BirchPressurePlate = "minecraft:birch_pressure_plate";
-    public const string BirchSapling = "minecraft:birch_sapling";
-    public const string BirchSign = "minecraft:birch_sign";
-    public const string BirchSlab = "minecraft:birch_slab";
-    public const string BirchStairs = "minecraft:birch_stairs";
-    public const string BirchTrapdoor = "minecraft:birch_trapdoor";
-    public const string BirchWallSign = "minecraft:birch_wall_sign";
-    public const string BirchWood = "minecraft:birch_wood";
-    public const string BlackBanner = "minecraft:black_banner";
-    public const string BlackBed = "minecraft:black_bed";
-    public const string BlackCandle = "minecraft:black_candle";
-    public const string BlackCandleCake = "minecraft:black_candle_cake";
-    public const string BlackCarpet = "minecraft:black_carpet";
-    public const string BlackConcrete = "minecraft:black_concrete";
-    public const string BlackConcretePowder = "minecraft:black_concrete_powder";
-    public const string BlackGlazedTerracotta = "minecraft:black_glazed_terracotta";
-    public const string BlackShulkerBox = "minecraft:black_shulker_box";
-    public const string BlackStainedGlass = "minecraft:black_stained_glass";
-    public const string BlackStainedGlassPane = "minecraft:black_stained_glass_pane";
-    public const string BlackTerracotta = "minecraft:black_terracotta";
-    public const string BlackWallBanner = "minecraft:black_wall_banner";
-    public const string BlackWool = "minecraft:black_wool";
-    public const string Blackstone = "minecraft:blackstone";
-    public const string BlackstoneSlab = "minecraft:blackstone_slab";
-    public const string BlackstoneStairs = "minecraft:blackstone_stairs";
-    public const string BlackstoneWall = "minecraft:blackstone_wall";
-    public const string BlastFurnace = "minecraft:blast_furnace";
-    public const string BlueBanner = "minecraft:blue_banner";
-    public const string BlueBed = "minecraft:blue_bed";
-    public const string BlueCandle = "minecraft:blue_candle";
-    public const string BlueCandleCake = "minecraft:blue_candle_cake";
-    public const string BlueCarpet = "minecraft:blue_carpet";
-    public const string BlueConcrete = "minecraft:blue_concrete";
-    public const string BlueConcretePowder = "minecraft:blue_concrete_powder";
-    public const string BlueGlazedTerracotta = "minecraft:blue_glazed_terracotta";
-    public const string BlueIce = "minecraft:blue_ice";
-    public const string BlueOrchid = "minecraft:blue_orchid";
-    public const string BlueShulkerBox = "minecraft:blue_shulker_box";
-    public const string BlueStainedGlass = "minecraft:blue_stained_glass";
-    public const string BlueStainedGlassPane = "minecraft:blue_stained_glass_pane";
-    public const string BlueTerracotta = "minecraft:blue_terracotta";
-    public const string BlueWallBanner = "minecraft:blue_wall_banner";
-    public const string BlueWool = "minecraft:blue_wool";
-    public const string BoneBlock = "minecraft:bone_block";
-    public const string Bookshelf = "minecraft:bookshelf";
-    public const string BrainCoral = "minecraft:brain_coral";
-    public const string BrainCoralBlock = "minecraft:brain_coral_block";
-    public const string BrainCoralFan = "minecraft:brain_coral_fan";
-    public const string BrainCoralWallFan = "minecraft:brain_coral_wall_fan";
-    public const string BrewingStand = "minecraft:brewing_stand";
-    public const string BrickSlab = "minecraft:brick_slab";
-    public const string BrickStairs = "minecraft:brick_stairs";
-    public const string BrickWall = "minecraft:brick_wall";
-    public const string Bricks = "minecraft:bricks";
-    public const string BrownBanner = "minecraft:brown_banner";
-    public const string BrownBed = "minecraft:brown_bed";
-    public const string BrownCandle = "minecraft:brown_candle";
-    public const string BrownCandleCake = "minecraft:brown_candle_cake";
-    public const string BrownCarpet = "minecraft:brown_carpet";
-    public const string BrownConcrete = "minecraft:brown_concrete";
-    public const string BrownConcretePowder = "minecraft:brown_concrete_powder";
-    public const string BrownGlazedTerracotta = "minecraft:brown_glazed_terracotta";
-    public const string BrownMushroom = "minecraft:brown_mushroom";
-    public const string BrownMushroomBlock = "minecraft:brown_mushroom_block";
-    public const string BrownShulkerBox = "minecraft:brown_shulker_box";
-    public const string BrownStainedGlass = "minecraft:brown_stained_glass";
-    public const string BrownStainedGlassPane = "minecraft:brown_stained_glass_pane";
-    public const string BrownTerracotta = "minecraft:brown_terracotta";
-    public const string BrownWallBanner = "minecraft:brown_wall_banner";
-    public const string BrownWool = "minecraft:brown_wool";
-    public const string BubbleColumn = "minecraft:bubble_column";
-    public const string BubbleCoral = "minecraft:bubble_coral";
-    public const string BubbleCoralBlock = "minecraft:bubble_coral_block";
-    public const string BubbleCoralFan = "minecraft:bubble_coral_fan";
-    public const string BubbleCoralWallFan = "minecraft:bubble_coral_wall_fan";
-    public const string BuddingAmethyst = "minecraft:budding_amethyst";
-    public const string Cactus = "minecraft:cactus";
-    public const string Cake = "minecraft:cake";
-    public const string Calcite = "minecraft:calcite";
-    public const string CalibratedSculkSensor = "minecraft:calibrated_sculk_sensor";
-    public const string Campfire = "minecraft:campfire";
-    public const string Candle = "minecraft:candle";
-    public const string CandleCake = "minecraft:candle_cake";
-    public const string Carrots = "minecraft:carrots";
-    public const string CartographyTable = "minecraft:cartography_table";
-    public const string CarvedPumpkin = "minecraft:carved_pumpkin";
-    public const string Cauldron = "minecraft:cauldron";
-    public const string CaveAir = "minecraft:cave_air";
-    public const string CaveVines = "minecraft:cave_vines";
-    public const string CaveVinesPlant = "minecraft:cave_vines_plant";
-    public const string Chain = "minecraft:chain";
-    public const string ChainCommandBlock = "minecraft:chain_command_block";
-    public const string CherryButton = "minecraft:cherry_button";
-    public const string CherryDoor = "minecraft:cherry_door";
-    public const string CherryDoubleSlab = "minecraft:cherry_double_slab";
-    public const string CherryFence = "minecraft:cherry_fence";
-    public const string CherryLeaves = "minecraft:cherry_leaves";
-    public const string CherryLog = "minecraft:cherry_log";
-    public const string CherryPlanks = "minecraft:cherry_planks";
-    public const string CherryPressurePlate = "minecraft:cherry_pressure_plate";
-    public const string CherrySapling = "minecraft:cherry_sapling";
-    public const string CherrySign = "minecraft:cherry_sign";
-    public const string CherrySlab = "minecraft:cherry_slab";
-    public const string CherryStairs = "minecraft:cherry_stairs";
-    public const string CherryTrapdoor = "minecraft:cherry_trapdoor";
-    public const string CherryWallSign = "minecraft:cherry_wall_sign";
-    public const string CherryWood = "minecraft:cherry_wood";
-    public const string Chest = "minecraft:chest";
-    public const string ChippedAnvil = "minecraft:chipped_anvil";
-    public const string ChiseledBookshelf = "minecraft:chiseled_bookshelf";
-    public const string ChiseledDeepslate = "minecraft:chiseled_deepslate";
-    public const string ChiseledNetherBricks = "minecraft:chiseled_nether_bricks";
-    public const string ChiseledPolishedBlackstone = "minecraft:chiseled_polished_blackstone";
-    public const string ChiseledQuartzBlock = "minecraft:chiseled_quartz_block";
-    public const string ChiseledRedSandstone = "minecraft:chiseled_red_sandstone";
-    public const string ChiseledSandstone = "minecraft:chiseled_sandstone";
-    public const string ChiseledStoneBricks = "minecraft:chiseled_stone_bricks";
-    public const string ChorusFlower = "minecraft:chorus_flower";
-    public const string ChorusPlant = "minecraft:chorus_plant";
-    public const string Clay = "minecraft:clay";
-    public const string CoalBlock = "minecraft:coal_block";
-    public const string CoalOre = "minecraft:coal_ore";
-    public const string CoarseDirt = "minecraft:coarse_dirt";
-    public const string CobbledDeepslate = "minecraft:cobbled_deepslate";
-    public const string CobbledDeepslateSlab = "minecraft:cobbled_deepslate_slab";
-    public const string CobbledDeepslateStairs = "minecraft:cobbled_deepslate_stairs";
-    public const string CobbledDeepslateWall = "minecraft:cobbled_deepslate_wall";
-    public const string Cobblestone = "minecraft:cobblestone";
-    public const string CobblestoneSlab = "minecraft:cobblestone_slab";
-    public const string CobblestoneStairs = "minecraft:cobblestone_stairs";
-    public const string CobblestoneWall = "minecraft:cobblestone_wall";
-    public const string Cobweb = "minecraft:cobweb";
-    public const string Cocoa = "minecraft:cocoa";
-    public const string CommandBlock = "minecraft:command_block";
-    public const string Comparator = "minecraft:comparator";
-    public const string Composter = "minecraft:composter";
-    public const string Conduit = "minecraft:conduit";
-    public const string CopperBlock = "minecraft:copper_block";
-    public const string CopperOre = "minecraft:copper_ore";
-    public const string Cornflower = "minecraft:cornflower";
-    public const string CrackedDeepslateBricks = "minecraft:cracked_deepslate_bricks";
-    public const string CrackedDeepslateTiles = "minecraft:cracked_deepslate_tiles";
-    public const string CrackedNetherBricks = "minecraft:cracked_nether_bricks";
-    public const string CrackedPolishedBlackstoneBricks = "minecraft:cracked_polished_blackstone_bricks";
-    public const string CrackedStoneBricks = "minecraft:cracked_stone_bricks";
-    public const string CraftingTable = "minecraft:crafting_table";
-    public const string CreeperHead = "minecraft:creeper_head";
-    public const string CreeperWallHead = "minecraft:creeper_wall_head";
-    public const string CrimsonButton = "minecraft:crimson_button";
-    public const string CrimsonDoor = "minecraft:crimson_door";
-    public const string CrimsonFence = "minecraft:crimson_fence";
-    public const string CrimsonFenceGate = "minecraft:crimson_fence_gate";
-    public const string CrimsonFungus = "minecraft:crimson_fungus";
-    public const string CrimsonHyphae = "minecraft:crimson_hyphae";
-    public const string CrimsonNylium = "minecraft:crimson_nylium";
-    public const string CrimsonPlanks = "minecraft:crimson_planks";
-    public const string CrimsonPressurePlate = "minecraft:crimson_pressure_plate";
-    public const string CrimsonRoots = "minecraft:crimson_roots";
-    public const string CrimsonSign = "minecraft:crimson_sign";
-    public const string CrimsonSlab = "minecraft:crimson_slab";
-    public const string CrimsonStairs = "minecraft:crimson_stairs";
-    public const string CrimsonStem = "minecraft:crimson_stem";
-    public const string CrimsonTrapdoor = "minecraft:crimson_trapdoor";
-    public const string CrimsonWallSign = "minecraft:crimson_wall_sign";
-    public const string CryingObsidian = "minecraft:crying_obsidian";
-    public const string CutCopper = "minecraft:cut_copper";
-    public const string CutCopperSlab = "minecraft:cut_copper_slab";
-    public const string CutCopperStairs = "minecraft:cut_copper_stairs";
-    public const string CutRedSandstone = "minecraft:cut_red_sandstone";
-    public const string CutRedSandstoneSlab = "minecraft:cut_red_sandstone_slab";
-    public const string CutSandstone = "minecraft:cut_sandstone";
-    public const string CutSandstoneSlab = "minecraft:cut_sandstone_slab";
-    public const string CyanBanner = "minecraft:cyan_banner";
-    public const string CyanBed = "minecraft:cyan_bed";
-    public const string CyanCandle = "minecraft:cyan_candle";
-    public const string CyanCandleCake = "minecraft:cyan_candle_cake";
-    public const string CyanCarpet = "minecraft:cyan_carpet";
-    public const string CyanConcrete = "minecraft:cyan_concrete";
-    public const string CyanConcretePowder = "minecraft:cyan_concrete_powder";
-    public const string CyanGlazedTerracotta = "minecraft:cyan_glazed_terracotta";
-    public const string CyanShulkerBox = "minecraft:cyan_shulker_box";
-    public const string CyanStainedGlass = "minecraft:cyan_stained_glass";
-    public const string CyanStainedGlassPane = "minecraft:cyan_stained_glass_pane";
-    public const string CyanTerracotta = "minecraft:cyan_terracotta";
-    public const string CyanWallBanner = "minecraft:cyan_wall_banner";
-    public const string CyanWool = "minecraft:cyan_wool";
-    public const string DamagedAnvil = "minecraft:damaged_anvil";
-    public const string Dandelion = "minecraft:dandelion";
-    public const string DarkOakButton = "minecraft:dark_oak_button";
-    public const string DarkOakDoor = "minecraft:dark_oak_door";
-    public const string DarkOakFence = "minecraft:dark_oak_fence";
-    public const string DarkOakFenceGate = "minecraft:dark_oak_fence_gate";
-    public const string DarkOakLeaves = "minecraft:dark_oak_leaves";
-    public const string DarkOakLog = "minecraft:dark_oak_log";
-    public const string DarkOakPlanks = "minecraft:dark_oak_planks";
-    public const string DarkOakPressurePlate = "minecraft:dark_oak_pressure_plate";
-    public const string DarkOakSapling = "minecraft:dark_oak_sapling";
-    public const string DarkOakSign = "minecraft:dark_oak_sign";
-    public const string DarkOakSlab = "minecraft:dark_oak_slab";
-    public const string DarkOakStairs = "minecraft:dark_oak_stairs";
-    public const string DarkOakTrapdoor = "minecraft:dark_oak_trapdoor";
-    public const string DarkOakWallSign = "minecraft:dark_oak_wall_sign";
-    public const string DarkOakWood = "minecraft:dark_oak_wood";
-    public const string DarkPrismarine = "minecraft:dark_prismarine";
-    public const string DarkPrismarineSlab = "minecraft:dark_prismarine_slab";
-    public const string DarkPrismarineStairs = "minecraft:dark_prismarine_stairs";
-    public const string DaylightDetector = "minecraft:daylight_detector";
-    public const string DeadBrainCoral = "minecraft:dead_brain_coral";
-    public const string DeadBrainCoralBlock = "minecraft:dead_brain_coral_block";
-    public const string DeadBrainCoralFan = "minecraft:dead_brain_coral_fan";
-    public const string DeadBrainCoralWallFan = "minecraft:dead_brain_coral_wall_fan";
-    public const string DeadBubbleCoral = "minecraft:dead_bubble_coral";
-    public const string DeadBubbleCoralBlock = "minecraft:dead_bubble_coral_block";
-    public const string DeadBubbleCoralFan = "minecraft:dead_bubble_coral_fan";
-    public const string DeadBubbleCoralWallFan = "minecraft:dead_bubble_coral_wall_fan";
-    public const string DeadBush = "minecraft:dead_bush";
-    public const string DeadFireCoral = "minecraft:dead_fire_coral";
-    public const string DeadFireCoralBlock = "minecraft:dead_fire_coral_block";
-    public const string DeadFireCoralFan = "minecraft:dead_fire_coral_fan";
-    public const string DeadFireCoralWallFan = "minecraft:dead_fire_coral_wall_fan";
-    public const string DeadHornCoral = "minecraft:dead_horn_coral";
-    public const string DeadHornCoralBlock = "minecraft:dead_horn_coral_block";
-    public const string DeadHornCoralFan = "minecraft:dead_horn_coral_fan";
-    public const string DeadHornCoralWallFan = "minecraft:dead_horn_coral_wall_fan";
-    public const string DeadTubeCoral = "minecraft:dead_tube_coral";
-    public const string DeadTubeCoralBlock = "minecraft:dead_tube_coral_block";
-    public const string DeadTubeCoralFan = "minecraft:dead_tube_coral_fan";
-    public const string DeadTubeCoralWallFan = "minecraft:dead_tube_coral_wall_fan";
-    public const string Deepslate = "minecraft:deepslate";
-    public const string DeepslateBrickSlab = "minecraft:deepslate_brick_slab";
-    public const string DeepslateBrickStairs = "minecraft:deepslate_brick_stairs";
-    public const string DeepslateBrickWall = "minecraft:deepslate_brick_wall";
-    public const string DeepslateBricks = "minecraft:deepslate_bricks";
-    public const string DeepslateCoalOre = "minecraft:deepslate_coal_ore";
-    public const string DeepslateCopperOre = "minecraft:deepslate_copper_ore";
-    public const string DeepslateDiamondOre = "minecraft:deepslate_diamond_ore";
-    public const string DeepslateEmeraldOre = "minecraft:deepslate_emerald_ore";
-    public const string DeepslateGoldOre = "minecraft:deepslate_gold_ore";
-    public const string DeepslateIronOre = "minecraft:deepslate_iron_ore";
-    public const string DeepslateLapisOre = "minecraft:deepslate_lapis_ore";
-    public const string DeepslateRedstoneOre = "minecraft:deepslate_redstone_ore";
-    public const string DeepslateTileSlab = "minecraft:deepslate_tile_slab";
-    public const string DeepslateTileStairs = "minecraft:deepslate_tile_stairs";
-    public const string DeepslateTileWall = "minecraft:deepslate_tile_wall";
-    public const string DeepslateTiles = "minecraft:deepslate_tiles";
-    public const string DetectorRail = "minecraft:detector_rail";
-    public const string DiamondBlock = "minecraft:diamond_block";
-    public const string DiamondOre = "minecraft:diamond_ore";
-    public const string Diorite = "minecraft:diorite";
-    public const string DioriteSlab = "minecraft:diorite_slab";
-    public const string DioriteStairs = "minecraft:diorite_stairs";
-    public const string DioriteWall = "minecraft:diorite_wall";
-    public const string Dirt = "minecraft:dirt";
-    public const string DirtPath = "minecraft:dirt_path";
-    public const string Dispenser = "minecraft:dispenser";
-    public const string DragonEgg = "minecraft:dragon_egg";
-    public const string DragonHead = "minecraft:dragon_head";
-    public const string DragonWallHead = "minecraft:dragon_wall_head";
-    public const string DriedKelpBlock = "minecraft:dried_kelp_block";
-    public const string DripstoneBlock = "minecraft:dripstone_block";
-    public const string Dropper = "minecraft:dropper";
-    public const string EmeraldBlock = "minecraft:emerald_block";
-    public const string EmeraldOre = "minecraft:emerald_ore";
-    public const string EnchantingTable = "minecraft:enchanting_table";
-    public const string EndGateway = "minecraft:end_gateway";
-    public const string EndPortal = "minecraft:end_portal";
-    public const string EndPortalFrame = "minecraft:end_portal_frame";
-    public const string EndRod = "minecraft:end_rod";
-    public const string EndStone = "minecraft:end_stone";
-    public const string EndStoneBrickSlab = "minecraft:end_stone_brick_slab";
-    public const string EndStoneBrickStairs = "minecraft:end_stone_brick_stairs";
-    public const string EndStoneBrickWall = "minecraft:end_stone_brick_wall";
-    public const string EndStoneBricks = "minecraft:end_stone_bricks";
-    public const string EnderChest = "minecraft:ender_chest";
-    public const string ExposedCopper = "minecraft:exposed_copper";
-    public const string ExposedCutCopper = "minecraft:exposed_cut_copper";
-    public const string ExposedCutCopperSlab = "minecraft:exposed_cut_copper_slab";
-    public const string ExposedCutCopperStairs = "minecraft:exposed_cut_copper_stairs";
-    public const string Farmland = "minecraft:farmland";
-    public const string Fern = "minecraft:fern";
-    public const string Fire = "minecraft:fire";
-    public const string FireCoral = "minecraft:fire_coral";
-    public const string FireCoralBlock = "minecraft:fire_coral_block";
-    public const string FireCoralFan = "minecraft:fire_coral_fan";
-    public const string FireCoralWallFan = "minecraft:fire_coral_wall_fan";
-    public const string FletchingTable = "minecraft:fletching_table";
-    public const string FlowerPot = "minecraft:flower_pot";
-    public const string FloweringAzalea = "minecraft:flowering_azalea";
-    public const string FloweringAzaleaLeaves = "minecraft:flowering_azalea_leaves";
-    public const string FrostedIce = "minecraft:frosted_ice";
-    public const string Furnace = "minecraft:furnace";
-    public const string GildedBlackstone = "minecraft:gilded_blackstone";
-    public const string Glass = "minecraft:glass";
-    public const string GlassPane = "minecraft:glass_pane";
-    public const string GlowLichen = "minecraft:glow_lichen";
-    public const string Glowstone = "minecraft:glowstone";
-    public const string GoldBlock = "minecraft:gold_block";
-    public const string GoldOre = "minecraft:gold_ore";
-    public const string Granite = "minecraft:granite";
-    public const string GraniteSlab = "minecraft:granite_slab";
-    public const string GraniteStairs = "minecraft:granite_stairs";
-    public const string GraniteWall = "minecraft:granite_wall";
-    public const string Grass = "minecraft:grass";
-    public const string GrassBlock = "minecraft:grass_block";
-    public const string GrassPath = "minecraft:grass_path";
-    public const string Gravel = "minecraft:gravel";
-    public const string GrayBanner = "minecraft:gray_banner";
-    public const string GrayBed = "minecraft:gray_bed";
-    public const string GrayCandle = "minecraft:gray_candle";
-    public const string GrayCandleCake = "minecraft:gray_candle_cake";
-    public const string GrayCarpet = "minecraft:gray_carpet";
-    public const string GrayConcrete = "minecraft:gray_concrete";
-    public const string GrayConcretePowder = "minecraft:gray_concrete_powder";
-    public const string GrayGlazedTerracotta = "minecraft:gray_glazed_terracotta";
-    public const string GrayShulkerBox = "minecraft:gray_shulker_box";
-    public const string GrayStainedGlass = "minecraft:gray_stained_glass";
-    public const string GrayStainedGlassPane = "minecraft:gray_stained_glass_pane";
-    public const string GrayTerracotta = "minecraft:gray_terracotta";
-    public const string GrayWallBanner = "minecraft:gray_wall_banner";
-    public const string GrayWool = "minecraft:gray_wool";
-    public const string GreenBanner = "minecraft:green_banner";
-    public const string GreenBed = "minecraft:green_bed";
-    public const string GreenCandle = "minecraft:green_candle";
-    public const string GreenCandleCake = "minecraft:green_candle_cake";
-    public const string GreenCarpet = "minecraft:green_carpet";
-    public const string GreenConcrete = "minecraft:green_concrete";
-    public const string GreenConcretePowder = "minecraft:green_concrete_powder";
-    public const string GreenGlazedTerracotta = "minecraft:green_glazed_terracotta";
-    public const string GreenShulkerBox = "minecraft:green_shulker_box";
-    public const string GreenStainedGlass = "minecraft:green_stained_glass";
-    public const string GreenStainedGlassPane = "minecraft:green_stained_glass_pane";
-    public const string GreenTerracotta = "minecraft:green_terracotta";
-    public const string GreenWallBanner = "minecraft:green_wall_banner";
-    public const string GreenWool = "minecraft:green_wool";
-    public const string Grindstone = "minecraft:grindstone";
-    public const string HangingRoots = "minecraft:hanging_roots";
-    public const string HayBlock = "minecraft:hay_block";
-    public const string HeavyWeightedPressurePlate = "minecraft:heavy_weighted_pressure_plate";
-    public const string HoneyBlock = "minecraft:honey_block";
-    public const string HoneycombBlock = "minecraft:honeycomb_block";
-    public const string Hopper = "minecraft:hopper";
-    public const string HornCoral = "minecraft:horn_coral";
-    public const string HornCoralBlock = "minecraft:horn_coral_block";
-    public const string HornCoralFan = "minecraft:horn_coral_fan";
-    public const string HornCoralWallFan = "minecraft:horn_coral_wall_fan";
-    public const string Ice = "minecraft:ice";
-    public const string InfestedChiseledStoneBricks = "minecraft:infested_chiseled_stone_bricks";
-    public const string InfestedCobblestone = "minecraft:infested_cobblestone";
-    public const string InfestedCrackedStoneBricks = "minecraft:infested_cracked_stone_bricks";
-    public const string InfestedDeepslate = "minecraft:infested_deepslate";
-    public const string InfestedMossyStoneBricks = "minecraft:infested_mossy_stone_bricks";
-    public const string InfestedStone = "minecraft:infested_stone";
-    public const string InfestedStoneBricks = "minecraft:infested_stone_bricks";
-    public const string IronBars = "minecraft:iron_bars";
-    public const string IronBlock = "minecraft:iron_block";
-    public const string IronDoor = "minecraft:iron_door";
-    public const string IronOre = "minecraft:iron_ore";
-    public const string IronTrapdoor = "minecraft:iron_trapdoor";
-    public const string JackOLantern = "minecraft:jack_o_lantern";
-    public const string Jigsaw = "minecraft:jigsaw";
-    public const string Jukebox = "minecraft:jukebox";
-    public const string JungleButton = "minecraft:jungle_button";
-    public const string JungleDoor = "minecraft:jungle_door";
-    public const string JungleFence = "minecraft:jungle_fence";
-    public const string JungleFenceGate = "minecraft:jungle_fence_gate";
-    public const string JungleLeaves = "minecraft:jungle_leaves";
-    public const string JungleLog = "minecraft:jungle_log";
-    public const string JunglePlanks = "minecraft:jungle_planks";
-    public const string JunglePressurePlate = "minecraft:jungle_pressure_plate";
-    public const string JungleSapling = "minecraft:jungle_sapling";
-    public const string JungleSign = "minecraft:jungle_sign";
-    public const string JungleSlab = "minecraft:jungle_slab";
-    public const string JungleStairs = "minecraft:jungle_stairs";
-    public const string JungleTrapdoor = "minecraft:jungle_trapdoor";
-    public const string JungleWallSign = "minecraft:jungle_wall_sign";
-    public const string JungleWood = "minecraft:jungle_wood";
-    public const string Kelp = "minecraft:kelp";
-    public const string KelpPlant = "minecraft:kelp_plant";
-    public const string Ladder = "minecraft:ladder";
-    public const string Lantern = "minecraft:lantern";
-    public const string LapisBlock = "minecraft:lapis_block";
-    public const string LapisOre = "minecraft:lapis_ore";
-    public const string LargeAmethystBud = "minecraft:large_amethyst_bud";
-    public const string LargeFern = "minecraft:large_fern";
-    public const string Lava = "minecraft:lava";
-    public const string LavaCauldron = "minecraft:lava_cauldron";
-    public const string Lectern = "minecraft:lectern";
-    public const string Lever = "minecraft:lever";
-    public const string Light = "minecraft:light";
-    public const string LightBlueBanner = "minecraft:light_blue_banner";
-    public const string LightBlueBed = "minecraft:light_blue_bed";
-    public const string LightBlueCandle = "minecraft:light_blue_candle";
-    public const string LightBlueCandleCake = "minecraft:light_blue_candle_cake";
-    public const string LightBlueCarpet = "minecraft:light_blue_carpet";
-    public const string LightBlueConcrete = "minecraft:light_blue_concrete";
-    public const string LightBlueConcretePowder = "minecraft:light_blue_concrete_powder";
-    public const string LightBlueGlazedTerracotta = "minecraft:light_blue_glazed_terracotta";
-    public const string LightBlueShulkerBox = "minecraft:light_blue_shulker_box";
-    public const string LightBlueStainedGlass = "minecraft:light_blue_stained_glass";
-    public const string LightBlueStainedGlassPane = "minecraft:light_blue_stained_glass_pane";
-    public const string LightBlueTerracotta = "minecraft:light_blue_terracotta";
-    public const string LightBlueWallBanner = "minecraft:light_blue_wall_banner";
-    public const string LightBlueWool = "minecraft:light_blue_wool";
-    public const string LightGrayBanner = "minecraft:light_gray_banner";
-    public const string LightGrayBed = "minecraft:light_gray_bed";
-    public const string LightGrayCandle = "minecraft:light_gray_candle";
-    public const string LightGrayCandleCake = "minecraft:light_gray_candle_cake";
-    public const string LightGrayCarpet = "minecraft:light_gray_carpet";
-    public const string LightGrayConcrete = "minecraft:light_gray_concrete";
-    public const string LightGrayConcretePowder = "minecraft:light_gray_concrete_powder";
-    public const string LightGrayGlazedTerracotta = "minecraft:light_gray_glazed_terracotta";
-    public const string LightGrayShulkerBox = "minecraft:light_gray_shulker_box";
-    public const string LightGrayStainedGlass = "minecraft:light_gray_stained_glass";
-    public const string LightGrayStainedGlassPane = "minecraft:light_gray_stained_glass_pane";
-    public const string LightGrayTerracotta = "minecraft:light_gray_terracotta";
-    public const string LightGrayWallBanner = "minecraft:light_gray_wall_banner";
-    public const string LightGrayWool = "minecraft:light_gray_wool";
-    public const string LightWeightedPressurePlate = "minecraft:light_weighted_pressure_plate";
-    public const string LightningRod = "minecraft:lightning_rod";
-    public const string Lilac = "minecraft:lilac";
-    public const string LilyOfTheValley = "minecraft:lily_of_the_valley";
-    public const string LilyPad = "minecraft:lily_pad";
-    public const string LimeBanner = "minecraft:lime_banner";
-    public const string LimeBed = "minecraft:lime_bed";
-    public const string LimeCandle = "minecraft:lime_candle";
-    public const string LimeCandleCake = "minecraft:lime_candle_cake";
-    public const string LimeCarpet = "minecraft:lime_carpet";
-    public const string LimeConcrete = "minecraft:lime_concrete";
-    public const string LimeConcretePowder = "minecraft:lime_concrete_powder";
-    public const string LimeGlazedTerracotta = "minecraft:lime_glazed_terracotta";
-    public const string LimeShulkerBox = "minecraft:lime_shulker_box";
-    public const string LimeStainedGlass = "minecraft:lime_stained_glass";
-    public const string LimeStainedGlassPane = "minecraft:lime_stained_glass_pane";
-    public const string LimeTerracotta = "minecraft:lime_terracotta";
-    public const string LimeWallBanner = "minecraft:lime_wall_banner";
-    public const string LimeWool = "minecraft:lime_wool";
-    public const string Lodestone = "minecraft:lodestone";
-    public const string Loom = "minecraft:loom";
-    public const string MagentaBanner = "minecraft:magenta_banner";
-    public const string MagentaBed = "minecraft:magenta_bed";
-    public const string MagentaCandle = "minecraft:magenta_candle";
-    public const string MagentaCandleCake = "minecraft:magenta_candle_cake";
-    public const string MagentaCarpet = "minecraft:magenta_carpet";
-    public const string MagentaConcrete = "minecraft:magenta_concrete";
-    public const string MagentaConcretePowder = "minecraft:magenta_concrete_powder";
-    public const string MagentaGlazedTerracotta = "minecraft:magenta_glazed_terracotta";
-    public const string MagentaShulkerBox = "minecraft:magenta_shulker_box";
-    public const string MagentaStainedGlass = "minecraft:magenta_stained_glass";
-    public const string MagentaStainedGlassPane = "minecraft:magenta_stained_glass_pane";
-    public const string MagentaTerracotta = "minecraft:magenta_terracotta";
-    public const string MagentaWallBanner = "minecraft:magenta_wall_banner";
-    public const string MagentaWool = "minecraft:magenta_wool";
-    public const string MagmaBlock = "minecraft:magma_block";
-    public const string MangroveDoor = "minecraft:mangrove_door";
-    public const string MangroveDoubleSlab = "minecraft:mangrove_double_slab";
-    public const string MangroveFence = "minecraft:mangrove_fence";
-    public const string MangroveFenceGate = "minecraft:mangrove_fence_gate";
-    public const string MangroveLeaves = "minecraft:mangrove_leaves";
-    public const string MangroveLog = "minecraft:mangrove_log";
-    public const string MangrovePlanks = "minecraft:mangrove_planks";
-    public const string MangrovePropagule = "minecraft:mangrove_propagule";
-    public const string MangroveRoots = "minecraft:mangrove_roots";
-    public const string MangroveSign = "minecraft:mangrove_sign";
-    public const string MangroveSlab = "minecraft:mangrove_slab";
-    public const string MangroveStairs = "minecraft:mangrove_stairs";
-    public const string MangroveTrapdoor = "minecraft:mangrove_trapdoor";
-    public const string MangroveWood = "minecraft:mangrove_wood";
-    public const string MediumAmethystBud = "minecraft:medium_amethyst_bud";
-    public const string Melon = "minecraft:melon";
-    public const string MelonStem = "minecraft:melon_stem";
-    public const string MossBlock = "minecraft:moss_block";
-    public const string MossCarpet = "minecraft:moss_carpet";
-    public const string MossyCobblestone = "minecraft:mossy_cobblestone";
-    public const string MossyCobblestoneSlab = "minecraft:mossy_cobblestone_slab";
-    public const string MossyCobblestoneStairs = "minecraft:mossy_cobblestone_stairs";
-    public const string MossyCobblestoneWall = "minecraft:mossy_cobblestone_wall";
-    public const string MossyStoneBrickSlab = "minecraft:mossy_stone_brick_slab";
-    public const string MossyStoneBrickStairs = "minecraft:mossy_stone_brick_stairs";
-    public const string MossyStoneBrickWall = "minecraft:mossy_stone_brick_wall";
-    public const string MossyStoneBricks = "minecraft:mossy_stone_bricks";
-    public const string MovingPiston = "minecraft:moving_piston";
-    public const string Mud = "minecraft:mud";
-    public const string MudBrickDoubleSlab = "minecraft:mud_brick_double_slab";
-    public const string MudBricks = "minecraft:mud_bricks";
-    public const string MudBrickSlab = "minecraft:mud_brick_slab";
-    public const string MudBrickStairs = "minecraft:mud_brick_stairs";
-    public const string MudBrickWall = "minecraft:mud_brick_wall";
-    public const string MushroomStem = "minecraft:mushroom_stem";
-    public const string Mycelium = "minecraft:mycelium";
-    public const string NetherBrickFence = "minecraft:nether_brick_fence";
-    public const string NetherBrickSlab = "minecraft:nether_brick_slab";
-    public const string NetherBrickStairs = "minecraft:nether_brick_stairs";
-    public const string NetherBrickWall = "minecraft:nether_brick_wall";
-    public const string NetherBricks = "minecraft:nether_bricks";
-    public const string NetherGoldOre = "minecraft:nether_gold_ore";
-    public const string NetherPortal = "minecraft:nether_portal";
-    public const string NetherQuartzOre = "minecraft:nether_quartz_ore";
-    public const string NetherSprouts = "minecraft:nether_sprouts";
-    public const string NetherWart = "minecraft:nether_wart";
-    public const string NetherWartBlock = "minecraft:nether_wart_block";
-    public const string NetheriteBlock = "minecraft:netherite_block";
-    public const string Netherrack = "minecraft:netherrack";
-    public const string NoteBlock = "minecraft:note_block";
-    public const string OakButton = "minecraft:oak_button";
-    public const string OakDoor = "minecraft:oak_door";
-    public const string OakFence = "minecraft:oak_fence";
-    public const string OakFenceGate = "minecraft:oak_fence_gate";
-    public const string OakLeaves = "minecraft:oak_leaves";
-    public const string OakLog = "minecraft:oak_log";
-    public const string OakPlanks = "minecraft:oak_planks";
-    public const string OakPressurePlate = "minecraft:oak_pressure_plate";
-    public const string OakSapling = "minecraft:oak_sapling";
-    public const string OakSign = "minecraft:oak_sign";
-    public const string OakSlab = "minecraft:oak_slab";
-    public const string OakStairs = "minecraft:oak_stairs";
-    public const string OakTrapdoor = "minecraft:oak_trapdoor";
-    public const string OakWallSign = "minecraft:oak_wall_sign";
-    public const string OakWood = "minecraft:oak_wood";
-    public const string Observer = "minecraft:observer";
-    public const string Obsidian = "minecraft:obsidian";
-    public const string OrangeBanner = "minecraft:orange_banner";
-    public const string OrangeBed = "minecraft:orange_bed";
-    public const string OrangeCandle = "minecraft:orange_candle";
-    public const string OrangeCandleCake = "minecraft:orange_candle_cake";
-    public const string OrangeCarpet = "minecraft:orange_carpet";
-    public const string OrangeConcrete = "minecraft:orange_concrete";
-    public const string OrangeConcretePowder = "minecraft:orange_concrete_powder";
-    public const string OrangeGlazedTerracotta = "minecraft:orange_glazed_terracotta";
-    public const string OrangeShulkerBox = "minecraft:orange_shulker_box";
-    public const string OrangeStainedGlass = "minecraft:orange_stained_glass";
-    public const string OrangeStainedGlassPane = "minecraft:orange_stained_glass_pane";
-    public const string OrangeTerracotta = "minecraft:orange_terracotta";
-    public const string OrangeTulip = "minecraft:orange_tulip";
-    public const string OrangeWallBanner = "minecraft:orange_wall_banner";
-    public const string OrangeWool = "minecraft:orange_wool";
-    public const string OxeyeDaisy = "minecraft:oxeye_daisy";
-    public const string OxidizedCopper = "minecraft:oxidized_copper";
-    public const string OxidizedCutCopper = "minecraft:oxidized_cut_copper";
-    public const string OxidizedCutCopperSlab = "minecraft:oxidized_cut_copper_slab";
-    public const string OxidizedCutCopperStairs = "minecraft:oxidized_cut_copper_stairs";
-    public const string PackedIce = "minecraft:packed_ice";
-    public const string PackedMud = "minecraft:packed_mud";
-    public const string Peony = "minecraft:peony";
-    public const string PetrifiedOakSlab = "minecraft:petrified_oak_slab";
-    public const string PinkBanner = "minecraft:pink_banner";
-    public const string PinkBed = "minecraft:pink_bed";
-    public const string PinkCandle = "minecraft:pink_candle";
-    public const string PinkCandleCake = "minecraft:pink_candle_cake";
-    public const string PinkCarpet = "minecraft:pink_carpet";
-    public const string PinkConcrete = "minecraft:pink_concrete";
-    public const string PinkConcretePowder = "minecraft:pink_concrete_powder";
-    public const string PinkGlazedTerracotta = "minecraft:pink_glazed_terracotta";
-    public const string PinkPetals = "minecraft:pink_petals";
-    public const string PinkShulkerBox = "minecraft:pink_shulker_box";
-    public const string PinkStainedGlass = "minecraft:pink_stained_glass";
-    public const string PinkStainedGlassPane = "minecraft:pink_stained_glass_pane";
-    public const string PinkTerracotta = "minecraft:pink_terracotta";
-    public const string PinkTulip = "minecraft:pink_tulip";
-    public const string PinkWallBanner = "minecraft:pink_wall_banner";
-    public const string PinkWool = "minecraft:pink_wool";
-    public const string Piston = "minecraft:piston";
-    public const string PistonHead = "minecraft:piston_head";
-    public const string PlayerHead = "minecraft:player_head";
-    public const string PlayerWallHead = "minecraft:player_wall_head";
-    public const string Podzol = "minecraft:podzol";
-    public const string PointedDripstone = "minecraft:pointed_dripstone";
-    public const string PolishedAndesite = "minecraft:polished_andesite";
-    public const string PolishedAndesiteSlab = "minecraft:polished_andesite_slab";
-    public const string PolishedAndesiteStairs = "minecraft:polished_andesite_stairs";
-    public const string PolishedBasalt = "minecraft:polished_basalt";
-    public const string PolishedBlackstone = "minecraft:polished_blackstone";
-    public const string PolishedBlackstoneBrickSlab = "minecraft:polished_blackstone_brick_slab";
-    public const string PolishedBlackstoneBrickStairs = "minecraft:polished_blackstone_brick_stairs";
-    public const string PolishedBlackstoneBrickWall = "minecraft:polished_blackstone_brick_wall";
-    public const string PolishedBlackstoneBricks = "minecraft:polished_blackstone_bricks";
-    public const string PolishedBlackstoneButton = "minecraft:polished_blackstone_button";
-    public const string PolishedBlackstonePressurePlate = "minecraft:polished_blackstone_pressure_plate";
-    public const string PolishedBlackstoneSlab = "minecraft:polished_blackstone_slab";
-    public const string PolishedBlackstoneStairs = "minecraft:polished_blackstone_stairs";
-    public const string PolishedBlackstoneWall = "minecraft:polished_blackstone_wall";
-    public const string PolishedDeepslate = "minecraft:polished_deepslate";
-    public const string PolishedDeepslateSlab = "minecraft:polished_deepslate_slab";
-    public const string PolishedDeepslateStairs = "minecraft:polished_deepslate_stairs";
-    public const string PolishedDeepslateWall = "minecraft:polished_deepslate_wall";
-    public const string PolishedDiorite = "minecraft:polished_diorite";
-    public const string PolishedDioriteSlab = "minecraft:polished_diorite_slab";
-    public const string PolishedDioriteStairs = "minecraft:polished_diorite_stairs";
-    public const string PolishedGranite = "minecraft:polished_granite";
-    public const string PolishedGraniteSlab = "minecraft:polished_granite_slab";
-    public const string PolishedGraniteStairs = "minecraft:polished_granite_stairs";
-    public const string Poppy = "minecraft:poppy";
-    public const string Potatoes = "minecraft:potatoes";
-    public const string PottedAcaciaSapling = "minecraft:potted_acacia_sapling";
-    public const string PottedAllium = "minecraft:potted_allium";
-    public const string PottedAzaleaBush = "minecraft:potted_azalea_bush";
-    public const string PottedAzureBluet = "minecraft:potted_azure_bluet";
-    public const string PottedBamboo = "minecraft:potted_bamboo";
-    public const string PottedBirchSapling = "minecraft:potted_birch_sapling";
-    public const string PottedBlueOrchid = "minecraft:potted_blue_orchid";
-    public const string PottedBrownMushroom = "minecraft:potted_brown_mushroom";
-    public const string PottedCactus = "minecraft:potted_cactus";
-    public const string PottedCornflower = "minecraft:potted_cornflower";
-    public const string PottedCrimsonFungus = "minecraft:potted_crimson_fungus";
-    public const string PottedCrimsonRoots = "minecraft:potted_crimson_roots";
-    public const string PottedDandelion = "minecraft:potted_dandelion";
-    public const string PottedDarkOakSapling = "minecraft:potted_dark_oak_sapling";
-    public const string PottedDeadBush = "minecraft:potted_dead_bush";
-    public const string PottedFern = "minecraft:potted_fern";
-    public const string PottedFloweringAzaleaBush = "minecraft:potted_flowering_azalea_bush";
-    public const string PottedJungleSapling = "minecraft:potted_jungle_sapling";
-    public const string PottedLilyOfTheValley = "minecraft:potted_lily_of_the_valley";
-    public const string PottedOakSapling = "minecraft:potted_oak_sapling";
-    public const string PottedOrangeTulip = "minecraft:potted_orange_tulip";
-    public const string PottedOxeyeDaisy = "minecraft:potted_oxeye_daisy";
-    public const string PottedPinkTulip = "minecraft:potted_pink_tulip";
-    public const string PottedPoppy = "minecraft:potted_poppy";
-    public const string PottedRedMushroom = "minecraft:potted_red_mushroom";
-    public const string PottedRedTulip = "minecraft:potted_red_tulip";
-    public const string PottedSpruceSapling = "minecraft:potted_spruce_sapling";
-    public const string PottedWarpedFungus = "minecraft:potted_warped_fungus";
-    public const string PottedWarpedRoots = "minecraft:potted_warped_roots";
-    public const string PottedWhiteTulip = "minecraft:potted_white_tulip";
-    public const string PottedWitherRose = "minecraft:potted_wither_rose";
-    public const string PowderSnow = "minecraft:powder_snow";
-    public const string PowderSnowCauldron = "minecraft:powder_snow_cauldron";
-    public const string PoweredRail = "minecraft:powered_rail";
-    public const string Prismarine = "minecraft:prismarine";
-    public const string PrismarineBrickSlab = "minecraft:prismarine_brick_slab";
-    public const string PrismarineBrickStairs = "minecraft:prismarine_brick_stairs";
-    public const string PrismarineBricks = "minecraft:prismarine_bricks";
-    public const string PrismarineSlab = "minecraft:prismarine_slab";
-    public const string PrismarineStairs = "minecraft:prismarine_stairs";
-    public const string PrismarineWall = "minecraft:prismarine_wall";
-    public const string Pumpkin = "minecraft:pumpkin";
-    public const string PumpkinStem = "minecraft:pumpkin_stem";
-    public const string PurpleBanner = "minecraft:purple_banner";
-    public const string PurpleBed = "minecraft:purple_bed";
-    public const string PurpleCandle = "minecraft:purple_candle";
-    public const string PurpleCandleCake = "minecraft:purple_candle_cake";
-    public const string PurpleCarpet = "minecraft:purple_carpet";
-    public const string PurpleConcrete = "minecraft:purple_concrete";
-    public const string PurpleConcretePowder = "minecraft:purple_concrete_powder";
-    public const string PurpleGlazedTerracotta = "minecraft:purple_glazed_terracotta";
-    public const string PurpleShulkerBox = "minecraft:purple_shulker_box";
-    public const string PurpleStainedGlass = "minecraft:purple_stained_glass";
-    public const string PurpleStainedGlassPane = "minecraft:purple_stained_glass_pane";
-    public const string PurpleTerracotta = "minecraft:purple_terracotta";
-    public const string PurpleWallBanner = "minecraft:purple_wall_banner";
-    public const string PurpleWool = "minecraft:purple_wool";
-    public const string PurpurBlock = "minecraft:purpur_block";
-    public const string PurpurPillar = "minecraft:purpur_pillar";
-    public const string PurpurSlab = "minecraft:purpur_slab";
-    public const string PurpurStairs = "minecraft:purpur_stairs";
-    public const string QuartzBlock = "minecraft:quartz_block";
-    public const string QuartzBricks = "minecraft:quartz_bricks";
-    public const string QuartzPillar = "minecraft:quartz_pillar";
-    public const string QuartzSlab = "minecraft:quartz_slab";
-    public const string QuartzStairs = "minecraft:quartz_stairs";
-    public const string Rail = "minecraft:rail";
-    public const string RawCopperBlock = "minecraft:raw_copper_block";
-    public const string RawGoldBlock = "minecraft:raw_gold_block";
-    public const string RawIronBlock = "minecraft:raw_iron_block";
-    public const string RedBanner = "minecraft:red_banner";
-    public const string RedBed = "minecraft:red_bed";
-    public const string RedCandle = "minecraft:red_candle";
-    public const string RedCandleCake = "minecraft:red_candle_cake";
-    public const string RedCarpet = "minecraft:red_carpet";
-    public const string RedConcrete = "minecraft:red_concrete";
-    public const string RedConcretePowder = "minecraft:red_concrete_powder";
-    public const string RedGlazedTerracotta = "minecraft:red_glazed_terracotta";
-    public const string RedMushroom = "minecraft:red_mushroom";
-    public const string RedMushroomBlock = "minecraft:red_mushroom_block";
-    public const string RedNetherBrickSlab = "minecraft:red_nether_brick_slab";
-    public const string RedNetherBrickStairs = "minecraft:red_nether_brick_stairs";
-    public const string RedNetherBrickWall = "minecraft:red_nether_brick_wall";
-    public const string RedNetherBricks = "minecraft:red_nether_bricks";
-    public const string RedSand = "minecraft:red_sand";
-    public const string RedSandstone = "minecraft:red_sandstone";
-    public const string RedSandstoneSlab = "minecraft:red_sandstone_slab";
-    public const string RedSandstoneStairs = "minecraft:red_sandstone_stairs";
-    public const string RedSandstoneWall = "minecraft:red_sandstone_wall";
-    public const string RedShulkerBox = "minecraft:red_shulker_box";
-    public const string RedStainedGlass = "minecraft:red_stained_glass";
-    public const string RedStainedGlassPane = "minecraft:red_stained_glass_pane";
-    public const string RedTerracotta = "minecraft:red_terracotta";
-    public const string RedTulip = "minecraft:red_tulip";
-    public const string RedWallBanner = "minecraft:red_wall_banner";
-    public const string RedWool = "minecraft:red_wool";
-    public const string RedstoneBlock = "minecraft:redstone_block";
-    public const string RedstoneLamp = "minecraft:redstone_lamp";
-    public const string RedstoneOre = "minecraft:redstone_ore";
-    public const string RedstoneTorch = "minecraft:redstone_torch";
-    public const string RedstoneWallTorch = "minecraft:redstone_wall_torch";
-    public const string RedstoneWire = "minecraft:redstone_wire";
-    public const string ReinforcedDeepslate = "minecraft:reinforced_deepslate";
-    public const string Repeater = "minecraft:repeater";
-    public const string RepeatingCommandBlock = "minecraft:repeating_command_block";
-    public const string RespawnAnchor = "minecraft:respawn_anchor";
-    public const string RootedDirt = "minecraft:rooted_dirt";
-    public const string RoseBush = "minecraft:rose_bush";
-    public const string Sand = "minecraft:sand";
-    public const string Sandstone = "minecraft:sandstone";
-    public const string SandstoneSlab = "minecraft:sandstone_slab";
-    public const string SandstoneStairs = "minecraft:sandstone_stairs";
-    public const string SandstoneWall = "minecraft:sandstone_wall";
-    public const string Scaffolding = "minecraft:scaffolding";
-    public const string Sculk = "minecraft:sculk";
-    public const string SculkCatalyst = "minecraft:sculk_catalyst";
-    public const string SculkSensor = "minecraft:sculk_sensor";
-    public const string SculkShrieker = "minecraft:sculk_shrieker";
-    public const string SculkVein = "minecraft:sculk_vein";
-    public const string SeaLantern = "minecraft:sea_lantern";
-    public const string SeaPickle = "minecraft:sea_pickle";
-    public const string Seagrass = "minecraft:seagrass";
-    public const string ShortGrass = "minecraft:short_grass";
-    public const string Shroomlight = "minecraft:shroomlight";
-    public const string ShulkerBox = "minecraft:shulker_box";
-    public const string Sign = "minecraft:sign";
-    public const string SkeletonSkull = "minecraft:skeleton_skull";
-    public const string SkeletonWallSkull = "minecraft:skeleton_wall_skull";
-    public const string SlimeBlock = "minecraft:slime_block";
-    public const string SmallAmethystBud = "minecraft:small_amethyst_bud";
-    public const string SmallDripleaf = "minecraft:small_dripleaf";
-    public const string SmithingTable = "minecraft:smithing_table";
-    public const string Smoker = "minecraft:smoker";
-    public const string SmoothBasalt = "minecraft:smooth_basalt";
-    public const string SmoothQuartz = "minecraft:smooth_quartz";
-    public const string SmoothQuartzSlab = "minecraft:smooth_quartz_slab";
-    public const string SmoothQuartzStairs = "minecraft:smooth_quartz_stairs";
-    public const string SmoothRedSandstone = "minecraft:smooth_red_sandstone";
-    public const string SmoothRedSandstoneSlab = "minecraft:smooth_red_sandstone_slab";
-    public const string SmoothRedSandstoneStairs = "minecraft:smooth_red_sandstone_stairs";
-    public const string SmoothSandstone = "minecraft:smooth_sandstone";
-    public const string SmoothSandstoneSlab = "minecraft:smooth_sandstone_slab";
-    public const string SmoothSandstoneStairs = "minecraft:smooth_sandstone_stairs";
-    public const string SmoothStone = "minecraft:smooth_stone";
-    public const string SmoothStoneSlab = "minecraft:smooth_stone_slab";
-    public const string Snow = "minecraft:snow";
-    public const string SnowBlock = "minecraft:snow_block";
-    public const string SoulCampfire = "minecraft:soul_campfire";
-    public const string SoulFire = "minecraft:soul_fire";
-    public const string SoulLantern = "minecraft:soul_lantern";
-    public const string SoulSand = "minecraft:soul_sand";
-    public const string SoulSoil = "minecraft:soul_soil";
-    public const string SoulTorch = "minecraft:soul_torch";
-    public const string SoulWallTorch = "minecraft:soul_wall_torch";
-    public const string Spawner = "minecraft:spawner";
-    public const string Sponge = "minecraft:sponge";
-    public const string SporeBlossom = "minecraft:spore_blossom";
-    public const string SpruceButton = "minecraft:spruce_button";
-    public const string SpruceDoor = "minecraft:spruce_door";
-    public const string SpruceFence = "minecraft:spruce_fence";
-    public const string SpruceFenceGate = "minecraft:spruce_fence_gate";
-    public const string SpruceLeaves = "minecraft:spruce_leaves";
-    public const string SpruceLog = "minecraft:spruce_log";
-    public const string SprucePlanks = "minecraft:spruce_planks";
-    public const string SprucePressurePlate = "minecraft:spruce_pressure_plate";
-    public const string SpruceSapling = "minecraft:spruce_sapling";
-    public const string SpruceSign = "minecraft:spruce_sign";
-    public const string SpruceSlab = "minecraft:spruce_slab";
-    public const string SpruceStairs = "minecraft:spruce_stairs";
-    public const string SpruceTrapdoor = "minecraft:spruce_trapdoor";
-    public const string SpruceWallSign = "minecraft:spruce_wall_sign";
-    public const string SpruceWood = "minecraft:spruce_wood";
-    public const string StickyPiston = "minecraft:sticky_piston";
-    public const string Stone = "minecraft:stone";
-    public const string StoneBrickSlab = "minecraft:stone_brick_slab";
-    public const string StoneBrickStairs = "minecraft:stone_brick_stairs";
-    public const string StoneBrickWall = "minecraft:stone_brick_wall";
-    public const string StoneBricks = "minecraft:stone_bricks";
-    public const string StoneButton = "minecraft:stone_button";
-    public const string StonePressurePlate = "minecraft:stone_pressure_plate";
-    public const string StoneSlab = "minecraft:stone_slab";
-    public const string StoneStairs = "minecraft:stone_stairs";
-    public const string Stonecutter = "minecraft:stonecutter";
-    public const string StrippedAcaciaLog = "minecraft:stripped_acacia_log";
-    public const string StrippedAcaciaWood = "minecraft:stripped_acacia_wood";
-    public const string StrippedBirchLog = "minecraft:stripped_birch_log";
-    public const string StrippedBirchWood = "minecraft:stripped_birch_wood";
-    public const string StrippedCherryLog = "minecraft:stripped_cherry_log";
-    public const string StrippedCherryWood = "minecraft:stripped_cherry_wood";
-    public const string StrippedCrimsonHyphae = "minecraft:stripped_crimson_hyphae";
-    public const string StrippedCrimsonStem = "minecraft:stripped_crimson_stem";
-    public const string StrippedDarkOakLog = "minecraft:stripped_dark_oak_log";
-    public const string StrippedDarkOakWood = "minecraft:stripped_dark_oak_wood";
-    public const string StrippedJungleLog = "minecraft:stripped_jungle_log";
-    public const string StrippedJungleWood = "minecraft:stripped_jungle_wood";
-    public const string StrippedOakLog = "minecraft:stripped_oak_log";
-    public const string StrippedOakWood = "minecraft:stripped_oak_wood";
-    public const string StrippedSpruceLog = "minecraft:stripped_spruce_log";
-    public const string StrippedSpruceWood = "minecraft:stripped_spruce_wood";
-    public const string StrippedWarpedHyphae = "minecraft:stripped_warped_hyphae";
-    public const string StrippedWarpedStem = "minecraft:stripped_warped_stem";
-    public const string StructureBlock = "minecraft:structure_block";
-    public const string StructureVoid = "minecraft:structure_void";
-    public const string SugarCane = "minecraft:sugar_cane";
-    public const string Sunflower = "minecraft:sunflower";
-    public const string SuspiciousGravel = "minecraft:suspicious_gravel";
-    public const string SuspiciousSand = "minecraft:suspicious_sand";
-    public const string SweetBerryBush = "minecraft:sweet_berry_bush";
-    public const string TallGrass = "minecraft:tall_grass";
-    public const string TallSeagrass = "minecraft:tall_seagrass";
-    public const string Target = "minecraft:target";
-    public const string Terracotta = "minecraft:terracotta";
-    public const string TintedGlass = "minecraft:tinted_glass";
-    public const string Tnt = "minecraft:tnt";
-    public const string Torch = "minecraft:torch";
-    public const string TrappedChest = "minecraft:trapped_chest";
-    public const string Tripwire = "minecraft:tripwire";
-    public const string TripwireHook = "minecraft:tripwire_hook";
-    public const string TubeCoral = "minecraft:tube_coral";
-    public const string TubeCoralBlock = "minecraft:tube_coral_block";
-    public const string TubeCoralFan = "minecraft:tube_coral_fan";
-    public const string TubeCoralWallFan = "minecraft:tube_coral_wall_fan";
-    public const string Tuff = "minecraft:tuff";
-    public const string TurtleEgg = "minecraft:turtle_egg";
-    public const string TwistingVines = "minecraft:twisting_vines";
-    public const string TwistingVinesPlant = "minecraft:twisting_vines_plant";
-    public const string Vine = "minecraft:vine";
-    public const string VoidAir = "minecraft:void_air";
-    public const string WallSign = "minecraft:wall_sign";
-    public const string WallTorch = "minecraft:wall_torch";
-    public const string WarpedButton = "minecraft:warped_button";
-    public const string WarpedDoor = "minecraft:warped_door";
-    public const string WarpedFence = "minecraft:warped_fence";
-    public const string WarpedFenceGate = "minecraft:warped_fence_gate";
-    public const string WarpedFungus = "minecraft:warped_fungus";
-    public const string WarpedHyphae = "minecraft:warped_hyphae";
-    public const string WarpedNylium = "minecraft:warped_nylium";
-    public const string WarpedPlanks = "minecraft:warped_planks";
-    public const string WarpedPressurePlate = "minecraft:warped_pressure_plate";
-    public const string WarpedRoots = "minecraft:warped_roots";
-    public const string WarpedSign = "minecraft:warped_sign";
-    public const string WarpedSlab = "minecraft:warped_slab";
-    public const string WarpedStairs = "minecraft:warped_stairs";
-    public const string WarpedStem = "minecraft:warped_stem";
-    public const string WarpedTrapdoor = "minecraft:warped_trapdoor";
-    public const string WarpedWallSign = "minecraft:warped_wall_sign";
-    public const string WarpedWartBlock = "minecraft:warped_wart_block";
-    public const string Water = "minecraft:water";
-    public const string WaterCauldron = "minecraft:water_cauldron";
-    public const string WaxedCopperBlock = "minecraft:waxed_copper_block";
-    public const string WaxedCutCopper = "minecraft:waxed_cut_copper";
-    public const string WaxedCutCopperSlab = "minecraft:waxed_cut_copper_slab";
-    public const string WaxedCutCopperStairs = "minecraft:waxed_cut_copper_stairs";
-    public const string WaxedExposedCopper = "minecraft:waxed_exposed_copper";
-    public const string WaxedExposedCutCopper = "minecraft:waxed_exposed_cut_copper";
-    public const string WaxedExposedCutCopperSlab = "minecraft:waxed_exposed_cut_copper_slab";
-    public const string WaxedExposedCutCopperStairs = "minecraft:waxed_exposed_cut_copper_stairs";
-    public const string WaxedOxidizedCopper = "minecraft:waxed_oxidized_copper";
-    public const string WaxedOxidizedCutCopper = "minecraft:waxed_oxidized_cut_copper";
-    public const string WaxedOxidizedCutCopperSlab = "minecraft:waxed_oxidized_cut_copper_slab";
-    public const string WaxedOxidizedCutCopperStairs = "minecraft:waxed_oxidized_cut_copper_stairs";
-    public const string WaxedWeatheredCopper = "minecraft:waxed_weathered_copper";
-    public const string WaxedWeatheredCutCopper = "minecraft:waxed_weathered_cut_copper";
-    public const string WaxedWeatheredCutCopperSlab = "minecraft:waxed_weathered_cut_copper_slab";
-    public const string WaxedWeatheredCutCopperStairs = "minecraft:waxed_weathered_cut_copper_stairs";
-    public const string WeatheredCopper = "minecraft:weathered_copper";
-    public const string WeatheredCutCopper = "minecraft:weathered_cut_copper";
-    public const string WeatheredCutCopperSlab = "minecraft:weathered_cut_copper_slab";
-    public const string WeatheredCutCopperStairs = "minecraft:weathered_cut_copper_stairs";
-    public const string WeepingVines = "minecraft:weeping_vines";
-    public const string WeepingVinesPlant = "minecraft:weeping_vines_plant";
-    public const string WetSponge = "minecraft:wet_sponge";
-    public const string Wheat = "minecraft:wheat";
-    public const string WhiteBanner = "minecraft:white_banner";
-    public const string WhiteBed = "minecraft:white_bed";
-    public const string WhiteCandle = "minecraft:white_candle";
-    public const string WhiteCandleCake = "minecraft:white_candle_cake";
-    public const string WhiteCarpet = "minecraft:white_carpet";
-    public const string WhiteConcrete = "minecraft:white_concrete";
-    public const string WhiteConcretePowder = "minecraft:white_concrete_powder";
-    public const string WhiteGlazedTerracotta = "minecraft:white_glazed_terracotta";
-    public const string WhiteShulkerBox = "minecraft:white_shulker_box";
-    public const string WhiteStainedGlass = "minecraft:white_stained_glass";
-    public const string WhiteStainedGlassPane = "minecraft:white_stained_glass_pane";
-    public const string WhiteTerracotta = "minecraft:white_terracotta";
-    public const string WhiteTulip = "minecraft:white_tulip";
-    public const string WhiteWallBanner = "minecraft:white_wall_banner";
-    public const string WhiteWool = "minecraft:white_wool";
-    public const string WitherRose = "minecraft:wither_rose";
-    public const string WitherSkeletonSkull = "minecraft:wither_skeleton_skull";
-    public const string WitherSkeletonWallSkull = "minecraft:wither_skeleton_wall_skull";
-    public const string YellowBanner = "minecraft:yellow_banner";
-    public const string YellowBed = "minecraft:yellow_bed";
-    public const string YellowCandle = "minecraft:yellow_candle";
-    public const string YellowCandleCake = "minecraft:yellow_candle_cake";
-    public const string YellowCarpet = "minecraft:yellow_carpet";
-    public const string YellowConcrete = "minecraft:yellow_concrete";
-    public const string YellowConcretePowder = "minecraft:yellow_concrete_powder";
-    public const string YellowGlazedTerracotta = "minecraft:yellow_glazed_terracotta";
-    public const string YellowShulkerBox = "minecraft:yellow_shulker_box";
-    public const string YellowStainedGlass = "minecraft:yellow_stained_glass";
-    public const string YellowStainedGlassPane = "minecraft:yellow_stained_glass_pane";
-    public const string YellowTerracotta = "minecraft:yellow_terracotta";
-    public const string YellowWallBanner = "minecraft:yellow_wall_banner";
-    public const string YellowWool = "minecraft:yellow_wool";
-    public const string ZombieHead = "minecraft:zombie_head";
-    public const string ZombieWallHead = "minecraft:zombie_wall_head";
+    public readonly struct BlockColor
+    {
+        public static readonly Rgba32 Rgba32Transparent = new(0, 0, 0, 0);
+
+        public readonly string Name;
+
+        public readonly Rgba32 Color;
+
+        public BlockColor(string name)
+        {
+            Name = name;
+            Color = Rgba32Transparent;
+        }
+
+        public BlockColor(string name, (byte r, byte g, byte b) color)
+        {
+            Name = name;
+            Color = new Rgba32(color.r, color.g, color.b);
+        }
+    }
+
+    private static readonly BlockColor[] BlockColorList =
+    {
+        new(BlockNames.AcaciaButton),
+        new(BlockNames.AcaciaDoor),
+        new(BlockNames.AcaciaFence),
+        new(BlockNames.AcaciaFenceGate, (216, 127, 51)),
+        new(BlockNames.AcaciaLeaves, (0, 124, 0)),
+        new(BlockNames.AcaciaLog, (112, 112, 112)),
+        new(BlockNames.AcaciaPlanks, (216, 127, 51)),
+        new(BlockNames.AcaciaPressurePlate, (216, 127, 51)),
+        new(BlockNames.AcaciaSapling, (0, 124, 0)),
+        new(BlockNames.AcaciaSign),
+        new(BlockNames.AcaciaSlab, (216, 127, 51)),
+        new(BlockNames.AcaciaStairs, (216, 127, 51)),
+        new(BlockNames.AcaciaTrapdoor, (216, 127, 51)),
+        new(BlockNames.AcaciaWallSign),
+        new(BlockNames.AcaciaWood, (76, 76, 76)),
+        new(BlockNames.ActivatorRail),
+        new(BlockNames.Air),
+        new(BlockNames.Allium, (0, 124, 0)),
+        new(BlockNames.AmethystBlock, (127, 63, 178)),
+        new(BlockNames.AmethystCluster),
+        new(BlockNames.AncientDebris, (25, 25, 25)),
+        new(BlockNames.Andesite, (112, 112, 112)),
+        new(BlockNames.AndesiteSlab, (112, 112, 112)),
+        new(BlockNames.AndesiteStairs, (112, 112, 112)),
+        new(BlockNames.AndesiteWall, (112, 112, 112)),
+        new(BlockNames.Anvil, (167, 167, 167)),
+        new(BlockNames.AttachedMelonStem, (0, 124, 0)),
+        new(BlockNames.AttachedPumpkinStem, (0, 124, 0)),
+        new(BlockNames.Azalea, (0, 124, 0)),
+        new(BlockNames.AzaleaLeaves, (0, 124, 0)),
+        new(BlockNames.AzureBluet, (0, 124, 0)),
+        new(BlockNames.Bamboo, (0, 124, 0)),
+        new(BlockNames.BambooBlock, (103, 125, 45)),
+        new(BlockNames.BambooMosaic, (195, 171, 68)),
+        new(BlockNames.BambooPlanks, (195, 171, 68)),
+        new(BlockNames.BambooSapling, (143, 119, 72)),
+        new(BlockNames.Barrel, (143, 119, 72)),
+        new(BlockNames.Barrier),
+        new(BlockNames.Basalt, (25, 25, 25)),
+        new(BlockNames.Beacon, (92, 219, 213)),
+        new(BlockNames.Bedrock, (112, 112, 112)),
+        new(BlockNames.BeeNest, (229, 229, 51)),
+        new(BlockNames.Beehive, (143, 119, 72)),
+        new(BlockNames.Beetroots, (0, 124, 0)),
+        new(BlockNames.Bell, (250, 238, 77)),
+        new(BlockNames.BigDripleaf),
+        new(BlockNames.BigDripleafStem),
+        new(BlockNames.BirchButton),
+        new(BlockNames.BirchDoor),
+        new(BlockNames.BirchFence, (247, 233, 163)),
+        new(BlockNames.BirchFenceGate, (247, 233, 163)),
+        new(BlockNames.BirchLeaves, (0, 124, 0)),
+        new(BlockNames.BirchLog, (255, 252, 245)),
+        new(BlockNames.BirchPlanks, (247, 233, 163)),
+        new(BlockNames.BirchPressurePlate, (247, 233, 163)),
+        new(BlockNames.BirchSapling, (0, 124, 0)),
+        new(BlockNames.BirchSign),
+        new(BlockNames.BirchSlab, (247, 233, 163)),
+        new(BlockNames.BirchStairs, (247, 233, 163)),
+        new(BlockNames.BirchTrapdoor, (247, 233, 163)),
+        new(BlockNames.BirchWallSign),
+        new(BlockNames.BirchWood, (247, 233, 163)),
+        new(BlockNames.BlackBanner, (143, 119, 72)),
+        new(BlockNames.BlackBed, (199, 199, 199)),
+        new(BlockNames.BlackCandle),
+        new(BlockNames.BlackCandleCake),
+        new(BlockNames.BlackCarpet, (25, 25, 25)),
+        new(BlockNames.BlackConcrete, (25, 25, 25)),
+        new(BlockNames.BlackConcretePowder, (25, 25, 25)),
+        new(BlockNames.BlackGlazedTerracotta, (25, 25, 25)),
+        new(BlockNames.BlackShulkerBox, (25, 25, 25)),
+        new(BlockNames.BlackStainedGlass, (25, 25, 25)),
+        new(BlockNames.BlackStainedGlassPane),
+        new(BlockNames.BlackTerracotta, (37, 22, 16)),
+        new(BlockNames.BlackWallBanner, (143, 119, 72)),
+        new(BlockNames.BlackWool, (25, 25, 25)),
+        new(BlockNames.Blackstone, (25, 25, 25)),
+        new(BlockNames.BlackstoneSlab, (25, 25, 25)),
+        new(BlockNames.BlackstoneStairs, (25, 25, 25)),
+        new(BlockNames.BlackstoneWall, (25, 25, 25)),
+        new(BlockNames.BlastFurnace, (112, 112, 112)),
+        new(BlockNames.BlueBanner, (143, 119, 72)),
+        new(BlockNames.BlueBed, (199, 199, 199)),
+        new(BlockNames.BlueCandle),
+        new(BlockNames.BlueCandleCake),
+        new(BlockNames.BlueCarpet, (51, 76, 178)),
+        new(BlockNames.BlueConcrete, (51, 76, 178)),
+        new(BlockNames.BlueConcretePowder, (51, 76, 178)),
+        new(BlockNames.BlueGlazedTerracotta, (51, 76, 178)),
+        new(BlockNames.BlueIce, (160, 160, 255)),
+        new(BlockNames.BlueOrchid, (0, 124, 0)),
+        new(BlockNames.BlueShulkerBox, (51, 76, 178)),
+        new(BlockNames.BlueStainedGlass, (51, 76, 178)),
+        new(BlockNames.BlueStainedGlassPane),
+        new(BlockNames.BlueTerracotta, (76, 62, 92)),
+        new(BlockNames.BlueWallBanner, (143, 119, 72)),
+        new(BlockNames.BlueWool, (51, 76, 178)),
+        new(BlockNames.BoneBlock, (247, 233, 163)),
+        new(BlockNames.Bookshelf, (143, 119, 72)),
+        new(BlockNames.BrainCoral, (64, 64, 255)),
+        new(BlockNames.BrainCoralBlock, (242, 127, 165)),
+        new(BlockNames.BrainCoralFan, (64, 64, 255)),
+        new(BlockNames.BrainCoralWallFan, (64, 64, 255)),
+        new(BlockNames.BrewingStand, (167, 167, 167)),
+        new(BlockNames.BrickSlab, (153, 51, 51)),
+        new(BlockNames.BrickStairs, (153, 51, 51)),
+        new(BlockNames.BrickWall, (153, 51, 51)),
+        new(BlockNames.Bricks, (153, 51, 51)),
+        new(BlockNames.BrownBanner, (143, 119, 72)),
+        new(BlockNames.BrownBed, (199, 199, 199)),
+        new(BlockNames.BrownCandle),
+        new(BlockNames.BrownCandleCake),
+        new(BlockNames.BrownCarpet, (102, 76, 51)),
+        new(BlockNames.BrownConcrete, (102, 76, 51)),
+        new(BlockNames.BrownConcretePowder, (102, 76, 51)),
+        new(BlockNames.BrownGlazedTerracotta, (102, 76, 51)),
+        new(BlockNames.BrownMushroom, (102, 76, 51)),
+        new(BlockNames.BrownMushroomBlock, (151, 109, 77)),
+        new(BlockNames.BrownShulkerBox, (102, 76, 51)),
+        new(BlockNames.BrownStainedGlass, (102, 76, 51)),
+        new(BlockNames.BrownStainedGlassPane),
+        new(BlockNames.BrownTerracotta, (76, 50, 35)),
+        new(BlockNames.BrownWallBanner, (143, 119, 72)),
+        new(BlockNames.BrownWool, (102, 76, 51)),
+        new(BlockNames.BubbleColumn, (64, 64, 255)),
+        new(BlockNames.BubbleCoral, (64, 64, 255)),
+        new(BlockNames.BubbleCoralBlock, (127, 63, 178)),
+        new(BlockNames.BubbleCoralFan, (64, 64, 255)),
+        new(BlockNames.BubbleCoralWallFan, (127, 63, 178)),
+        new(BlockNames.BuddingAmethyst, (127, 63, 178)),
+        new(BlockNames.Cactus, (0, 124, 0)),
+        new(BlockNames.Cake),
+        new(BlockNames.Calcite, (209, 177, 161)),
+        new(BlockNames.CalibratedSculkSensor, (2, 57, 71)),
+        new(BlockNames.Campfire),
+        new(BlockNames.Candle),
+        new(BlockNames.CandleCake),
+        new(BlockNames.Carrots, (0, 124, 0)),
+        new(BlockNames.CartographyTable, (143, 119, 72)),
+        new(BlockNames.CarvedPumpkin, (216, 127, 51)),
+        new(BlockNames.Cauldron, (112, 112, 112)),
+        new(BlockNames.CaveAir),
+        new(BlockNames.CaveVines, (0, 124, 0)),
+        new(BlockNames.CaveVinesPlant, (0, 124, 0)),
+        new(BlockNames.Chain),
+        new(BlockNames.ChainCommandBlock, (102, 127, 51)),
+        new(BlockNames.CherryButton),
+        new(BlockNames.CherryDoor),
+        new(BlockNames.CherryDoubleSlab, (229, 174, 169)),
+        new(BlockNames.CherryFence),
+        new(BlockNames.CherryLeaves, (239, 167, 205)),
+        new(BlockNames.CherryLog, (37, 18, 30)),
+        new(BlockNames.CherryPlanks, (229, 174, 169)),
+        new(BlockNames.CherryPressurePlate, (229, 174, 169)),
+        new(BlockNames.CherrySapling),
+        new(BlockNames.CherrySign),
+        new(BlockNames.CherrySlab, (229, 174, 169)),
+        new(BlockNames.CherryStairs, (229, 174, 169)),
+        new(BlockNames.CherryTrapdoor, (229, 174, 169)),
+        new(BlockNames.CherryWallSign),
+        new(BlockNames.CherryWood, (37, 18, 30)),
+        new(BlockNames.Chest, (155, 98, 29)),
+        new(BlockNames.ChippedAnvil, (167, 167, 167)),
+        new(BlockNames.ChiseledBookshelf, (189, 150, 89)),
+        new(BlockNames.ChiseledDeepslate, (100, 100, 100)),
+        new(BlockNames.ChiseledNetherBricks, (112, 2, 0)),
+        new(BlockNames.ChiseledPolishedBlackstone, (25, 25, 25)),
+        new(BlockNames.ChiseledQuartzBlock, (255, 252, 245)),
+        new(BlockNames.ChiseledRedSandstone, (216, 127, 51)),
+        new(BlockNames.ChiseledSandstone, (247, 233, 163)),
+        new(BlockNames.ChiseledStoneBricks, (112, 112, 112)),
+        new(BlockNames.ChorusFlower, (127, 63, 178)),
+        new(BlockNames.ChorusPlant, (127, 63, 178)),
+        new(BlockNames.Clay, (164, 168, 184)),
+        new(BlockNames.CoalBlock, (25, 25, 25)),
+        new(BlockNames.CoalOre, (112, 112, 112)),
+        new(BlockNames.CoarseDirt, (151, 109, 77)),
+        new(BlockNames.CobbledDeepslate, (100, 100, 100)),
+        new(BlockNames.CobbledDeepslateSlab, (100, 100, 100)),
+        new(BlockNames.CobbledDeepslateStairs, (100, 100, 100)),
+        new(BlockNames.CobbledDeepslateWall, (100, 100, 100)),
+        new(BlockNames.Cobblestone, (112, 112, 112)),
+        new(BlockNames.CobblestoneSlab, (112, 112, 112)),
+        new(BlockNames.CobblestoneStairs, (112, 112, 112)),
+        new(BlockNames.CobblestoneWall, (112, 112, 112)),
+        new(BlockNames.Cobweb, (199, 199, 199)),
+        new(BlockNames.Cocoa, (0, 124, 0)),
+        new(BlockNames.CommandBlock, (102, 76, 51)),
+        new(BlockNames.Comparator),
+        new(BlockNames.Composter, (143, 119, 72)),
+        new(BlockNames.Conduit),
+        new(BlockNames.CopperBlock, (216, 127, 51)),
+        new(BlockNames.CopperOre, (112, 112, 112)),
+        new(BlockNames.Cornflower, (0, 124, 0)),
+        new(BlockNames.CrackedDeepslateBricks, (100, 100, 100)),
+        new(BlockNames.CrackedDeepslateTiles, (100, 100, 100)),
+        new(BlockNames.CrackedNetherBricks, (112, 2, 0)),
+        new(BlockNames.CrackedPolishedBlackstoneBricks, (25, 25, 25)),
+        new(BlockNames.CrackedStoneBricks, (112, 112, 112)),
+        new(BlockNames.CraftingTable, (143, 119, 72)),
+        new(BlockNames.CreeperHead),
+        new(BlockNames.CreeperWallHead),
+        new(BlockNames.CrimsonButton),
+        new(BlockNames.CrimsonDoor),
+        new(BlockNames.CrimsonFence),
+        new(BlockNames.CrimsonFenceGate, (148, 63, 97)),
+        new(BlockNames.CrimsonFungus, (112, 2, 0)),
+        new(BlockNames.CrimsonHyphae, (92, 25, 29)),
+        new(BlockNames.CrimsonNylium, (189, 48, 49)),
+        new(BlockNames.CrimsonPlanks, (148, 63, 97)),
+        new(BlockNames.CrimsonPressurePlate, (148, 63, 97)),
+        new(BlockNames.CrimsonRoots, (112, 2, 0)),
+        new(BlockNames.CrimsonSign),
+        new(BlockNames.CrimsonSlab, (148, 63, 97)),
+        new(BlockNames.CrimsonStairs, (148, 63, 97)),
+        new(BlockNames.CrimsonStem, (148, 63, 97)),
+        new(BlockNames.CrimsonTrapdoor, (148, 63, 97)),
+        new(BlockNames.CrimsonWallSign),
+        new(BlockNames.CryingObsidian, (25, 25, 25)),
+        new(BlockNames.CutCopper, (216, 127, 51)),
+        new(BlockNames.CutCopperSlab, (216, 127, 51)),
+        new(BlockNames.CutCopperStairs, (216, 127, 51)),
+        new(BlockNames.CutRedSandstone, (216, 127, 51)),
+        new(BlockNames.CutRedSandstoneSlab, (216, 127, 51)),
+        new(BlockNames.CutSandstone, (247, 233, 163)),
+        new(BlockNames.CutSandstoneSlab, (247, 233, 163)),
+        new(BlockNames.CyanBanner, (143, 119, 72)),
+        new(BlockNames.CyanBed, (199, 199, 199)),
+        new(BlockNames.CyanCandle),
+        new(BlockNames.CyanCandleCake),
+        new(BlockNames.CyanCarpet, (76, 127, 153)),
+        new(BlockNames.CyanConcrete, (76, 127, 153)),
+        new(BlockNames.CyanConcretePowder, (76, 127, 153)),
+        new(BlockNames.CyanGlazedTerracotta, (76, 127, 153)),
+        new(BlockNames.CyanShulkerBox, (76, 127, 153)),
+        new(BlockNames.CyanStainedGlass, (76, 127, 153)),
+        new(BlockNames.CyanStainedGlassPane),
+        new(BlockNames.CyanTerracotta, (87, 92, 92)),
+        new(BlockNames.CyanWallBanner, (143, 119, 72)),
+        new(BlockNames.CyanWool, (76, 127, 153)),
+        new(BlockNames.DamagedAnvil, (167, 167, 167)),
+        new(BlockNames.Dandelion, (0, 124, 0)),
+        new(BlockNames.DarkOakButton),
+        new(BlockNames.DarkOakDoor),
+        new(BlockNames.DarkOakFence),
+        new(BlockNames.DarkOakFenceGate, (102, 76, 51)),
+        new(BlockNames.DarkOakLeaves, (0, 124, 0)),
+        new(BlockNames.DarkOakLog, (102, 76, 51)),
+        new(BlockNames.DarkOakPlanks, (102, 76, 51)),
+        new(BlockNames.DarkOakPressurePlate, (102, 76, 51)),
+        new(BlockNames.DarkOakSapling, (0, 124, 0)),
+        new(BlockNames.DarkOakSign),
+        new(BlockNames.DarkOakSlab, (102, 76, 51)),
+        new(BlockNames.DarkOakStairs, (102, 76, 51)),
+        new(BlockNames.DarkOakTrapdoor, (102, 76, 51)),
+        new(BlockNames.DarkOakWallSign),
+        new(BlockNames.DarkOakWood, (102, 76, 51)),
+        new(BlockNames.DarkPrismarine, (92, 219, 213)),
+        new(BlockNames.DarkPrismarineSlab, (92, 219, 213)),
+        new(BlockNames.DarkPrismarineStairs, (92, 219, 213)),
+        new(BlockNames.DaylightDetector, (143, 119, 72)),
+        new(BlockNames.DeadBrainCoral, (64, 64, 255)),
+        new(BlockNames.DeadBrainCoralBlock, (76, 76, 76)),
+        new(BlockNames.DeadBrainCoralFan, (64, 64, 255)),
+        new(BlockNames.DeadBrainCoralWallFan, (64, 64, 255)),
+        new(BlockNames.DeadBubbleCoral, (64, 64, 255)),
+        new(BlockNames.DeadBubbleCoralBlock, (76, 76, 76)),
+        new(BlockNames.DeadBubbleCoralFan, (64, 64, 255)),
+        new(BlockNames.DeadBubbleCoralWallFan, (64, 64, 255)),
+        new(BlockNames.DeadBush, (143, 119, 72)),
+        new(BlockNames.DeadFireCoral, (64, 64, 255)),
+        new(BlockNames.DeadFireCoralBlock, (76, 76, 76)),
+        new(BlockNames.DeadFireCoralFan, (64, 64, 255)),
+        new(BlockNames.DeadFireCoralWallFan, (64, 64, 255)),
+        new(BlockNames.DeadHornCoral, (64, 64, 255)),
+        new(BlockNames.DeadHornCoralBlock, (76, 76, 76)),
+        new(BlockNames.DeadHornCoralFan, (64, 64, 255)),
+        new(BlockNames.DeadHornCoralWallFan, (64, 64, 255)),
+        new(BlockNames.DeadTubeCoral, (64, 64, 255)),
+        new(BlockNames.DeadTubeCoralBlock, (76, 76, 76)),
+        new(BlockNames.DeadTubeCoralFan, (64, 64, 255)),
+        new(BlockNames.DeadTubeCoralWallFan, (64, 64, 255)),
+        new(BlockNames.Deepslate, (100, 100, 100)),
+        new(BlockNames.DeepslateBrickSlab, (100, 100, 100)),
+        new(BlockNames.DeepslateBrickStairs, (100, 100, 100)),
+        new(BlockNames.DeepslateBrickWall, (100, 100, 100)),
+        new(BlockNames.DeepslateBricks, (100, 100, 100)),
+        new(BlockNames.DeepslateCoalOre, (100, 100, 100)),
+        new(BlockNames.DeepslateCopperOre, (100, 100, 100)),
+        new(BlockNames.DeepslateDiamondOre, (100, 100, 100)),
+        new(BlockNames.DeepslateEmeraldOre, (100, 100, 100)),
+        new(BlockNames.DeepslateGoldOre, (100, 100, 100)),
+        new(BlockNames.DeepslateIronOre, (100, 100, 100)),
+        new(BlockNames.DeepslateLapisOre, (100, 100, 100)),
+        new(BlockNames.DeepslateRedstoneOre, (100, 100, 100)),
+        new(BlockNames.DeepslateTileSlab, (100, 100, 100)),
+        new(BlockNames.DeepslateTileStairs, (100, 100, 100)),
+        new(BlockNames.DeepslateTileWall, (100, 100, 100)),
+        new(BlockNames.DeepslateTiles, (100, 100, 100)),
+        new(BlockNames.DetectorRail),
+        new(BlockNames.DiamondBlock, (92, 219, 213)),
+        new(BlockNames.DiamondOre, (112, 112, 112)),
+        new(BlockNames.Diorite, (255, 252, 245)),
+        new(BlockNames.DioriteSlab, (255, 252, 245)),
+        new(BlockNames.DioriteStairs, (255, 252, 245)),
+        new(BlockNames.DioriteWall, (255, 252, 245)),
+        new(BlockNames.Dirt, (151, 109, 77)),
+        new(BlockNames.DirtPath, (151, 109, 77)),
+        new(BlockNames.Dispenser, (112, 112, 112)),
+        new(BlockNames.DragonEgg, (25, 25, 25)),
+        new(BlockNames.DragonHead),
+        new(BlockNames.DragonWallHead),
+        new(BlockNames.DriedKelpBlock, (102, 127, 51)),
+        new(BlockNames.DripstoneBlock, (76, 50, 35)),
+        new(BlockNames.Dropper, (112, 112, 112)),
+        new(BlockNames.EmeraldBlock, (0, 217, 58)),
+        new(BlockNames.EmeraldOre, (112, 112, 112)),
+        new(BlockNames.EnchantingTable, (153, 51, 51)),
+        new(BlockNames.EndGateway, (25, 25, 25)),
+        new(BlockNames.EndPortal, (25, 25, 25)),
+        new(BlockNames.EndPortalFrame, (102, 127, 51)),
+        new(BlockNames.EndRod),
+        new(BlockNames.EndStone, (247, 233, 163)),
+        new(BlockNames.EndStoneBrickSlab, (247, 233, 163)),
+        new(BlockNames.EndStoneBrickStairs, (247, 233, 163)),
+        new(BlockNames.EndStoneBrickWall, (247, 233, 163)),
+        new(BlockNames.EndStoneBricks, (247, 233, 163)),
+        new(BlockNames.EnderChest, (3, 16, 22)),
+        new(BlockNames.ExposedCopper, (135, 107, 98)),
+        new(BlockNames.ExposedCutCopper, (135, 107, 98)),
+        new(BlockNames.ExposedCutCopperSlab, (135, 107, 98)),
+        new(BlockNames.ExposedCutCopperStairs, (135, 107, 98)),
+        new(BlockNames.Farmland, (151, 109, 77)),
+        new(BlockNames.Fern, (0, 124, 0)),
+        new(BlockNames.Fire, (255, 0, 0)),
+        new(BlockNames.FireCoral, (64, 64, 255)),
+        new(BlockNames.FireCoralBlock, (153, 51, 51)),
+        new(BlockNames.FireCoralFan, (64, 64, 255)),
+        new(BlockNames.FireCoralWallFan, (64, 64, 255)),
+        new(BlockNames.FletchingTable, (143, 119, 72)),
+        new(BlockNames.FlowerPot),
+        new(BlockNames.FloweringAzalea, (0, 124, 0)),
+        new(BlockNames.FloweringAzaleaLeaves, (0, 124, 0)),
+        new(BlockNames.FrostedIce, (160, 160, 255)),
+        new(BlockNames.Furnace, (112, 112, 112)),
+        new(BlockNames.GildedBlackstone, (25, 25, 25)),
+        new(BlockNames.Glass),
+        new(BlockNames.GlassPane),
+        new(BlockNames.GlowLichen),
+        new(BlockNames.Glowstone, (247, 233, 163)),
+        new(BlockNames.GoldBlock, (250, 238, 77)),
+        new(BlockNames.GoldOre, (112, 112, 112)),
+        new(BlockNames.Granite, (151, 109, 77)),
+        new(BlockNames.GraniteSlab, (151, 109, 77)),
+        new(BlockNames.GraniteStairs, (151, 109, 77)),
+        new(BlockNames.GraniteWall, (151, 109, 77)),
+        new(BlockNames.Grass, (0, 124, 0)),
+        new(BlockNames.GrassBlock, (127, 178, 56)),
+        new(BlockNames.GrassPath, (151, 109, 77)),
+        new(BlockNames.Gravel, (112, 112, 112)),
+        new(BlockNames.GrayBanner, (143, 119, 72)),
+        new(BlockNames.GrayBed, (199, 199, 199)),
+        new(BlockNames.GrayCandle),
+        new(BlockNames.GrayCandleCake),
+        new(BlockNames.GrayCarpet, (76, 76, 76)),
+        new(BlockNames.GrayConcrete, (76, 76, 76)),
+        new(BlockNames.GrayConcretePowder, (76, 76, 76)),
+        new(BlockNames.GrayGlazedTerracotta, (76, 76, 76)),
+        new(BlockNames.GrayShulkerBox, (76, 76, 76)),
+        new(BlockNames.GrayStainedGlass, (76, 76, 76)),
+        new(BlockNames.GrayStainedGlassPane),
+        new(BlockNames.GrayTerracotta, (57, 41, 35)),
+        new(BlockNames.GrayWallBanner, (143, 119, 72)),
+        new(BlockNames.GrayWool, (76, 76, 76)),
+        new(BlockNames.GreenBanner, (143, 119, 72)),
+        new(BlockNames.GreenBed, (199, 199, 199)),
+        new(BlockNames.GreenCandle, (102, 127, 51)),
+        new(BlockNames.GreenCandleCake),
+        new(BlockNames.GreenCarpet, (102, 127, 51)),
+        new(BlockNames.GreenConcrete, (102, 127, 51)),
+        new(BlockNames.GreenConcretePowder, (102, 127, 51)),
+        new(BlockNames.GreenGlazedTerracotta, (102, 127, 51)),
+        new(BlockNames.GreenShulkerBox, (102, 127, 51)),
+        new(BlockNames.GreenStainedGlass, (102, 127, 51)),
+        new(BlockNames.GreenStainedGlassPane),
+        new(BlockNames.GreenTerracotta, (76, 82, 42)),
+        new(BlockNames.GreenWallBanner, (143, 119, 72)),
+        new(BlockNames.GreenWool, (102, 127, 51)),
+        new(BlockNames.Grindstone, (167, 167, 167)),
+        new(BlockNames.HangingRoots),
+        new(BlockNames.HayBlock, (229, 229, 51)),
+        new(BlockNames.HeavyWeightedPressurePlate, (167, 167, 167)),
+        new(BlockNames.HoneyBlock, (216, 127, 51)),
+        new(BlockNames.HoneycombBlock, (216, 127, 51)),
+        new(BlockNames.Hopper, (112, 112, 112)),
+        new(BlockNames.HornCoral, (64, 64, 255)),
+        new(BlockNames.HornCoralBlock, (229, 229, 51)),
+        new(BlockNames.HornCoralFan, (64, 64, 255)),
+        new(BlockNames.HornCoralWallFan, (64, 64, 255)),
+        new(BlockNames.Ice, (160, 160, 255)),
+        new(BlockNames.InfestedChiseledStoneBricks, (164, 168, 184)),
+        new(BlockNames.InfestedCobblestone, (164, 168, 184)),
+        new(BlockNames.InfestedCrackedStoneBricks, (164, 168, 184)),
+        new(BlockNames.InfestedDeepslate, (100, 100, 100)),
+        new(BlockNames.InfestedMossyStoneBricks, (164, 168, 184)),
+        new(BlockNames.InfestedStone, (164, 168, 184)),
+        new(BlockNames.InfestedStoneBricks, (164, 168, 184)),
+        new(BlockNames.IronBars),
+        new(BlockNames.IronBlock, (167, 167, 167)),
+        new(BlockNames.IronDoor),
+        new(BlockNames.IronOre, (112, 112, 112)),
+        new(BlockNames.IronTrapdoor, (167, 167, 167)),
+        new(BlockNames.JackOLantern, (216, 127, 51)),
+        new(BlockNames.Jigsaw, (153, 153, 153)),
+        new(BlockNames.Jukebox, (151, 109, 77)),
+        new(BlockNames.JungleButton),
+        new(BlockNames.JungleDoor),
+        new(BlockNames.JungleFence),
+        new(BlockNames.JungleFenceGate, (151, 109, 77)),
+        new(BlockNames.JungleLeaves, (0, 124, 0)),
+        new(BlockNames.JungleLog, (129, 86, 49)),
+        new(BlockNames.JunglePlanks, (151, 109, 77)),
+        new(BlockNames.JunglePressurePlate, (151, 109, 77)),
+        new(BlockNames.JungleSapling, (0, 124, 0)),
+        new(BlockNames.JungleSign),
+        new(BlockNames.JungleSlab, (151, 109, 77)),
+        new(BlockNames.JungleStairs, (151, 109, 77)),
+        new(BlockNames.JungleTrapdoor, (151, 109, 77)),
+        new(BlockNames.JungleWallSign),
+        new(BlockNames.JungleWood, (151, 109, 77)),
+        new(BlockNames.Kelp, (64, 64, 255)),
+        new(BlockNames.KelpPlant, (64, 64, 255)),
+        new(BlockNames.Ladder),
+        new(BlockNames.Lantern),
+        new(BlockNames.LapisBlock, (74, 128, 255)),
+        new(BlockNames.LapisOre, (112, 112, 112)),
+        new(BlockNames.LargeAmethystBud),
+        new(BlockNames.LargeFern, (0, 124, 0)),
+        new(BlockNames.Lava, (255, 0, 0)),
+        new(BlockNames.LavaCauldron, (112, 112, 112)),
+        new(BlockNames.Lectern, (143, 119, 72)),
+        new(BlockNames.Lever),
+        new(BlockNames.Light),
+        new(BlockNames.LightBlueBanner, (143, 119, 72)),
+        new(BlockNames.LightBlueBed, (102, 153, 216)),
+        new(BlockNames.LightBlueCandle),
+        new(BlockNames.LightBlueCandleCake),
+        new(BlockNames.LightBlueCarpet, (102, 153, 216)),
+        new(BlockNames.LightBlueConcrete, (102, 153, 216)),
+        new(BlockNames.LightBlueConcretePowder, (102, 153, 216)),
+        new(BlockNames.LightBlueGlazedTerracotta, (102, 153, 216)),
+        new(BlockNames.LightBlueShulkerBox, (102, 153, 216)),
+        new(BlockNames.LightBlueStainedGlass, (102, 153, 216)),
+        new(BlockNames.LightBlueStainedGlassPane),
+        new(BlockNames.LightBlueTerracotta, (112, 108, 138)),
+        new(BlockNames.LightBlueWallBanner, (143, 119, 72)),
+        new(BlockNames.LightBlueWool, (102, 153, 216)),
+        new(BlockNames.LightGrayBanner, (143, 119, 72)),
+        new(BlockNames.LightGrayBed, (199, 199, 199)),
+        new(BlockNames.LightGrayCandle),
+        new(BlockNames.LightGrayCandleCake),
+        new(BlockNames.LightGrayCarpet, (153, 153, 153)),
+        new(BlockNames.LightGrayConcrete, (153, 153, 153)),
+        new(BlockNames.LightGrayConcretePowder, (153, 153, 153)),
+        new(BlockNames.LightGrayGlazedTerracotta, (153, 153, 153)),
+        new(BlockNames.LightGrayShulkerBox, (153, 153, 153)),
+        new(BlockNames.LightGrayStainedGlass, (153, 153, 153)),
+        new(BlockNames.LightGrayStainedGlassPane),
+        new(BlockNames.LightGrayTerracotta, (135, 107, 98)),
+        new(BlockNames.LightGrayWallBanner, (143, 119, 72)),
+        new(BlockNames.LightGrayWool, (153, 153, 153)),
+        new(BlockNames.LightWeightedPressurePlate, (250, 238, 77)),
+        new(BlockNames.LightningRod),
+        new(BlockNames.Lilac, (0, 124, 0)),
+        new(BlockNames.LilyOfTheValley, (0, 124, 0)),
+        new(BlockNames.LilyPad, (0, 124, 0)),
+        new(BlockNames.LimeBanner, (143, 119, 72)),
+        new(BlockNames.LimeBed, (199, 199, 199)),
+        new(BlockNames.LimeCandle),
+        new(BlockNames.LimeCandleCake),
+        new(BlockNames.LimeCarpet, (127, 204, 25)),
+        new(BlockNames.LimeConcrete, (127, 204, 25)),
+        new(BlockNames.LimeConcretePowder, (127, 204, 25)),
+        new(BlockNames.LimeGlazedTerracotta, (127, 204, 25)),
+        new(BlockNames.LimeShulkerBox, (127, 204, 25)),
+        new(BlockNames.LimeStainedGlass, (127, 204, 25)),
+        new(BlockNames.LimeStainedGlassPane),
+        new(BlockNames.LimeTerracotta, (103, 117, 53)),
+        new(BlockNames.LimeWallBanner, (143, 119, 72)),
+        new(BlockNames.LimeWool, (127, 204, 25)),
+        new(BlockNames.Lodestone, (167, 167, 167)),
+        new(BlockNames.Loom, (143, 119, 72)),
+        new(BlockNames.MagentaBanner, (143, 119, 72)),
+        new(BlockNames.MagentaBed, (199, 199, 199)),
+        new(BlockNames.MagentaCandle),
+        new(BlockNames.MagentaCandleCake),
+        new(BlockNames.MagentaCarpet, (178, 76, 216)),
+        new(BlockNames.MagentaConcrete, (178, 76, 216)),
+        new(BlockNames.MagentaConcretePowder, (178, 76, 216)),
+        new(BlockNames.MagentaGlazedTerracotta, (178, 76, 216)),
+        new(BlockNames.MagentaShulkerBox, (178, 76, 216)),
+        new(BlockNames.MagentaStainedGlass, (178, 76, 216)),
+        new(BlockNames.MagentaStainedGlassPane),
+        new(BlockNames.MagentaTerracotta, (149, 87, 108)),
+        new(BlockNames.MagentaWallBanner, (143, 119, 72)),
+        new(BlockNames.MagentaWool, (178, 76, 216)),
+        new(BlockNames.MagmaBlock, (112, 2, 0)),
+        new(BlockNames.MangroveDoor),
+        new(BlockNames.MangroveDoubleSlab, (119, 56, 42)),
+        new(BlockNames.MangroveFence),
+        new(BlockNames.MangroveFenceGate, (119, 56, 42)),
+        new(BlockNames.MangroveLeaves, (66, 85, 16)),
+        new(BlockNames.MangroveLog, (68, 53, 28)),
+        new(BlockNames.MangrovePlanks, (119, 56, 42)),
+        new(BlockNames.MangrovePropagule),
+        new(BlockNames.MangroveRoots, (69, 55, 32)),
+        new(BlockNames.MangroveSign),
+        new(BlockNames.MangroveSlab, (119, 56, 42)),
+        new(BlockNames.MangroveStairs, (119, 56, 42)),
+        new(BlockNames.MangroveTrapdoor, (119, 56, 42)),
+        new(BlockNames.MangroveWood, (68, 53, 28)),
+        new(BlockNames.MediumAmethystBud),
+        new(BlockNames.Melon, (127, 204, 25)),
+        new(BlockNames.MelonStem, (0, 124, 0)),
+        new(BlockNames.MossBlock, (102, 127, 51)),
+        new(BlockNames.MossCarpet, (102, 127, 51)),
+        new(BlockNames.MossyCobblestone, (112, 112, 112)),
+        new(BlockNames.MossyCobblestoneSlab, (112, 112, 112)),
+        new(BlockNames.MossyCobblestoneStairs, (112, 112, 112)),
+        new(BlockNames.MossyCobblestoneWall, (112, 112, 112)),
+        new(BlockNames.MossyStoneBrickSlab, (112, 112, 112)),
+        new(BlockNames.MossyStoneBrickStairs, (112, 112, 112)),
+        new(BlockNames.MossyStoneBrickWall, (112, 112, 112)),
+        new(BlockNames.MossyStoneBricks, (112, 112, 112)),
+        new(BlockNames.MovingPiston, (112, 112, 112)),
+        new(BlockNames.Mud, (50, 48, 53)),
+        new(BlockNames.MudBrickDoubleSlab, (141, 104, 71)),
+        new(BlockNames.MudBricks, (141, 104, 71)),
+        new(BlockNames.MudBrickSlab, (141, 104, 71)),
+        new(BlockNames.MudBrickStairs, (141, 104, 71)),
+        new(BlockNames.MudBrickWall, (141, 104, 71)),
+        new(BlockNames.MushroomStem, (199, 199, 199)),
+        new(BlockNames.Mycelium, (127, 63, 178)),
+        new(BlockNames.NetherBrickFence),
+        new(BlockNames.NetherBrickSlab, (112, 2, 0)),
+        new(BlockNames.NetherBrickStairs, (112, 2, 0)),
+        new(BlockNames.NetherBrickWall, (112, 2, 0)),
+        new(BlockNames.NetherBricks, (112, 2, 0)),
+        new(BlockNames.NetherGoldOre, (112, 2, 0)),
+        new(BlockNames.NetherPortal),
+        new(BlockNames.NetherQuartzOre, (112, 2, 0)),
+        new(BlockNames.NetherSprouts, (76, 127, 153)),
+        new(BlockNames.NetherWart, (153, 51, 51)),
+        new(BlockNames.NetherWartBlock, (153, 51, 51)),
+        new(BlockNames.NetheriteBlock, (25, 25, 25)),
+        new(BlockNames.Netherrack, (112, 2, 0)),
+        new(BlockNames.NoteBlock, (143, 119, 72)),
+        new(BlockNames.OakButton),
+        new(BlockNames.OakDoor),
+        new(BlockNames.OakFence),
+        new(BlockNames.OakFenceGate, (143, 119, 72)),
+        new(BlockNames.OakLeaves, (0, 124, 0)),
+        new(BlockNames.OakLog, (129, 86, 49)),
+        new(BlockNames.OakPlanks, (143, 119, 72)),
+        new(BlockNames.OakPressurePlate, (143, 119, 72)),
+        new(BlockNames.OakSapling, (0, 124, 0)),
+        new(BlockNames.OakSign),
+        new(BlockNames.OakSlab, (143, 119, 72)),
+        new(BlockNames.OakStairs, (143, 119, 72)),
+        new(BlockNames.OakTrapdoor),
+        new(BlockNames.OakWallSign),
+        new(BlockNames.OakWood, (143, 119, 72)),
+        new(BlockNames.Observer, (112, 112, 112)),
+        new(BlockNames.Obsidian, (25, 25, 25)),
+        new(BlockNames.OrangeBanner, (143, 119, 72)),
+        new(BlockNames.OrangeBed, (199, 199, 199)),
+        new(BlockNames.OrangeCandle),
+        new(BlockNames.OrangeCandleCake),
+        new(BlockNames.OrangeCarpet, (216, 127, 51)),
+        new(BlockNames.OrangeConcrete, (216, 127, 51)),
+        new(BlockNames.OrangeConcretePowder, (216, 127, 51)),
+        new(BlockNames.OrangeGlazedTerracotta, (216, 127, 51)),
+        new(BlockNames.OrangeShulkerBox, (216, 127, 51)),
+        new(BlockNames.OrangeStainedGlass, (216, 127, 51)),
+        new(BlockNames.OrangeStainedGlassPane),
+        new(BlockNames.OrangeTerracotta, (159, 82, 36)),
+        new(BlockNames.OrangeTulip, (0, 124, 0)),
+        new(BlockNames.OrangeWallBanner, (143, 119, 72)),
+        new(BlockNames.OrangeWool, (216, 127, 51)),
+        new(BlockNames.OxeyeDaisy, (0, 124, 0)),
+        new(BlockNames.OxidizedCopper, (22, 126, 134)),
+        new(BlockNames.OxidizedCutCopper, (22, 126, 134)),
+        new(BlockNames.OxidizedCutCopperSlab, (22, 126, 134)),
+        new(BlockNames.OxidizedCutCopperStairs, (22, 126, 134)),
+        new(BlockNames.PackedIce, (160, 160, 255)),
+        new(BlockNames.PackedMud, (141, 104, 71)),
+        new(BlockNames.Peony, (0, 124, 0)),
+        new(BlockNames.PetrifiedOakSlab, (143, 119, 72)),
+        new(BlockNames.PinkBanner, (143, 119, 72)),
+        new(BlockNames.PinkBed, (199, 199, 199)),
+        new(BlockNames.PinkCandle),
+        new(BlockNames.PinkCandleCake),
+        new(BlockNames.PinkCarpet, (242, 127, 165)),
+        new(BlockNames.PinkConcrete, (242, 127, 165)),
+        new(BlockNames.PinkConcretePowder, (242, 127, 165)),
+        new(BlockNames.PinkGlazedTerracotta, (242, 127, 165)),
+        new(BlockNames.PinkPetals),
+        new(BlockNames.PinkShulkerBox, (242, 127, 165)),
+        new(BlockNames.PinkStainedGlass, (242, 127, 165)),
+        new(BlockNames.PinkStainedGlassPane),
+        new(BlockNames.PinkTerracotta, (160, 77, 78)),
+        new(BlockNames.PinkTulip, (0, 124, 0)),
+        new(BlockNames.PinkWallBanner, (143, 119, 72)),
+        new(BlockNames.PinkWool, (242, 127, 165)),
+        new(BlockNames.Piston, (112, 112, 112)),
+        new(BlockNames.PistonHead, (112, 112, 112)),
+        new(BlockNames.PlayerHead),
+        new(BlockNames.PlayerWallHead),
+        new(BlockNames.Podzol, (129, 86, 49)),
+        new(BlockNames.PointedDripstone),
+        new(BlockNames.PolishedAndesite, (112, 112, 112)),
+        new(BlockNames.PolishedAndesiteSlab, (112, 112, 112)),
+        new(BlockNames.PolishedAndesiteStairs, (112, 112, 112)),
+        new(BlockNames.PolishedBasalt, (25, 25, 25)),
+        new(BlockNames.PolishedBlackstone, (25, 25, 25)),
+        new(BlockNames.PolishedBlackstoneBrickSlab, (25, 25, 25)),
+        new(BlockNames.PolishedBlackstoneBrickStairs, (25, 25, 25)),
+        new(BlockNames.PolishedBlackstoneBrickWall, (25, 25, 25)),
+        new(BlockNames.PolishedBlackstoneBricks, (25, 25, 25)),
+        new(BlockNames.PolishedBlackstoneButton),
+        new(BlockNames.PolishedBlackstonePressurePlate, (25, 25, 25)),
+        new(BlockNames.PolishedBlackstoneSlab, (25, 25, 25)),
+        new(BlockNames.PolishedBlackstoneStairs, (25, 25, 25)),
+        new(BlockNames.PolishedBlackstoneWall, (25, 25, 25)),
+        new(BlockNames.PolishedDeepslate, (100, 100, 100)),
+        new(BlockNames.PolishedDeepslateSlab, (100, 100, 100)),
+        new(BlockNames.PolishedDeepslateStairs, (100, 100, 100)),
+        new(BlockNames.PolishedDeepslateWall, (100, 100, 100)),
+        new(BlockNames.PolishedDiorite, (255, 252, 245)),
+        new(BlockNames.PolishedDioriteSlab, (255, 252, 245)),
+        new(BlockNames.PolishedDioriteStairs, (255, 252, 245)),
+        new(BlockNames.PolishedGranite, (151, 109, 77)),
+        new(BlockNames.PolishedGraniteSlab, (151, 109, 77)),
+        new(BlockNames.PolishedGraniteStairs, (151, 109, 77)),
+        new(BlockNames.Poppy, (0, 124, 0)),
+        new(BlockNames.Potatoes, (0, 124, 0)),
+        new(BlockNames.PottedAcaciaSapling),
+        new(BlockNames.PottedAllium),
+        new(BlockNames.PottedAzaleaBush),
+        new(BlockNames.PottedAzureBluet),
+        new(BlockNames.PottedBamboo),
+        new(BlockNames.PottedBirchSapling),
+        new(BlockNames.PottedBlueOrchid),
+        new(BlockNames.PottedBrownMushroom),
+        new(BlockNames.PottedCactus),
+        new(BlockNames.PottedCornflower),
+        new(BlockNames.PottedCrimsonFungus),
+        new(BlockNames.PottedCrimsonRoots),
+        new(BlockNames.PottedDandelion),
+        new(BlockNames.PottedDarkOakSapling),
+        new(BlockNames.PottedDeadBush),
+        new(BlockNames.PottedFern),
+        new(BlockNames.PottedFloweringAzaleaBush),
+        new(BlockNames.PottedJungleSapling),
+        new(BlockNames.PottedLilyOfTheValley),
+        new(BlockNames.PottedOakSapling),
+        new(BlockNames.PottedOrangeTulip),
+        new(BlockNames.PottedOxeyeDaisy),
+        new(BlockNames.PottedPinkTulip),
+        new(BlockNames.PottedPoppy),
+        new(BlockNames.PottedRedMushroom),
+        new(BlockNames.PottedRedTulip),
+        new(BlockNames.PottedSpruceSapling),
+        new(BlockNames.PottedWarpedFungus),
+        new(BlockNames.PottedWarpedRoots),
+        new(BlockNames.PottedWhiteTulip),
+        new(BlockNames.PottedWitherRose),
+        new(BlockNames.PowderSnow, (255, 255, 255)),
+        new(BlockNames.PowderSnowCauldron, (112, 112, 112)),
+        new(BlockNames.PoweredRail),
+        new(BlockNames.Prismarine, (76, 127, 153)),
+        new(BlockNames.PrismarineBrickSlab, (92, 219, 213)),
+        new(BlockNames.PrismarineBrickStairs, (92, 219, 213)),
+        new(BlockNames.PrismarineBricks, (92, 219, 213)),
+        new(BlockNames.PrismarineSlab, (76, 127, 153)),
+        new(BlockNames.PrismarineStairs, (76, 127, 153)),
+        new(BlockNames.PrismarineWall, (76, 127, 153)),
+        new(BlockNames.Pumpkin, (216, 127, 51)),
+        new(BlockNames.PumpkinStem, (0, 124, 0)),
+        new(BlockNames.PurpleBanner, (143, 119, 72)),
+        new(BlockNames.PurpleBed, (199, 199, 199)),
+        new(BlockNames.PurpleCandle),
+        new(BlockNames.PurpleCandleCake),
+        new(BlockNames.PurpleCarpet, (127, 63, 178)),
+        new(BlockNames.PurpleConcrete, (127, 63, 178)),
+        new(BlockNames.PurpleConcretePowder, (127, 63, 178)),
+        new(BlockNames.PurpleGlazedTerracotta, (127, 63, 178)),
+        new(BlockNames.PurpleShulkerBox, (122, 73, 88)),
+        new(BlockNames.PurpleStainedGlass, (127, 63, 178)),
+        new(BlockNames.PurpleStainedGlassPane),
+        new(BlockNames.PurpleTerracotta, (122, 73, 88)),
+        new(BlockNames.PurpleWallBanner, (143, 119, 72)),
+        new(BlockNames.PurpleWool, (127, 63, 178)),
+        new(BlockNames.PurpurBlock, (178, 76, 216)),
+        new(BlockNames.PurpurPillar, (178, 76, 216)),
+        new(BlockNames.PurpurSlab, (178, 76, 216)),
+        new(BlockNames.PurpurStairs, (178, 76, 216)),
+        new(BlockNames.QuartzBlock, (255, 252, 245)),
+        new(BlockNames.QuartzBricks, (255, 252, 245)),
+        new(BlockNames.QuartzPillar, (255, 252, 245)),
+        new(BlockNames.QuartzSlab, (255, 252, 245)),
+        new(BlockNames.QuartzStairs, (255, 252, 245)),
+        new(BlockNames.Rail),
+        new(BlockNames.RawCopperBlock, (216, 127, 51)),
+        new(BlockNames.RawGoldBlock, (250, 238, 77)),
+        new(BlockNames.RawIronBlock, (216, 175, 147)),
+        new(BlockNames.RedBanner, (143, 119, 72)),
+        new(BlockNames.RedBed, (199, 199, 199)),
+        new(BlockNames.RedCandle),
+        new(BlockNames.RedCandleCake),
+        new(BlockNames.RedCarpet, (153, 51, 51)),
+        new(BlockNames.RedConcrete, (153, 51, 51)),
+        new(BlockNames.RedConcretePowder, (153, 51, 51)),
+        new(BlockNames.RedGlazedTerracotta, (153, 51, 51)),
+        new(BlockNames.RedMushroom, (153, 51, 51)),
+        new(BlockNames.RedMushroomBlock, (153, 51, 51)),
+        new(BlockNames.RedNetherBrickSlab, (112, 2, 0)),
+        new(BlockNames.RedNetherBrickStairs, (112, 2, 0)),
+        new(BlockNames.RedNetherBrickWall, (112, 2, 0)),
+        new(BlockNames.RedNetherBricks, (112, 2, 0)),
+        new(BlockNames.RedSand, (216, 127, 51)),
+        new(BlockNames.RedSandstone, (216, 127, 51)),
+        new(BlockNames.RedSandstoneSlab, (216, 127, 51)),
+        new(BlockNames.RedSandstoneStairs, (216, 127, 51)),
+        new(BlockNames.RedSandstoneWall, (216, 127, 51)),
+        new(BlockNames.RedShulkerBox, (153, 51, 51)),
+        new(BlockNames.RedStainedGlass, (153, 51, 51)),
+        new(BlockNames.RedStainedGlassPane),
+        new(BlockNames.RedTerracotta, (142, 60, 46)),
+        new(BlockNames.RedTulip, (0, 124, 0)),
+        new(BlockNames.RedWallBanner, (143, 119, 72)),
+        new(BlockNames.RedWool, (153, 51, 51)),
+        new(BlockNames.RedstoneBlock, (255, 0, 0)),
+        new(BlockNames.RedstoneLamp),
+        new(BlockNames.RedstoneOre, (112, 112, 112)),
+        new(BlockNames.RedstoneTorch),
+        new(BlockNames.RedstoneWallTorch),
+        new(BlockNames.RedstoneWire),
+        new(BlockNames.ReinforcedDeepslate, (79, 79, 79)),
+        new(BlockNames.Repeater),
+        new(BlockNames.RepeatingCommandBlock, (127, 63, 178)),
+        new(BlockNames.RespawnAnchor, (25, 25, 25)),
+        new(BlockNames.RootedDirt, (151, 109, 77)),
+        new(BlockNames.RoseBush, (0, 124, 0)),
+        new(BlockNames.Sand, (247, 233, 163)),
+        new(BlockNames.Sandstone, (247, 233, 163)),
+        new(BlockNames.SandstoneSlab, (247, 233, 163)),
+        new(BlockNames.SandstoneStairs, (247, 233, 163)),
+        new(BlockNames.SandstoneWall, (247, 233, 163)),
+        new(BlockNames.Scaffolding, (247, 233, 163)),
+        new(BlockNames.Sculk, (13, 22, 27)),
+        new(BlockNames.SculkCatalyst, (13, 22, 27)),
+        new(BlockNames.SculkSensor, (13, 22, 27)),
+        new(BlockNames.SculkShrieker, (13, 22, 27)),
+        new(BlockNames.SculkVein),
+        new(BlockNames.SeaLantern, (255, 252, 245)),
+        new(BlockNames.SeaPickle),
+        new(BlockNames.Seagrass, (64, 64, 255)),
+        new(BlockNames.ShortGrass),
+        new(BlockNames.Shroomlight, (153, 51, 51)),
+        new(BlockNames.ShulkerBox, (127, 63, 178)),
+        new(BlockNames.Sign),
+        new(BlockNames.SkeletonSkull),
+        new(BlockNames.SkeletonWallSkull),
+        new(BlockNames.SlimeBlock, (127, 178, 56)),
+        new(BlockNames.SmallAmethystBud),
+        new(BlockNames.SmallDripleaf),
+        new(BlockNames.SmithingTable, (143, 119, 72)),
+        new(BlockNames.Smoker, (112, 112, 112)),
+        new(BlockNames.SmoothBasalt, (25, 25, 25)),
+        new(BlockNames.SmoothQuartz, (255, 252, 245)),
+        new(BlockNames.SmoothQuartzSlab, (255, 252, 245)),
+        new(BlockNames.SmoothQuartzStairs, (255, 252, 245)),
+        new(BlockNames.SmoothRedSandstone, (216, 127, 51)),
+        new(BlockNames.SmoothRedSandstoneSlab, (216, 127, 51)),
+        new(BlockNames.SmoothRedSandstoneStairs, (216, 127, 51)),
+        new(BlockNames.SmoothSandstone, (247, 233, 163)),
+        new(BlockNames.SmoothSandstoneSlab, (247, 233, 163)),
+        new(BlockNames.SmoothSandstoneStairs, (247, 233, 163)),
+        new(BlockNames.SmoothStone, (112, 112, 112)),
+        new(BlockNames.SmoothStoneSlab, (112, 112, 112)),
+        new(BlockNames.Snow, (255, 255, 255)),
+        new(BlockNames.SnowBlock, (255, 255, 255)),
+        new(BlockNames.SoulCampfire),
+        new(BlockNames.SoulFire, (102, 153, 216)),
+        new(BlockNames.SoulLantern),
+        new(BlockNames.SoulSand, (102, 76, 51)),
+        new(BlockNames.SoulSoil, (102, 76, 51)),
+        new(BlockNames.SoulTorch),
+        new(BlockNames.SoulWallTorch),
+        new(BlockNames.Spawner, (112, 112, 112)),
+        new(BlockNames.Sponge, (229, 229, 51)),
+        new(BlockNames.SporeBlossom, (0, 124, 0)),
+        new(BlockNames.SpruceButton),
+        new(BlockNames.SpruceDoor),
+        new(BlockNames.SpruceFence),
+        new(BlockNames.SpruceFenceGate, (129, 86, 49)),
+        new(BlockNames.SpruceLeaves, (0, 124, 0)),
+        new(BlockNames.SpruceLog, (102, 76, 51)),
+        new(BlockNames.SprucePlanks, (129, 86, 49)),
+        new(BlockNames.SprucePressurePlate, (129, 86, 49)),
+        new(BlockNames.SpruceSapling, (0, 124, 0)),
+        new(BlockNames.SpruceSign),
+        new(BlockNames.SpruceSlab, (129, 86, 49)),
+        new(BlockNames.SpruceStairs, (129, 86, 49)),
+        new(BlockNames.SpruceTrapdoor, (113, 81, 46)),
+        new(BlockNames.SpruceWallSign),
+        new(BlockNames.SpruceWood, (129, 86, 49)),
+        new(BlockNames.StickyPiston, (112, 112, 112)),
+        new(BlockNames.Stone, (112, 112, 112)),
+        new(BlockNames.StoneBrickSlab, (112, 112, 112)),
+        new(BlockNames.StoneBrickStairs, (112, 112, 112)),
+        new(BlockNames.StoneBrickWall, (112, 112, 112)),
+        new(BlockNames.StoneBricks, (112, 112, 112)),
+        new(BlockNames.StoneButton),
+        new(BlockNames.StonePressurePlate, (112, 112, 112)),
+        new(BlockNames.StoneSlab, (112, 112, 112)),
+        new(BlockNames.StoneStairs, (112, 112, 112)),
+        new(BlockNames.Stonecutter, (112, 112, 112)),
+        new(BlockNames.StrippedAcaciaLog, (216, 127, 51)),
+        new(BlockNames.StrippedAcaciaWood, (216, 127, 51)),
+        new(BlockNames.StrippedBirchLog, (247, 233, 163)),
+        new(BlockNames.StrippedBirchWood, (247, 233, 163)),
+        new(BlockNames.StrippedCherryLog, (215, 141, 146)),
+        new(BlockNames.StrippedCherryWood, (215, 141, 146)),
+        new(BlockNames.StrippedCrimsonHyphae, (92, 25, 29)),
+        new(BlockNames.StrippedCrimsonStem, (148, 63, 97)),
+        new(BlockNames.StrippedDarkOakLog, (102, 76, 51)),
+        new(BlockNames.StrippedDarkOakWood, (102, 76, 51)),
+        new(BlockNames.StrippedJungleLog, (151, 109, 77)),
+        new(BlockNames.StrippedJungleWood, (151, 109, 77)),
+        new(BlockNames.StrippedOakLog, (143, 119, 72)),
+        new(BlockNames.StrippedOakWood, (143, 119, 72)),
+        new(BlockNames.StrippedSpruceLog, (129, 86, 49)),
+        new(BlockNames.StrippedSpruceWood, (129, 86, 49)),
+        new(BlockNames.StrippedWarpedHyphae, (86, 44, 62)),
+        new(BlockNames.StrippedWarpedStem, (58, 142, 140)),
+        new(BlockNames.StructureBlock, (153, 153, 153)),
+        new(BlockNames.StructureVoid),
+        new(BlockNames.SugarCane, (0, 124, 0)),
+        new(BlockNames.Sunflower, (0, 124, 0)),
+        new(BlockNames.SuspiciousGravel, (112, 112, 112)),
+        new(BlockNames.SuspiciousSand, (247, 233, 163)),
+        new(BlockNames.SweetBerryBush, (0, 124, 0)),
+        new(BlockNames.TallGrass, (0, 124, 0)),
+        new(BlockNames.TallSeagrass, (64, 64, 255)),
+        new(BlockNames.Target, (255, 252, 245)),
+        new(BlockNames.Terracotta, (216, 127, 51)),
+        new(BlockNames.TintedGlass, (76, 76, 76)),
+        new(BlockNames.Tnt, (255, 0, 0)),
+        new(BlockNames.Torch),
+        new(BlockNames.TrappedChest, (155, 98, 29)),
+        new(BlockNames.Tripwire),
+        new(BlockNames.TripwireHook),
+        new(BlockNames.TubeCoral, (64, 64, 255)),
+        new(BlockNames.TubeCoralBlock, (51, 76, 178)),
+        new(BlockNames.TubeCoralFan, (64, 64, 255)),
+        new(BlockNames.TubeCoralWallFan, (64, 64, 255)),
+        new(BlockNames.Tuff, (57, 41, 35)),
+        new(BlockNames.TurtleEgg, (247, 233, 163)),
+        new(BlockNames.TwistingVines, (76, 127, 153)),
+        new(BlockNames.TwistingVinesPlant, (76, 127, 153)),
+        new(BlockNames.Vine, (0, 124, 0)),
+        new(BlockNames.VoidAir),
+        new(BlockNames.WallSign),
+        new(BlockNames.WallTorch),
+        new(BlockNames.WarpedButton),
+        new(BlockNames.WarpedDoor),
+        new(BlockNames.WarpedFence),
+        new(BlockNames.WarpedFenceGate, (58, 142, 140)),
+        new(BlockNames.WarpedFungus, (76, 127, 153)),
+        new(BlockNames.WarpedHyphae, (86, 44, 62)),
+        new(BlockNames.WarpedNylium, (22, 126, 134)),
+        new(BlockNames.WarpedPlanks, (58, 142, 140)),
+        new(BlockNames.WarpedPressurePlate, (58, 142, 140)),
+        new(BlockNames.WarpedRoots, (76, 127, 153)),
+        new(BlockNames.WarpedSign),
+        new(BlockNames.WarpedSlab, (58, 142, 140)),
+        new(BlockNames.WarpedStairs, (58, 142, 140)),
+        new(BlockNames.WarpedStem, (58, 142, 140)),
+        new(BlockNames.WarpedTrapdoor, (58, 142, 140)),
+        new(BlockNames.WarpedWallSign),
+        new(BlockNames.WarpedWartBlock, (20, 180, 133)),
+        new(BlockNames.Water, (64, 64, 255)),
+        new(BlockNames.WaterCauldron, (112, 112, 112)),
+        new(BlockNames.WaxedCopperBlock, (216, 127, 51)),
+        new(BlockNames.WaxedCutCopper, (216, 127, 51)),
+        new(BlockNames.WaxedCutCopperSlab, (216, 127, 51)),
+        new(BlockNames.WaxedCutCopperStairs, (216, 127, 51)),
+        new(BlockNames.WaxedExposedCopper, (135, 107, 98)),
+        new(BlockNames.WaxedExposedCutCopper, (135, 107, 98)),
+        new(BlockNames.WaxedExposedCutCopperSlab, (135, 107, 98)),
+        new(BlockNames.WaxedExposedCutCopperStairs, (135, 107, 98)),
+        new(BlockNames.WaxedOxidizedCopper, (22, 126, 134)),
+        new(BlockNames.WaxedOxidizedCutCopper, (22, 126, 134)),
+        new(BlockNames.WaxedOxidizedCutCopperSlab, (22, 126, 134)),
+        new(BlockNames.WaxedOxidizedCutCopperStairs, (22, 126, 134)),
+        new(BlockNames.WaxedWeatheredCopper, (58, 142, 140)),
+        new(BlockNames.WaxedWeatheredCutCopper, (58, 142, 140)),
+        new(BlockNames.WaxedWeatheredCutCopperSlab, (58, 142, 140)),
+        new(BlockNames.WaxedWeatheredCutCopperStairs, (58, 142, 140)),
+        new(BlockNames.WeatheredCopper, (58, 142, 140)),
+        new(BlockNames.WeatheredCutCopper, (58, 142, 140)),
+        new(BlockNames.WeatheredCutCopperSlab, (58, 142, 140)),
+        new(BlockNames.WeatheredCutCopperStairs, (58, 142, 140)),
+        new(BlockNames.WeepingVines, (112, 2, 0)),
+        new(BlockNames.WeepingVinesPlant, (112, 2, 0)),
+        new(BlockNames.WetSponge, (229, 229, 51)),
+        new(BlockNames.Wheat, (0, 124, 0)),
+        new(BlockNames.WhiteBanner, (143, 119, 72)),
+        new(BlockNames.WhiteBed, (199, 199, 199)),
+        new(BlockNames.WhiteCandle),
+        new(BlockNames.WhiteCandleCake),
+        new(BlockNames.WhiteCarpet, (255, 255, 255)),
+        new(BlockNames.WhiteConcrete, (255, 255, 255)),
+        new(BlockNames.WhiteConcretePowder, (255, 255, 255)),
+        new(BlockNames.WhiteGlazedTerracotta, (255, 255, 255)),
+        new(BlockNames.WhiteShulkerBox, (255, 255, 255)),
+        new(BlockNames.WhiteStainedGlass, (255, 255, 255)),
+        new(BlockNames.WhiteStainedGlassPane),
+        new(BlockNames.WhiteTerracotta, (209, 177, 161)),
+        new(BlockNames.WhiteTulip, (0, 124, 0)),
+        new(BlockNames.WhiteWallBanner, (143, 119, 72)),
+        new(BlockNames.WhiteWool, (255, 255, 255)),
+        new(BlockNames.WitherRose, (0, 124, 0)),
+        new(BlockNames.WitherSkeletonSkull),
+        new(BlockNames.WitherSkeletonWallSkull),
+        new(BlockNames.YellowBanner, (143, 119, 72)),
+        new(BlockNames.YellowBed, (199, 199, 199)),
+        new(BlockNames.YellowCandle),
+        new(BlockNames.YellowCandleCake),
+        new(BlockNames.YellowCarpet, (229, 229, 51)),
+        new(BlockNames.YellowConcrete, (229, 229, 51)),
+        new(BlockNames.YellowConcretePowder, (229, 229, 51)),
+        new(BlockNames.YellowGlazedTerracotta, (229, 229, 51)),
+        new(BlockNames.YellowShulkerBox, (229, 229, 51)),
+        new(BlockNames.YellowStainedGlass, (229, 229, 51)),
+        new(BlockNames.YellowStainedGlassPane),
+        new(BlockNames.YellowTerracotta, (186, 133, 36)),
+        new(BlockNames.YellowWallBanner, (143, 119, 72)),
+        new(BlockNames.YellowWool, (229, 229, 51)),
+        new(BlockNames.ZombieHead),
+        new(BlockNames.ZombieWallHead)
+    };
+
+    public static readonly IDictionary<string, BlockColor> BlockColors =
+        BlockColorList.ToDictionary(b => b.Name, b => b);
+
+    public static Rgba32 GetBlockColor(string name) 
+    {
+        if (!BlockColors.TryGetValue(name, out var color)) 
+        {
+            Console.WriteLine($"Missing block color for block: {name}.");
+
+            BlockColors[name] = new (name);
+        }
+
+        return color.Color;
+    }
 }

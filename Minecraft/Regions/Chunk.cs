@@ -6,7 +6,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Minecraft.Regions;
 
-public class Chunk
+public sealed class Chunk
 {
     private const byte GZipCompression = 1;
     private const byte ZlibCompression = 2;
@@ -92,7 +92,7 @@ public class Chunk
             }
         }
 
-        return Block.BlockColor.Rgba32Transparent;
+        return Blocks.BlockColor.Rgba32Transparent;
     }
 
     private static NbtStream GetValueStream(int compression, byte[] bytes, int index, int count)

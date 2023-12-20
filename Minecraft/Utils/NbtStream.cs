@@ -3,7 +3,7 @@ using Minecraft.NBT;
 
 namespace Minecraft.Utils;
 
-public class NbtStream : Stream
+public sealed class NbtStream : Stream
 {
     public override bool CanRead => true;
 
