@@ -16,18 +16,7 @@ public class LongArrayTag : Tag, IEnumerable<long>
     }
 
     public static LongArrayTag FromStream(NbtStream s)
-    {
-        var length = s.GetInt32();
-
-        var data = new long[length];
-
-        for (var i = 0; i < data.Length; i++)
-        {
-            data[i] = s.GetInt64();
-        }
-
-        return new LongArrayTag(data);
-    }
+        => new(s.GetLongArray());
 
     public static void SkipInStream(NbtStream s) => s.Skip(s.GetInt32() * 8);
 

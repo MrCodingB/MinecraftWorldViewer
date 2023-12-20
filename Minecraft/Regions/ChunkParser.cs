@@ -5,28 +5,34 @@ namespace Minecraft.Regions;
 
 public class ChunkParser
 {
+    private const byte Utf8CharCodeH = 72;
+
     private static readonly long LevelLongHash = BitHelper.StringToInt64("Level");
     private static readonly long XPosLongHash = BitHelper.StringToInt64("xPos");
     private static readonly long ZPosLongHash = BitHelper.StringToInt64("zPos");
     private static readonly long SectionsLongHash = BitHelper.StringToInt64("sections");
-    private static readonly int MaxRelevantNameLength = "sections".Length;
 
-    private IList<ChunkSection>? Sections { get; set; }
+    private static readonly int MaxRelevantNameLength = "Heightmaps".Length;
+
+    private ChunkSection[]? Sections { get; set; }
 
     private int? XPos { get; set; }
 
     private int? ZPos { get; set; }
 
-    public Chunk ParseChunk(NbtStream stream)
+    private ushort[]? Heightmap { get; set; }
+
+    public Chunk? ParseChunk(NbtStream stream)
     {
         Sections = null;
         XPos = null;
         ZPos = null;
+        Heightmap = null;
 
         return GetChunkFromStream(stream);
     }
 
-    private Chunk GetChunkFromStream(NbtStream stream)
+    private Chunk? GetChunkFromStream(NbtStream stream)
     {
         var type = stream.GetTagType();
 
@@ -50,12 +56,7 @@ public class ChunkParser
             type = stream.GetTagType();
         }
 
-        if (!XPos.HasValue || !ZPos.HasValue)
-        {
-            throw new InvalidOperationException("Did not find required tags");
-        }
-
-        return new Chunk(XPos.Value, ZPos.Value, Sections ?? new List<ChunkSection>());
+        return null;
     }
 
     private Chunk? TestForChunkValues(NbtStream stream, TagType type, ushort nameLength)
@@ -80,22 +81,27 @@ public class ChunkParser
         {
             Sections = GetChunkSectionsFromStream(stream);
         }
+        else if (type == TagType.Compound && nameBytes[0] == Utf8CharCodeH)
+        {
+            Heightmap = ChunkHeightmapParser.GetChunkHeightmapFromStream(stream);
+        }
         else
         {
             stream.SkipTag(type);
+            return null;
         }
 
-        if (Sections is not null && XPos.HasValue && ZPos.HasValue)
+        if (XPos.HasValue && ZPos.HasValue && Sections is not null && Heightmap is not null)
         {
-            return new Chunk(XPos.Value, ZPos.Value, Sections);
+            return new Chunk(XPos.Value, ZPos.Value, Sections, Heightmap);
         }
 
         return null;
     }
 
-    private static List<ChunkSection> GetChunkSectionsFromStream(NbtStream stream)
+    private static ChunkSection[] GetChunkSectionsFromStream(NbtStream stream)
     {
-        var sections = new List<ChunkSection>(25);
+        var sections = new ChunkSection[25];
 
         var listChildTagType = stream.GetTagType();
         var count = stream.GetInt32();
@@ -105,12 +111,26 @@ public class ChunkParser
             return sections;
         }
 
-        for (var i = 0; i < count; i++)
+        var parsedSections = 0;
+        while (parsedSections < count)
         {
-            var section = ChunkSectionParser.ParseSection(stream);
-            if (section is not null)
+            parsedSections++;
+            if (parsedSections > sections.Length)
             {
-                sections.Add(section);
+                stream.SkipTag(listChildTagType);
+                continue;
+            }
+
+            var section = ChunkSectionParser.ParseSection(stream, out var y);
+
+            // Sometimes a section is saved that is below the world-limit (i.e. at y < -4)
+            // These sections are ignored, to achieve consistency between
+            // array-index and y-level of each section
+            var i = y + 4;
+
+            if (section is not null && 0 <= i && i < sections.Length)
+            {
+                sections[i] = section;
             }
         }
 

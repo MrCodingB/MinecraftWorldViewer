@@ -92,6 +92,17 @@ public class NbtStream : Stream
         return result;
     }
 
+    public long[] GetLongArray()
+    {
+        var length = GetInt32();
+        var longs = new long[length];
+
+        for (var i = 0; i < length; i++)
+            longs[i] = GetInt64();
+
+        return longs;
+    }
+
     public string GetString()
     {
         var length = GetUInt16();

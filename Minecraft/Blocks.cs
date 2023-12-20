@@ -148,6 +148,7 @@ public static class Blocks
     public const string CaveVinesPlant = "minecraft:cave_vines_plant";
     public const string Chain = "minecraft:chain";
     public const string ChainCommandBlock = "minecraft:chain_command_block";
+    public const string CherryButton = "minecraft:cherry_button";
     public const string CherryDoor = "minecraft:cherry_door";
     public const string CherryDoubleSlab = "minecraft:cherry_double_slab";
     public const string CherryFence = "minecraft:cherry_fence";

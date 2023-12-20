@@ -175,6 +175,7 @@ public static class Block
         new(Blocks.CaveVinesPlant, (0, 124, 0)),
         new(Blocks.Chain),
         new(Blocks.ChainCommandBlock, (102, 127, 51)),
+        new(Blocks.CherryButton),
         new(Blocks.CherryDoor),
         new(Blocks.CherryDoubleSlab, (229, 174, 169)),
         new(Blocks.CherryFence),

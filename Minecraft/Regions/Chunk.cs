@@ -16,16 +16,19 @@ public class Chunk
 
     private int Z { get; }
 
-    private IList<ChunkSection> Sections { get; }
+    private ChunkSection[] Sections { get; }
 
-    public Chunk(int x, int z, IList<ChunkSection> sections)
+    private ushort[] Heightmap { get; }
+
+    public Chunk(int x, int z, ChunkSection[] sections, ushort[] heightmap)
     {
         X = x;
         Z = z;
         Sections = sections;
+        Heightmap = heightmap;
     }
 
-    public static Chunk FromBytes(int compression, byte[] bytes, int index, int count)
+    public static Chunk? FromBytes(int compression, byte[] bytes, int index, int count)
     {
         using var stream = GetValueStream(compression, bytes, index, count);
 
@@ -45,34 +48,43 @@ public class Chunk
         var xOffset = X * 16 - x0;
         var zOffset = Z * 16 - z0;
 
-        var xzOffset = 0;
+        var zxOffset = 0;
 
         for (int chunkZ = 0, z = zOffset; chunkZ < 16; chunkZ++, z++)
         {
             var row = mapImage.GetPixelRowSpan(z);
 
-            for (int chunkX = 0, x = xOffset; chunkX < 16; chunkX++, x++, xzOffset++)
+            for (int chunkX = 0, x = xOffset; chunkX < 16; chunkX++, x++, zxOffset++)
             {
-                row[x] = GetBirdseyeBlockColorAt(xzOffset);
+                row[x] = GetBirdseyeBlockColorAt(zxOffset);
             }
         }
     }
 
-    private Rgba32 GetBirdseyeBlockColorAt(int xzOffset)
+    private Rgba32 GetBirdseyeBlockColorAt(int zxOffset)
     {
         const int di = 16 * 16;
-        const int iYMax = 15 * 16 * 16; // i at max y (y = 15)
+        const int maxYInSection = 15 * 16 * 16;
 
-        var iStart = iYMax + xzOffset;
+        var yStart = Heightmap[zxOffset];
+        var iSectionStart = yStart / 16;
+        var iInSection = yStart % 16 * 16 * 16 + zxOffset;
 
-        for (var iSection = Sections.Count - 1; iSection >= 0; iSection--)
+        for (var iSection = iSectionStart; iSection >= 0; iSection--)
         {
             var section = Sections[iSection];
+            if (section is null)
+            {
+                continue;
+            }
 
-            for (var i = iStart; i >= xzOffset; i -= di)
+            var iStart = iSection == iSectionStart
+                ? iInSection
+                : maxYInSection + zxOffset;
+
+            for (var i = iStart; i >= zxOffset; i -= di)
             {
                 var color = section[i];
-
                 if (color.A > 0)
                 {
                     return color;

@@ -8,9 +8,12 @@ public static class ChunkSectionParser
 {
     private const string BiomesString = "biomes";
 
-    public static ChunkSection? ParseSection(NbtStream stream)
+    public static ChunkSection? ParseSection(NbtStream stream, out sbyte y)
     {
         var type = stream.GetTagType();
+
+        ChunkSection? section = null;
+        y = -128;
 
         while (type != TagType.End)
         {
@@ -20,14 +23,21 @@ public static class ChunkSectionParser
             // Only compound child tags are "biomes" and "block_states"
             if (type == TagType.Compound && nameLength > BiomesString.Length)
             {
-                return GetChunkSection(stream);
+                section = GetChunkSection(stream);
+            }
+            else if (type == TagType.Byte)
+            {
+                y = (sbyte)stream.GetByte();
+            }
+            else
+            {
+                stream.SkipTag(type);
             }
 
-            stream.SkipTag(type);
             type = stream.GetTagType();
         }
 
-        return null;
+        return section;
     }
 
     private static ChunkSection? GetChunkSection(NbtStream stream)
@@ -39,26 +49,23 @@ public static class ChunkSectionParser
 
         while (type != TagType.End)
         {
-            stream.Skip(stream.GetUInt16()); // Skip tag name
+            stream.SkipTag(TagType.String); // Skip tag name
 
             if (type == TagType.LongArray)
             {
-                var length = stream.GetInt32();
-                blockStates = new long[length];
-
-                for (var i = 0; i < length; i++)
-                    blockStates[i] = stream.GetInt64();
+                blockStates = stream.GetLongArray();
             }
             else if (type == TagType.List)
             {
                 palette = GetPalette(stream);
-                if (palette.Length <= 1 && palette.All(b => b.A == 0))
-                {
-                    return null;
-                }
             }
 
             type = stream.GetTagType();
+        }
+
+        if (palette.Length <= 1 && palette.All(b => b.A == 0))
+        {
+            return null;
         }
 
         return ChunkSection.FromStatesAndPalette(blockStates, palette);
@@ -69,9 +76,14 @@ public static class ChunkSectionParser
         var childType = stream.GetTagType();
         var count = stream.GetInt32();
 
-        if (childType != TagType.Compound || count <= 0)
+        if (count <= 0)
         {
             return Array.Empty<Rgba32>();
+        }
+
+        if (childType != TagType.Compound) 
+        {
+            throw new InvalidOperationException("Invalid child type for palette found");
         }
 
         var palette = new Rgba32[count];
@@ -94,7 +106,8 @@ public static class ChunkSectionParser
 
             if (type == TagType.String) // "Name" is only relevant field and only field of type TagType.String
             {
-                result = Block.GetBlockColor(stream.GetString());
+                var name = stream.GetString();
+                result = Block.GetBlockColor(name);
             }
             else
             {

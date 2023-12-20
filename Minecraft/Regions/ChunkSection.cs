@@ -18,15 +18,13 @@ public abstract class ChunkSection
 
 public class VariedChunkSection : ChunkSection
 {
-    private const int TotalBlocks = 16 * 16 * 16;
-
-    private const int MaxBitsPerBlock = 12; // = lb(TotalBlocks)
+    private const int MaxBitsPerBlock = 12; // = lb(TotalBlocks) = lb(16 * 16 * 16)
 
     private static readonly short[] Masks = new short[MaxBitsPerBlock + 1]
         .Select((_, i) => (short)~(-1 << i))
         .ToArray();
 
-    private static readonly byte[] BlocksPerLong = new byte[MaxBitsPerBlock + 1]
+    private static readonly byte[] BlocksPerLongValues = new byte[MaxBitsPerBlock + 1]
         .Select((_, i) => (byte)(i < 4 ? 0 : 64 / i))
         .ToArray();
 
@@ -34,67 +32,23 @@ public class VariedChunkSection : ChunkSection
 
     private readonly Rgba32[] Palette;
 
-    private readonly Rgba32[] BlockColors;
+    private readonly int BitsPerBlock;
 
-    private Func<Rgba32[], int, Rgba32> GetBlockFunc;
+    private readonly short BlockStateMask;
+
+    private readonly byte BlocksPerLong;
 
     public VariedChunkSection(long[] blockStates, Rgba32[] palette)
     {
         BlockStates = blockStates;
         Palette = palette;
-        BlockColors = new Rgba32[TotalBlocks];
-        GetBlockFunc = InitialGetBlockAt;
+
+        BitsPerBlock = GetBlockSectionBitsPerBlock(Palette.Length);
+        BlockStateMask = Masks[BitsPerBlock];
+        BlocksPerLong = BlocksPerLongValues[BitsPerBlock];
     }
 
-    public override Rgba32 this[int i] => GetBlockFunc(BlockColors, i);
-
-    private static Rgba32 GetBlockAt(Rgba32[] indices, int i) => indices[i];
-
-    private Rgba32 InitialGetBlockAt(Rgba32[] b, int i)
-    {
-        InitializeBlockIndices();
-
-        GetBlockFunc = GetBlockAt;
-        return GetBlockAt(BlockColors, i);
-    }
-
-    private void InitializeBlockIndices()
-    {
-        var bitsPerBlock = GetBlockSectionBitsPerBlock(Palette.Length);
-        var mask = Masks[bitsPerBlock];
-        var blocksPerLong = BlocksPerLong[bitsPerBlock];
-
-        var blockStatesIndex = 0;
-        var indexInBlockState = 0;
-        var l = BlockStates[blockStatesIndex];
-
-        for (var i = 0; i < TotalBlocks; i++)
-        {
-            if (indexInBlockState >= blocksPerLong)
-            {
-                l = BlockStates[++blockStatesIndex];
-
-                while (l == 0)
-                {
-                    i += blocksPerLong;
-
-                    if (i >= TotalBlocks)
-                    {
-                        return;
-                    }
-
-                    l = BlockStates[++blockStatesIndex];
-                }
-
-                indexInBlockState = 0;
-            }
-
-            BlockColors[i] = Palette[l & mask];
-
-            l >>= bitsPerBlock;
-            indexInBlockState++;
-        }
-    }
+    public override Rgba32 this[int i] => GetBlockColorAt(i);
 
     private static int GetBlockSectionBitsPerBlock(int paletteLength)
     {
@@ -109,6 +63,17 @@ public class VariedChunkSection : ChunkSection
         }
 
         return bitsPerBlock;
+    }
+
+    private Rgba32 GetBlockColorAt(int i)
+    {
+        var longIndex = i / BlocksPerLong;
+        var indexInBlockSate = i % BlocksPerLong;
+
+        var l = BlockStates[longIndex];
+        var paletteIndex = (l >> (indexInBlockSate * BitsPerBlock)) & BlockStateMask;
+
+        return Palette[paletteIndex];
     }
 }
 
